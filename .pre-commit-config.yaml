@@ -1,0 +1,119 @@
+# Configuration-file for pre-commit
+# References:
+#   - Official docs: https://pre-commit.com
+#   - for more hooks: https://pre-commit.com/hooks.html
+#
+# To avoid duplication, we try to configure the tools in pyproject.toml as much as possible.
+#
+# Usage:
+#   > pre-commit install
+#   > pre-commit install hooks  -f
+#   > pre-commit autoupdate
+#   > pre-commit run --all-files
+
+
+repos:
+
+    # docs: https://black.readthedocs.io/en/stable/integrations/source_version_control.html
+    - repo: local
+      hooks:
+          - id: black
+            name: black
+            entry: black
+            args: [
+                "--config=pyproject.toml",
+                # "--check",  # don't write the files back, just return the status.
+                ]
+            language: system  # use executable found on path
+            types: [python]   # check only specific filetypes
+
+    # docs: https://flake8.pycqa.org/en/latest/user/using-hooks.html
+    - repo: local
+      hooks:
+          - id: flake8
+            name: flake8
+            entry: flake8
+            language: system
+            types: [python]
+
+    # docs: https://pycqa.github.io/isort/docs/configuration/pre-commit.html
+    - repo: local
+      hooks:
+          - id: isort
+            name: isort
+            entry: isort
+            args: ["--settings-path=pyproject.toml"]
+            language: system
+
+    - repo: local
+      hooks:
+          - id: mypy
+            name: mypy
+            entry: mypy
+            language: system
+            types: [python]
+
+    - repo: local
+      hooks:
+          - id: bandit
+            name: bandit
+            entry: bandit
+            language: system
+            types: [python]
+            # see https://github.com/PyCQA/bandit/issues/318
+            args: [
+              "--configfile pyproject.toml",
+              "--baseline etc/bandit-baseline.json",
+              ]
+
+
+    # The following are all pre-commit-hooks
+    # docs: https://github.com/pre-commit/pre-commit-hooks
+
+    - repo: local
+      hooks:
+          - id: debug-statements
+            name: check-debug-statements
+            entry: debug-statement-hook
+            language: system
+            types: [python]
+
+    - repo: local
+      hooks:
+          - id: check-toml
+            name: check-toml
+            entry: check-toml
+            language: system
+            types: [toml]
+
+    - repo: local
+      hooks:
+          - id: end-of-file-fixer
+            name: fix-end-of-filer
+            entry: end-of-file-fixer
+            language: system
+            types: [python]
+
+    - repo: local
+      hooks:
+          - id: fix-encoding-pragma
+            name: fix-encoding-pragma
+            entry: fix-encoding-pragma
+            language: system
+            types: [python]
+
+    - repo: local
+      hooks:
+          - id: mixed-line-ending
+            name: fix-mixed-line-ending
+            entry: mixed-line-ending
+            language: system
+            types: [text]
+
+    - repo: local
+      hooks:
+          - id: trailing-whitespace
+            name: fix-trailing-whitespace
+            entry: trailing-whitespace-fixer
+            language: system
+            types: [text]
