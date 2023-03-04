@@ -33,6 +33,11 @@ poetry-update:
 	poetry update
 
 
+.PHONY: poetry-build ## run poetry build to create the python-package
+poetry-install:
+	poetry build
+
+
 .PHONY: poetry-env-info ## run env info
 poetry-env-info:
 	poetry env info
