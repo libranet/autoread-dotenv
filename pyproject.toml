@@ -97,8 +97,9 @@ packages = [{ include = "autoread_dotenv", from = "src" }]
 [tool.poetry.dependencies]
 # These packages are mandatory and form the core of this package’s distribution.
 python = ">=3.9.0,<4.0"
-python-dotenv = "^1.0.0"
+python-dotenv = ">=1.0.0"
 sitecustomize-entrypoints = ">=0.1.0"
+ruff = "^0.0.254"
 
 [tool.poetry.group.dev.dependencies]
 black = { version = ">=22.1.0", allow-prereleases = true }
@@ -109,6 +110,7 @@ mypy = ">=0.931"
 pre-commit = ">=2.14.1"
 pre-commit-hooks = ">=4.1.0"
 pylint = ">=2.12.2"
+pyroma = ">=4.2"
 
 [tool.poetry.group.docs.dependencies]
 autoapi = ">=2.0.1"
@@ -172,3 +174,9 @@ testpaths = ["tests"]
 
 # the junit-report is used to report coverage in gitlab
 addopts = "--junit-xml='var/coverage/pytest.xml'"
+
+
+[tool.ruff]
+# https://beta.ruff.rs/docs/configuration/
+cache-dir = "var/cache/ruff"
+line-length = 120
