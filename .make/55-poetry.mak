@@ -34,7 +34,7 @@ poetry-update:
 
 
 .PHONY: poetry-build ## run poetry build to create the python-package
-poetry-install:
+poetry-build:
 	poetry build
 
 
