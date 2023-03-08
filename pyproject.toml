@@ -77,6 +77,7 @@ readme = "docs/readme.rst"
 authors = ["Wouter Vanden Hove <wouter@libranet.eu>"]
 license = "MIT"
 maintainers = ["Wouter Vanden Hove <wouter@libranet.eu>"]
+homepage = "https://github.com/libranet/autoread_dotenv"
 repository = "https://github.com/libranet/autoread_dotenv"
 documentation = "https://github.com/libranet/autoread_dotenv"
 keywords = ["entrypoints", "dotenv", "sitecustomize"]
@@ -107,6 +108,7 @@ sitecustomize-entrypoints = ">=0.1.0"
 [tool.poetry.group.dev.dependencies]
 black = { version = ">=22.1.0", allow-prereleases = true }
 flake8 = ">=4.0.1"
+flake8-bugbear = ">=23.2.13"
 flake8-pyproject = ">=1.2.2"
 isort = ">=5.10.1"
 lxml = ">=4.9.2"  # mypy coverage-report
