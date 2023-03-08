@@ -28,7 +28,7 @@ export PATH := $(shell pwd)/.venv/bin:$(PATH)
 -include .env
 
 # include re-usable makefiles
--include .make/*.mak
+-include .make/*.mk
 
 
 .PHONY: install  ## full initial installation
