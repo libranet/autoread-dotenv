@@ -58,7 +58,7 @@ def get_dotenv_path() -> pl.Path:
     base_dir = prefix.parent if prefix.name == ".venv" else prefix
     dotenv_file = base_dir / ".env"
 
-    if not dotenv_file.exists():
+    if not dotenv_file.exists(): # pragma: no cover
         return None
 
     return dotenv_file
@@ -66,7 +66,6 @@ def get_dotenv_path() -> pl.Path:
 
 def autoread_dotenv() -> None:
     """"""
-
     dotenv_file = get_dotenv_path()
 
     if dotenv_file and dotenv_available:
