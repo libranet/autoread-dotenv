@@ -71,7 +71,7 @@ mypy_path = ["src"]
 
 [tool.poetry]
 name = "autoread_dotenv"
-version = "1.1.dev0" # version managed by poetry-dynamic-versioning
+version = "1.1.1a0" # version managed by poetry-dynamic-versioning
 description = "Automatically set env-vars at the beginning of every python-process in your in-project virtualenv."
 readme = "docs/readme.rst"
 authors = ["Wouter Vanden Hove <wouter@libranet.eu>"]
@@ -169,8 +169,8 @@ disable-dev = false
 release-commit-message = "Release {package_name} {version}"
 post-release-commit-message = "Start next development iteration {next_version}"
 tag-name = "{version}"
-sign-tag = true
-sign-commit = true
+sign-tag = false
+sign-commit = false
 
 
 [tool.pylint.format]
