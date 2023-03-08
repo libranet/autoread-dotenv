@@ -32,4 +32,4 @@ export PATH := $(shell pwd)/.venv/bin:$(PATH)
 
 
 .PHONY: install  ## full initial installation
-install: create-dirs symlink-venv-dirs poetry-install
+install: create-dirs symlink-venv-dirs dotenv-install poetry-install
