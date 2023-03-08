@@ -3,8 +3,8 @@
 # pylint: disable=missing-function-docstring
 """Testing of module autoread_dotenv.patch."""
 
-def test_import_sitecustomize():
 
+def test_import_sitecustomize() -> None:
     try:
         import sitecustomize
     except ImportError:
@@ -12,8 +12,7 @@ def test_import_sitecustomize():
         assert False
 
 
-
-def test_entrypoint_registration():
+def test_entrypoint_registration() -> None:
     from sitecustomize._vendor.importlib_metadata import entry_points
-    assert "autoread_dotenv" in entry_points(group="sitecustomize").names
 
+    assert "autoread_dotenv" in entry_points(group="sitecustomize").names

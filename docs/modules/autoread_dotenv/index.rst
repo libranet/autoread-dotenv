@@ -27,7 +27,7 @@ Package Contents
    
 
 .. py:data:: __copyright__
-   :value: 'Copyright 2023 Libranet - All rights reserved.'
+   :value: 'Copyright 2023 Libranet - MIT License.'
 
    
 

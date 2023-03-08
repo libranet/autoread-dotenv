@@ -77,7 +77,12 @@ Attributes
 
 .. py:function:: get_dotenv_path()
 
+   Return the location of the .env for in-project virtualenvs.
+   Return None of no .env-file is found.
+
 
 .. py:function:: autoread_dotenv()
+
+   Set environment-variable from the in-project .env-file.
 
 

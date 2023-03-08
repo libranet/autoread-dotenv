@@ -3,6 +3,7 @@
         "ms-python.python",
         "ms-python.vscode-pylance",
         "ms-vscode.makefile-tools",
+        "peakchen90.open-html-in-browser",
         "zeshuaro.vscode-python-poetry"
     ]
 }

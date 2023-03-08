@@ -1,9 +1,12 @@
+License
+=======
+.. _license:
+
+Copyright (c) 2023 Libranet, https://libranet.eu.
+
+
 The MIT License (MIT)
-=====================
-
-Copyright © `2023` `Libranet, https://libranet.eu`
-Copyright (c) 2023 libranet
-
+---------------------
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation
