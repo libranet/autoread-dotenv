@@ -15,7 +15,7 @@ Submodules
    :titlesonly:
    :maxdepth: 1
 
-   patch/index.rst
+   autoread/index.rst
 
 
 Package Contents

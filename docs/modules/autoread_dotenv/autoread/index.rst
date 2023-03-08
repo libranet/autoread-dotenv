@@ -1,11 +1,11 @@
-:py:mod:`autoread_dotenv.patch`
-===============================
+:py:mod:`autoread_dotenv.autoread`
+==================================
 
-.. py:module:: autoread_dotenv.patch
+.. py:module:: autoread_dotenv.autoread
 
 .. autoapi-nested-parse::
 
-   autoread_dotenv.patch
+   autoread_dotenv.autoread
 
    IMPORTANT: a sitecustomize-module is loaded automatically for every python-process
    started in the virtualenv where this module is installed.
@@ -57,8 +57,8 @@ Functions
 
 .. autoapisummary::
 
-   autoread_dotenv.patch.get_dotenv_path
-   autoread_dotenv.patch.autoread_dotenv
+   autoread_dotenv.autoread.get_dotenv_path
+   autoread_dotenv.autoread.autoread_dotenv
 
 
 
@@ -67,7 +67,7 @@ Attributes
 
 .. autoapisummary::
 
-   autoread_dotenv.patch.dotenv_available
+   autoread_dotenv.autoread.dotenv_available
 
 
 .. py:data:: dotenv_available

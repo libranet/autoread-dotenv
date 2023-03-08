@@ -5,7 +5,6 @@ autoread_dotenv
     :maxdepth: 2
     :caption: About this package
 
-    introduction
     readme
     changes
     contributors
