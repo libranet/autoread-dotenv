@@ -72,7 +72,7 @@ mypy_path = ["src"]
 [tool.poetry]
 name = "autoread_dotenv"
 version = "1.0" # version managed by poetry-dynamic-versioning
-description = " python-package "
+description = "Automatically set env-vars at the beginning of every python-process in your in-project virtualenv."
 readme = "docs/readme.rst"
 authors = ["Wouter Vanden Hove <wouter@libranet.eu>"]
 license = "MIT"
@@ -134,6 +134,12 @@ pytest-cov = ">=3.0.0"
 "Bug Tracker" = "https://github.com/Libranet/autoread_dotenv/issues"
 
 
+[tool.poetry2conda]
+# https://pypi.org/project/poetry2conda/
+# https://levelup.gitconnected.com/publishing-your-python-package-on-conda-and-conda-forge-309a405740cf
+name = "conda-base"
+
+
 [tool.poetry-dynamic-versioning]
 # cfr https://github.com/mtkennerly/poetry-dynamic-versioning
 enable = true
@@ -151,11 +157,20 @@ files = ["src/*/__init__.py", "src/*/__version__.py", "docs/changes.rst"]
 # https://github.com/Darsstar/sitecustomize-entrypoints/blob/main/src/sitecustomize/__init__.py
 autoread_dotenv = "autoread_dotenv.autoread:autoread_dotenv"
 
-
-[tool.poetry2conda]
-# https://pypi.org/project/poetry2conda/
-# https://levelup.gitconnected.com/publishing-your-python-package-on-conda-and-conda-forge-309a405740cf
-name = "conda-base"
+[tool.poetry-release]
+release-replacements = [
+    { file="docs/changes.rst", pattern="\\(Unreleased\\)", replace="{version} ({date})" },
+    { file="src/__init__.py", pattern='__version__ = "{version}"', replace='__version__ = "{next_version}"'},
+    # { file="CHANGELOG.md", pattern="\\(https://semver.org/spec/v2.0.0.html\\).", replace="(https://semver.org/spec/v20.0.html).\n\n## [Unreleased]"},
+]
+disable-push = false
+disable-tag = false
+disable-dev = false
+release-commit-message = "Release {package_name} {version}"
+post-release-commit-message = "Start next development iteration {next_version}"
+tag-name = "{version}"
+sign-tag = true
+sign-commit = true
 
 
 [tool.pylint.format]
@@ -187,18 +202,3 @@ addopts = "--junit-xml='var/coverage/pytest.xml'"
 # https://beta.ruff.rs/docs/configuration/
 cache-dir = "var/cache/ruff"
 line-length = 120
-
-[tool.poetry-release]
-release-replacements = [
-    { file="docs/changes.rst", pattern="\\(Unreleased\\)", replace="{version} ({date})" },
-    { file="src/__init__.py", pattern='__version__ = "{version}"', replace='__version__ = "{next_version}"'},
-    # { file="CHANGELOG.md", pattern="\\(https://semver.org/spec/v2.0.0.html\\).", replace="(https://semver.org/spec/v20.0.html).\n\n## [Unreleased]"},
-]
-disable-push = false
-disable-tag = false
-disable-dev = false
-release-commit-message = "Release {package_name} {version}"
-post-release-commit-message = "Start next development iteration {next_version}"
-tag-name = "{version}"
-sign-tag = true
-sign-commit = true
