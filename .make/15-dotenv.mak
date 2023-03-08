@@ -2,7 +2,7 @@
 
 
 .PHONY: dotenv-install-from-example ## instantiate the dotenv-file (no override)
-# cp --backup   creates .env~, but will overwrite this next time
+# cp --backup  creates .env~, but will overwrite this next time.
 # safest way, is to not overwrite existing .env-files, manual intervention needed.
 dotenv-install-from-example:
 	@echo -e "Copying .env.example to .env" ;\
@@ -14,3 +14,7 @@ dotenv-install-from-example:
 dotenv-set-basedir:
 	@echo -e "Replacing string __CWD__ -> $(PWD)" ;\
 	$(SED) -i 's@__CWD__@'"$(PWD)"'@'  .env
+
+
+.PHONY: dotenv-install ## install .env-file from .env.example
+dotenv-install: dotenv-install-from-example dotenv-set-basedir

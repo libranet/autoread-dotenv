@@ -1,0 +1,30 @@
+{
+    // oh-my-posh uses special font (CaskaydiaCove) to display icons in the console
+    "editor.fontFamily": "Consolas, 'Courier New', monospace,'DejaVu Sans Mono for Powerline','CaskaydiaCove NF'",
+    "files.associations": {
+        ".env": "dotenv",
+        ".env.example": "dotenv"
+    },
+    "makefile.extensionOutputFolder": "./var/cache/vscode",
+    "[makefile]": { // per-language config
+        "editor.insertSpaces": false,
+    },
+    "makefile.defaultLaunchConfiguration": {},
+    "makefile.makefilePath": "makefile", // Makefile is default
+    "makefile.configurations": [],
+    // https://code.visualstudio.com/docs/python/settings-reference
+    "python.envFile": "${workspaceFolder}/.env",
+    "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+    "python.linting.enabled": true,
+    "python.terminal.activateEnvironment": true,
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true,
+    "python.testing.pytestArgs": [
+        "--cov=src",
+        "--cov-report=xml",
+        "--cov-report=html",
+        "--pdb",
+        "-v",
+        "${workspaceFolder}/tests/",
+    ],
+}
