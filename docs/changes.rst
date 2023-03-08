@@ -2,6 +2,12 @@ Changelog
 =========
 .. _changes:
 
+TDB (Unreleased)
+------------------
+
+- Update project-description in pyproject.toml. [WouterVH]
+
+
 1.0 (2023-03-09)
 ------------------
 
