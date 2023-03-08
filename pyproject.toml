@@ -147,7 +147,7 @@ vcs = "git"
 style = "semver"
 
 [tool.poetry-dynamic-versioning.substitution]
-files = ["src/*/__init__.py", "src/*/__version__.py", "docs/changes.rst"]
+files = ["src/autoread_dotenv/__init__.py", "src/*/__version__.py", "docs/changes.rst"]
 
 
 [tool.poetry.plugins] # Optional super table
