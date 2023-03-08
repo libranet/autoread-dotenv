@@ -2,8 +2,6 @@
 # pylint: disable=import-outside-toplevel
 # pylint: disable=missing-function-docstring
 """Testing of module autoread_dotenv.patch."""
-import packaging.version
-
 
 def test_import_sitecustomize():
 
@@ -15,11 +13,7 @@ def test_import_sitecustomize():
 
 
 
-def test_entrypoint():
+def test_entrypoint_registration():
     from sitecustomize._vendor.importlib_metadata import entry_points
+    assert "autoread_dotenv" in entry_points(group="sitecustomize").names
 
-    found = False
-    for entry_point in entry_points(group="sitecustomize"):
-        if entry_point.name == "autoread_dotenv":
-            found = True
-    assert found is True
