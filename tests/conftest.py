@@ -50,6 +50,8 @@ Usage:
 
 """
 import importlib
+
 import autoread_dotenv
 
+# reload the module to fix coverage report
 importlib.reload(autoread_dotenv)
