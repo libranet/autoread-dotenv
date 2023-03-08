@@ -1,7 +1,7 @@
 
 Overview
 --------
-your-package-description
+
 
 Dependencies
  - python-dotenv_
@@ -26,10 +26,23 @@ Or add to your poetry-based project:
         > poetry add autoread_dotenv
 
 
+Registered sitecustomize-entrypoint
+------------------------------------
+
+The ``autoread_dotenv``-function is registered 
+as a ``sitecustomize``-entrypoint in pyproject.toml_:
+
+.. code-block:: python
+
+    [tool.poetry.plugins]
+    [tool.poetry.plugins."sitecustomize"]
+    autoread_dotenv = "autoread_dotenv.autoread:autoread_dotenv"
+
+This entrypoint will be executed in every python-process.
+
+.. _pyproject.toml: https://python-poetry.org/docs/pyproject/#plugins
 
 Usage
 -----
-This package will install a ´´sitecustomize´´-entrypoint.
-This entrypoint will be executed for every python-process.
-
-
+The only thing left to do for you is the create a ``.env`` 
+in the root of your project.
