@@ -42,6 +42,7 @@ For more information, please see:
 """
 import pathlib as pl
 import sys
+import typing as tp
 
 try:
     import dotenv
@@ -51,21 +52,23 @@ except ImportError:  # pragma: no cover
     dotenv_available = 0  # pylint: disable=invalid-name
 
 
-def get_dotenv_path() -> pl.Path:
-    """"""
+def get_dotenv_path() -> tp.Optional[pl.Path]:
+    """Return the location of the .env for in-project virtualenvs.
+    Return None of no .env-file is found.
+    """
     # sys.prefix is <project-root>/.venv or <project-root> when using toplevel symlinks to .venv
     prefix = pl.Path(sys.prefix)
     base_dir = prefix.parent if prefix.name == ".venv" else prefix
     dotenv_file = base_dir / ".env"
 
-    if not dotenv_file.exists(): # pragma: no cover
+    if not dotenv_file.exists():  # pragma: no cover
         return None
 
     return dotenv_file
 
 
 def autoread_dotenv() -> None:
-    """"""
+    """Set environment-variable from the in-project .env-file."""
     dotenv_file = get_dotenv_path()
 
     if dotenv_file and dotenv_available:
