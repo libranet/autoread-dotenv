@@ -75,6 +75,7 @@ version = "0.0.0" # version managed by poetry-dynamic-versioning
 description = " python-package"
 readme = "docs/readme.rst"
 authors = ["Wouter Vanden Hove <wouter@libranet.eu>"]
+license = "MIT"
 maintainers = ["Wouter Vanden Hove <wouter@libranet.eu>"]
 repository = "https://github.com/libranet/autoread_dotenv"
 documentation = "https://github.com/libranet/autoread_dotenv"
@@ -100,23 +101,25 @@ python-dotenv = "^1.0.0"
 sitecustomize-entrypoints = ">=0.1.0"
 
 [tool.poetry.group.dev.dependencies]
-black = { version = ">=22.1.0", optional = true, allow-prereleases = true }
+black = { version = ">=22.1.0", allow-prereleases = true }
 flake8 = ">=4.0.1"
 flake8-pyproject = ">=1.2.2"
 isort = ">=5.10.1"
 mypy = ">=0.931"
-pytest = ">=7.0.1"
-pytest-cov = ">=3.0.0"
 pre-commit = ">=2.14.1"
 pre-commit-hooks = ">=4.1.0"
 pylint = ">=2.12.2"
 
 [tool.poetry.group.docs.dependencies]
-Sphinx = ">=4.4.0"
-sphinx-rtd-theme = ">=1.0.0"
-recommonmark = ">=0.7.1"
-sphinx-autoapi = ">=1.8.4"
 autoapi = ">=2.0.1"
+recommonmark = ">=0.7.1"
+Sphinx = ">=4.4.0"
+sphinx-autoapi = ">=1.8.4"
+sphinx-rtd-theme = ">=1.0.0"
+
+[tool.poetry.group.tests.dependencies]
+pytest = ">=7.0.1"
+pytest-cov = ">=3.0.0"
 
 [tool.poetry.urls]
 "Bug Tracker" = "https://github.com/Libranet/autoread_dotenv/issues"
