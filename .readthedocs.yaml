@@ -13,7 +13,8 @@ sphinx:
   fail_on_warning: true
 
 # formats: all
-formats: html
+formats: 
+    - html
 
 python:
   install:
