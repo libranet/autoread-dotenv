@@ -7,31 +7,14 @@
 
    autoread_dotenv.autoread
 
-   IMPORTANT: a sitecustomize-module is loaded automatically for every python-process
-   started in the virtualenv where this module is installed.
+   We assume following directory-structure:
+   The virtualenv of your project **must** be created as a
+   .venv-subfolder inside your project-directory.
 
-   For more information, please see:
-     - https://pymotw.com/2/site/
-     - https://nedbatchelder.com/blog/201001/running_code_at_python_startup.html
+   This corresponds to poetry-config "in-project = true".
+   The .env-file must reside in the root of your project-directory.
 
-   - return-statements are not allowed in the special module.
-
-   - pytest-coverage does not like if-statements in this special module:
-     It reports the if-condition as "didn't jump to the function exit".
-     As a work-around we use an assignment with a ternary operator.
-
-     if condition:
-       do
-
-     becomes:
-
-     _ = do if condition else False
-
-   - Assumed directory-structure:
-     The virtualenv of your project **must** be created as a
-     .venv-subfolder inside your project-directory.
-     This corresponds to poetry-config "in-project = true".
-     The .env-file must reside in the root of your project-directory.
+   .. code-block:: python
 
      <project-root>
          .env
@@ -41,7 +24,10 @@
              lib/
              pyvenv.cfg
 
-     We also support toplevel-symlinks to the corresponding .venv-files
+     We also support toplevel-symlinks to the corresponding .venv-files:
+
+   .. code-block:: python
+
          bin/       -> .venv/bin/
          lib/       -> .venv/lib/
          pyvenv.cfg -> .venv/pyvenv.cfg
