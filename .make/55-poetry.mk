@@ -44,4 +44,9 @@ poetry-env-info:
 
 .PHONY: poetry-export-requirements  ## generate a requirements.txt-file
 poetry-export-requirements:
-	poetry export --format requirements.txt requirements.txt
+	poetry export --format requirements.txt --output requirements.txt
+
+
+.PHONY: poetry-export-requirements-docs  ## generate a requirements.txt-file for readthedocs
+poetry-export-requirements:
+	poetry export --format requirements.txt --only=docs --withput-hashes --output docs/requirements.txt
