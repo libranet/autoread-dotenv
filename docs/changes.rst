@@ -5,6 +5,8 @@ Changelog
 TDB (Unreleased)
 ------------------
 
+- Add ``readthedocs.yaml``.
+
 - Update project-description in pyproject.toml. [WouterVH]
 
 
