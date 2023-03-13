@@ -38,6 +38,32 @@ except ImportError:  # pragma: no cover
     dotenv_available = 0  # pylint: disable=invalid-name
 
 
+def cancel():
+    """No-op function that can be used the cancel a registered entrypoint.
+
+    Imagine you have multiple sitecustomize-entrypoints. If these entrypoints
+    are registered via third-party packages, you cannot control the order of execution.
+
+    Now suppose some of these entrypoints need an environment-variable that first need to be set
+    by ``autoread_dotenv`` needs to be executed before the others
+
+    entrypoint 1:  foo.needs_envvar:bar
+    entrypoint 2:  autoread_dotenv.autoread:autoread_dotenv
+
+    in your project's pyproject.toml:
+
+    [tool.poetry.plugins."sitecustomize"]
+
+    # cancel the first registration using the original name
+    autoread_dotenv = "autoread_dotenv.autoread:cancel"
+
+    # re-register the same function under different name
+    zz_autoread_dotenv = "autoread_dotenv.autoread:autoread_dotenv"
+
+    """
+    pass
+
+
 def get_dotenv_path() -> tp.Optional[pl.Path]:
     """Return the location of the .env for in-project virtualenvs.
     Return None of no .env-file is found.
