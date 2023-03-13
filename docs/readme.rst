@@ -1,4 +1,10 @@
+.. image:: https://img.shields.io/badge/license-MIT-blue.svg
+:target: https://github.com/libranet/autoread-dotenv/blob/main/docs/license.md
+:alt: License: MIT
 
+.. image:: https://readthedocs.org/projects/autoread-dotenv/badge/?version=latest
+:target: https://autoread-dotenv.readthedocs.io/en/latest/
+:alt: Read the Docs
 Overview
 --------
 
