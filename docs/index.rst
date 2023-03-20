@@ -8,7 +8,7 @@ autoread_dotenv
     readme
     changes
     contributors
-    license
+    ../license
 
 .. toctree::
     :maxdepth: 2
