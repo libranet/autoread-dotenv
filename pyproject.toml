@@ -73,7 +73,7 @@ mypy_path = ["src"]
 name = "autoread_dotenv"
 version = "1.1.1a0" # version managed by poetry-dynamic-versioning
 description = "Automatically set env-vars at the beginning of every python-process in your in-project virtualenv."
-readme = "docs/readme.rst"
+readme = "docs/readme.md"
 authors = ["Wouter Vanden Hove <wouter@libranet.eu>"]
 license = "MIT"
 maintainers = ["Wouter Vanden Hove <wouter@libranet.eu>"]
@@ -95,7 +95,6 @@ classifiers = [
     "Programming Language :: Python :: Implementation :: PyPy",
     "Typing :: Typed",
 ]
-
 packages = [{ include = "autoread_dotenv", from = "src" }]
 
 
@@ -111,7 +110,7 @@ flake8 = ">=4.0.1"
 flake8-bugbear = ">=23.2.13"
 flake8-pyproject = ">=1.2.2"
 isort = ">=5.10.1"
-lxml = ">=4.9.2"  # mypy coverage-report
+lxml = ">=4.9.2"                                           # mypy coverage-report
 mypy = ">=0.931"
 pre-commit = ">=2.14.1"
 pre-commit-hooks = ">=4.1.0"
@@ -149,7 +148,11 @@ vcs = "git"
 style = "semver"
 
 [tool.poetry-dynamic-versioning.substitution]
-files = ["src/autoread_dotenv/__init__.py", "src/*/__version__.py", "docs/changes.rst"]
+files = [
+    "src/autoread_dotenv/__init__.py",
+    "src/*/__version__.py",
+    "docs/changes.rst",
+]
 
 
 [tool.poetry.plugins] # Optional super table
@@ -161,8 +164,8 @@ autoread_dotenv = "autoread_dotenv.autoread:autoread_dotenv"
 
 [tool.poetry-release]
 release-replacements = [
-    { file="docs/changes.rst", pattern="TBD \\(Unreleased\\)", replace="{version} \\({date}\\)" },
-    { file="src/autoread_dotenv/__init__.py", pattern='__version__ = "{version}"', replace='__version__ = "{next_version}"'},
+    { file = "docs/changes.rst", pattern = "TBD \\(Unreleased\\)", replace = "{version} \\({date}\\)" },
+    { file = "src/autoread_dotenv/__init__.py", pattern = '__version__ = "{version}"', replace = '__version__ = "{next_version}"' },
     # { file="CHANGELOG.md", pattern="\\(https://semver.org/spec/v2.0.0.html\\).", replace="(https://semver.org/spec/v20.0.html).\n\n## [Unreleased]"},
 ]
 disable-push = false

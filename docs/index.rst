@@ -3,12 +3,19 @@ autoread_dotenv
 
 .. toctree::
     :maxdepth: 2
-    :caption: About this package
 
     readme
     changes
+    security
+    license
+
+.. toctree::
+    :maxdepth: 2
+    :caption: Contribute
+
     contributors
-    ../license
+    contributing
+    code-of-conduct
 
 .. toctree::
     :maxdepth: 2

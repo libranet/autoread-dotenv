@@ -17,7 +17,7 @@
 #   Therefore better concatenate your multiline-commands with ";\" into a single line.
 
 # Set default goal to not be dependent on sorting / ordering.
-.DEFAULT_GOAL := help  # defined in .make/default-help.mk
+.DEFAULT_GOAL := help  # defined in .make/00-help.mk
 
 PROJECT_NAME='autoread-dotenv'
 

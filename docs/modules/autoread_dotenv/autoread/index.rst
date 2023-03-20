@@ -43,6 +43,7 @@ Functions
 
 .. autoapisummary::
 
+   autoread_dotenv.autoread.cancel
    autoread_dotenv.autoread.get_dotenv_path
    autoread_dotenv.autoread.autoread_dotenv
 
@@ -60,6 +61,31 @@ Attributes
    :value: 1
 
    
+
+.. py:function:: cancel()
+
+   No-op function that can be used the cancel a registered entrypoint.
+
+   Imagine you have multiple sitecustomize-entrypoints. If these entrypoints
+   are registered via third-party packages, you cannot control the order of execution.
+
+   Now suppose some of these entrypoints need an environment-variable that first need to be set
+   by ``autoread_dotenv`` needs to be executed before the others
+
+   entrypoint 1:  foo.needs_envvar:bar
+   entrypoint 2:  autoread_dotenv.autoread:autoread_dotenv
+
+   in your project's pyproject.toml:
+
+   [tool.poetry.plugins."sitecustomize"]
+
+   # cancel the first registration using the original name
+   autoread_dotenv = "autoread_dotenv.autoread:cancel"
+
+   # re-register the same function under different name
+   zz_autoread_dotenv = "autoread_dotenv.autoread:autoread_dotenv"
+
+
 
 .. py:function:: get_dotenv_path()
 
