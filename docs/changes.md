@@ -9,7 +9,7 @@ All notable changes to this project will be documented in this file.
 
 - Test releasing via ``poetry-release``.
 
-- Add ``readthedocs.yaml``.
+- Convert docs from restructured text to markdown.
 
 - Update project-description in pyproject.toml. [WouterVH]
 
