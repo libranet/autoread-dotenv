@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased (YYYY-MM-DD)
 
+- Refactored and renamed entrypoint into ``autoread_dotenv.entrypoint``.
+
 - Add boilerplate-files to comply with Github's [_Community Standards_](https://github.com/libranet/autoadd-bindir/community)
 
 - Test releasing via ``poetry-release``.

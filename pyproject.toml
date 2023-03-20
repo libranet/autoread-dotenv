@@ -160,7 +160,7 @@ files = [
 [tool.poetry.plugins."sitecustomize"]
 # https://python-poetry.org/docs/pyproject/#plugins
 # https://github.com/Darsstar/sitecustomize-entrypoints/blob/main/src/sitecustomize/__init__.py
-autoread_dotenv = "autoread_dotenv.autoread:autoread_dotenv"
+autoread_dotenv = "autoread_dotenv:entrypoint"
 
 [tool.poetry-release]
 release-replacements = [

@@ -23,12 +23,12 @@ The only thing left to do for you is the create a ``.env`` in the root of your p
 
 ## Registered sitecustomize-entrypoint
 
-The ``autoread_dotenv``-function is registered as a ``sitecustomize``-entrypoint in our pyproject.toml_:
+The ``autoread_dotenv.entrypoint``-function is registered as a ``sitecustomize``-entrypoint in our pyproject.toml_:
 
 ``` toml
     [tool.poetry.plugins]
     [tool.poetry.plugins."sitecustomize"]
-    autoread_dotenv = "autoread_dotenv.autoread:autoread_dotenv"
+    autoread_dotenv = "autoread_dotenv:entrypoint"
 ```
 
 Sitecustomize and all its registered entrypoints will be executed at the start of *every* python-process.
