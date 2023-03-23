@@ -105,6 +105,7 @@ python-dotenv = ">=1.0.0"
 sitecustomize-entrypoints = ">=0.1.0"
 
 [tool.poetry.group.dev.dependencies]
+bandit = ">=1.7.5"
 black = { version = ">=22.1.0", allow-prereleases = true }
 flake8 = ">=4.0.1"
 flake8-bugbear = ">=23.2.13"
@@ -119,12 +120,12 @@ ruff = ">=0.0.254"
 [tool.poetry.group.docs.dependencies]
 # poetry install
 autoapi = ">=2.0.1"
+markupsafe = "^2.1.2"
 myst-parser = ">=1.0.0"
 recommonmark = ">=0.7.1"
 Sphinx = ">=4.4.0"
 sphinx-autoapi = ">=1.8.4"
 sphinx-rtd-theme = ">=1.0.0"
-markupsafe = "^2.1.2"
 
 [tool.poetry.group.ipython.dependencies]
 ipdb = ">=0.13.9"

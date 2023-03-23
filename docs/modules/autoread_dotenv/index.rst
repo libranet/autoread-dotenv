@@ -62,17 +62,17 @@ Attributes
 .. py:data:: __version__
    :value: '1.0'
 
-   
+
 
 .. py:data:: __copyright__
    :value: 'Copyright 2023 Libranet - MIT License.'
 
-   
+
 
 .. py:data:: dotenv_available
    :value: 1
 
-   
+
 
 .. py:function:: get_dotenv_path()
 
