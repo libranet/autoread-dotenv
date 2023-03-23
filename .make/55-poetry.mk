@@ -5,6 +5,7 @@
 symlink-venv-dirs:
 	ln -sf .venv/bin ;\
 	ln -sf .venv/lib ;\
+	ln -sf .venv/lib64 ;\
 	ln -sf .venv/pyvenv.cfg
 
 
