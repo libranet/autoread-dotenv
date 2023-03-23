@@ -75,8 +75,8 @@ autoclass_content = "both"
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
 extensions = [
     "sphinx.ext.napoleon",
-    # "autoapi.extension",
-    # "autoapi.sphinx",
+    "autoapi.extension",
+    "autoapi.sphinx",
     # "sphinx_click",
     "sphinx.ext.coverage",
     "sphinx.ext.doctest",
