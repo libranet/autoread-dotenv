@@ -118,9 +118,9 @@ pyroma = ">=4.2"
 ruff = ">=0.0.254"
 
 [tool.poetry.group.docs.dependencies]
-# poetry install
+# poetry install --with docs
 autoapi = ">=2.0.1"
-markupsafe = "^2.1.2"
+markupsafe = ">=2.1.2"
 myst-parser = ">=1.0.0"
 recommonmark = ">=0.7.1"
 Sphinx = ">=4.4.0"
