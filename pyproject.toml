@@ -231,7 +231,7 @@ markers = ["unit", "integration"]
 testpaths = ["tests"]
 
 # the junit-report is used to report coverage in gitlab
-addopts = "--junit-xml='var/coverage/pytest.xml'"
+addopts = "--color=yes --junit-xml='var/coverage/pytest.xml'"
 
 
 [tool.ruff]
