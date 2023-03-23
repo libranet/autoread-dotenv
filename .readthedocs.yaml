@@ -28,7 +28,12 @@ build:
             - python -c "import markupsafe;markupsafe.__path__"
             - python -c "import autoapi;autoapi.__path__"
             - python -m pip install  -r docs/requirements.txt
-formats: all
+
+formats:
+    - htmlzip
+    # - pdf
+    # - epub
+    # - all
 
 # python:
 #     install:
