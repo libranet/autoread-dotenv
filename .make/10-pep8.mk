@@ -2,12 +2,12 @@
 
 .PHONY: black  ## run black on python-files
 black:
-	- .venv/bin/black src/ tests/
+	- .venv/bin/black docs/ src/ tests/
 
 
 .PHONY: flake8  ## run flake8 on python-files
 flake8:
-	- .venv/bin/flake8 src/ tests/
+	- .venv/bin/flake8 docs/ src/ tests
 
 
 .PHONY: isort  ## run isort on python-files
