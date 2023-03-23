@@ -1,35 +1,37 @@
+# This is a comment.
+# https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
 version: 2
 updates:
-  - package-ecosystem: pip
-    directory: "/docs"
-    schedule:
-      interval: daily
-      time: "04:00"
-      timezone: "Europe/Berlin"
-    labels:
-      - "dependencies"
-      - "python"
-      - "sitecustomize"
-    open-pull-requests-limit: 99
-  - package-ecosystem: pip
-    directory: "/.github/workflows"
-    schedule:
-      interval: daily
-      time: "04:00"
-      timezone: "Europe/Berlin"
-    labels:
-      - "dependencies"
-      - "python"
-      - "sitecustomize"
-    open-pull-requests-limit: 99
-  - package-ecosystem: github-actions
-    directory: "/"
-    schedule:
-      interval: daily
-      time: "04:00"
-      timezone: "Europe/Berlin"
-    labels:
-      - "dependencies"
-      - "github_actions"
-      - "sitecustomize"
-    open-pull-requests-limit: 99
+    - package-ecosystem: pip
+      directory: "/docs"
+      schedule:
+          interval: daily
+          time: "04:00"
+          timezone: "Europe/Berlin"
+      labels:
+          - "dependencies"
+          - "python"
+          - "sitecustomize"
+      open-pull-requests-limit: 99
+    - package-ecosystem: pip
+      directory: "/.github/workflows"
+      schedule:
+          interval: daily
+          time: "04:00"
+          timezone: "Europe/Berlin"
+      labels:
+          - "dependencies"
+          - "python"
+          - "sitecustomize"
+      open-pull-requests-limit: 99
+    - package-ecosystem: github-actions
+      directory: "/"
+      schedule:
+          interval: daily
+          time: "04:00"
+          timezone: "Europe/Berlin"
+      labels:
+          - "dependencies"
+          - "github_actions"
+          - "sitecustomize"
+      open-pull-requests-limit: 99

@@ -18,11 +18,11 @@ build:
             - poetry config virtualenvs.create false
             # Install project's dependencies
             - poetry install --with docs
-            - poetry install --with docs
+            - poetry install
             - python -m pip install autoapi
             - ls -al /home/docs/checkouts/readthedocs.org/user_builds/autoread-dotenv/envs/latest/lib/python3.11/site-packages
             # - poetry add autoapi
-            - python -m pip install --no-cache-dir -r docs/requirements.txt
+            # - python -m pip install --no-cache-dir -r docs/requirements.txt
 
 formats: all
 
