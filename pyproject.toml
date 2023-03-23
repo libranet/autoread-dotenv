@@ -131,6 +131,11 @@ sphinx-rtd-theme = ">=1.0.0"
 pytest = ">=7.0.1"
 pytest-cov = ">=3.0.0"
 
+
+[tool.poetry.group.profiling.dependencies]
+importtime-waterfall = "^1.0.0"
+tuna = "^0.5.11"
+
 [tool.poetry.urls]
 "Bug Tracker" = "https://github.com/Libranet/autoread_dotenv/issues"
 
