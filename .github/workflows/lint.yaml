@@ -1,0 +1,55 @@
+name: Lint
+
+env:
+    POETRY_VERSION: "1.4.0"
+
+on:
+    pull_request:
+        types: [opened, reopened, synchronize]
+    push:
+        branches:
+            - main
+
+permissions:
+    contents: read
+
+jobs:
+    run-tests:
+        name: Python linters
+        runs-on: ubuntu-latest
+        timeout-minutes: 5
+
+        steps:
+            - uses: actions/checkout@v3
+              with:
+                  persist-credentials: false
+                  fetch-depth: 0
+
+            - name: Set up Python 3.11
+              uses: actions/setup-python@v4
+              with:
+                  python-version: "3.11"
+
+            - name: Set up Poetry
+              run: |
+                  pip install poetry==${{ env.POETRY_VERSION }}
+
+            - name: Install packages
+              run: |
+                  make create-dirs
+                  make symlink-venv-dirs
+                  make dotenv-install
+
+            # install: create-dirs symlink-venv-dirs dotenv-install poetry-install
+            - name: Install packages
+              run: |
+                  poetry install
+
+            - name: Flake8
+              run: |
+                  ./bin/flake8 src
+
+            - name: Check poetry
+              run: |
+                  poetry check
+                  poetry lock --check
