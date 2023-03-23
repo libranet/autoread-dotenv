@@ -115,11 +115,12 @@ packages = [{ include = "autoread_dotenv", from = "src" }]
 
 [tool.poetry.dependencies]
 # These packages are mandatory and form the core of this package’s distribution.
-python = ">=3.9.0,<4.0"
+python = ">=3.8.0,<4.0"
 python-dotenv = ">=1.0.0"
 sitecustomize-entrypoints = ">=0.1.0"
 
 [tool.poetry.group.dev.dependencies]
+# poetry install --with | --without dev
 bandit = ">=1.7.5"
 black = { version = ">=22.1.0", allow-prereleases = true }
 flake8 = ">=4.0.1"
@@ -133,7 +134,7 @@ pyroma = ">=4.2"
 ruff = ">=0.0.254"
 
 [tool.poetry.group.docs.dependencies]
-# poetry install --with docs
+# poetry install --with | --without docs
 autoapi = ">=2.0.1"
 markupsafe = ">=2.1.2"
 myst-parser = ">=1.0.0"
@@ -143,14 +144,17 @@ sphinx-autoapi = ">=1.8.4"
 sphinx-rtd-theme = ">=1.0.0"
 
 [tool.poetry.group.ipython.dependencies]
+# poetry install --with | --without ipython
 ipdb = ">=0.13.9"
 ipython = ">=8.4.0"
 
 [tool.poetry.group.profiling.dependencies]
+# poetry install --with | --without profiling
 importtime-waterfall = ">=1.0.0"
 tuna = ">=0.5.11"
 
 [tool.poetry.group.testing.dependencies]
+# poetry install --with | --without testing
 pytest = ">=7.0.1"
 pytest-cov = ">=3.0.0"
 

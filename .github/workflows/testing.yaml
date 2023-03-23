@@ -73,7 +73,14 @@ jobs:
 
             - name: Install packages
               run: |
-                  poetry install
+                  make create-dirs
+                  make symlink-venv-dirs
+                  make dotenv-install
+                  make poetry-install
+
+            # - name: Install packages
+            #   run: |
+            #       poetry install
 
             # - name: Relax constraints
             #   if: ${{ matrix.relax }}
