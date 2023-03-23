@@ -8,6 +8,17 @@ build:
   tools:
     python: "3.11"
 
+  jobs:
+    post_create_environment:
+      # Install poetry
+      # https://python-poetry.org/docs/#installing-manually
+      - pip install poetry
+      # Tell poetry to not use a virtual environment
+      - poetry config virtualenvs.create true
+      # Install project's dependencies
+      - poetry install
+      
+
 sphinx:
   configuration: docs/conf.py
   fail_on_warning: true
@@ -16,8 +27,9 @@ sphinx:
 formats: 
     - htmlzip
     - pdf
-    # - epub
+    - epub
 
-python:
-  install:
-  - requirements: docs/requirements.txt
+#python:
+#  install:
+#  - requirements: docs/requirements.txt
+  
