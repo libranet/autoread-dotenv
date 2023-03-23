@@ -15,6 +15,20 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 
+[tool.bandit]
+# bandit does not use this config by default. you need to invoke
+# "bandit --configfile pyproject.toml"
+# see https://github.com/PyCQA/bandit/issues/318"
+baseline = "etc/bandit-baseline.json"
+targets = ["src", "tests"]
+recursive = true
+exclude_dirs = [".venv", "var"]
+#skips = ["*_test.py", "test_*.py"]
+#skips = ["*/test_*.py", ]
+# skips = ["test_*.py"]
+skips = ["B101"]
+
+
 [tool.black]
 line-length = 120
 target_version = ["py310"]
@@ -45,10 +59,11 @@ data_file = "var/coverage/coverage.db" # defaults to .coverage
 
 
 [tool.flake8]
-max_line_length = 140
-exclude = "bindings"
-# F401: imported but unused
-per_file_ignores = ["__init__.py:F401"]
+max_line_length = 121
+per_file_ignores = [
+    "tests/test_entrypoints.py:B011", # B011: Do not call assert False
+    "__init__.py:F401",               # F401: imported but unused
+]
 
 
 [tool.isort]

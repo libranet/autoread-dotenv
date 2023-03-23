@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # pylint: disable=import-outside-toplevel
 # pylint: disable=missing-function-docstring
 """Testing of module autoread_dotenv.patch."""
@@ -6,7 +5,7 @@
 
 def test_import_sitecustomize() -> None:
     try:
-        import sitecustomize
+        import sitecustomize  # noqa: F401
     except ImportError:
         # package sitecustomize-entrypoints is not installed
         assert False

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # pylint: disable=import-outside-toplevel
 # pylint: disable=missing-function-docstring
 """Testing of module autoread_dotenv.__init__."""

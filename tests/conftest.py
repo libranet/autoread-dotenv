@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # pylint: disable=import-outside-toplevel
 """conftest.py - custom pytest-plugins.
 
