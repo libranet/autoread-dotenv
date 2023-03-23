@@ -32,7 +32,7 @@ build:
 formats:
     - htmlzip
     - pdf
-    # - epub
+    - epub
     # - all
 
 # python:
