@@ -9,6 +9,7 @@ build:
         python: "3.11"
     jobs:
         post_create_environment:
+            - pwd
             - python -c "import sys;print(sys.path)"
             - python -m pip install --upgrade pip
             # Install poetry
@@ -17,8 +18,9 @@ build:
             - poetry config virtualenvs.create false
             # Install project's dependencies
             - poetry install --with docs
+            - poetry install --with docs
             - python -m pip install autoapi
-            - tree
+            - ls -al /home/docs/checkouts/readthedocs.org/user_builds/autoread-dotenv/envs/latest/lib/python3.11/site-packages
             # - poetry add autoapi
 
 formats: all
