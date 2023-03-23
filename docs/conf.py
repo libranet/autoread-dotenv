@@ -112,8 +112,8 @@ source_suffix = [".md", ".rst"]
 master_doc = "index"
 
 # General information about the project.
-project = f"{project_prefix} {name}"
-copyright = f"{current_year}, {owner}"  # pylint: disable=redefined-builtin
+project = f"{project_prefix} f{name}"
+copyright = f"{current_year}, f{owner}"  # pylint: disable=redefined-builtin
 
 
 # The version info for the project you're documenting, acts as replacement for
@@ -255,7 +255,7 @@ latex_elements = {
 
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
-latex_documents = [("index", f"{name}.tex", f"Documentation {name}", "{owner}", "howto")]
+latex_documents = [("index", f"{name}.tex", f"Documentation {name}", f"{owner}", "howto")]
 
 # The name of an image file (relative to this directory) to place at the top of
 # the title page.
@@ -283,7 +283,7 @@ latex_documents = [("index", f"{name}.tex", f"Documentation {name}", "{owner}", 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 # man_pages = [
-#    ('index', name, f'Documentation {name}', [{owner}], 1)
+#    ('index', name, f'Documentation {name}', [f{owner}], 1)
 # ]
 
 # If true, show URL addresses after external links.
