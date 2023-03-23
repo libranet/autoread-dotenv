@@ -110,8 +110,6 @@ flake8 = ">=4.0.1"
 flake8-bugbear = ">=23.2.13"
 flake8-pyproject = ">=1.2.2"
 isort = ">=5.10.1"
-lxml = ">=4.9.2"                                           # mypy coverage-report
-mypy = ">=0.931"
 pre-commit = ">=2.14.1"
 pre-commit-hooks = ">=4.1.0"
 pylint = ">=2.12.2"
@@ -127,14 +125,21 @@ Sphinx = ">=4.4.0"
 sphinx-autoapi = ">=1.8.4"
 sphinx-rtd-theme = ">=1.0.0"
 
-[tool.poetry.group.tests.dependencies]
+[tool.poetry.group.ipython.dependencies]
+ipdb = ">=0.13.9"
+ipython = ">=8.4.0"
+
+[tool.poetry.group.profiling.dependencies]
+importtime-waterfall = ">=1.0.0"
+tuna = ">=0.5.11"
+
+[tool.poetry.group.testing.dependencies]
 pytest = ">=7.0.1"
 pytest-cov = ">=3.0.0"
 
-
-[tool.poetry.group.profiling.dependencies]
-importtime-waterfall = "^1.0.0"
-tuna = "^0.5.11"
+[tool.poetry.group.typing.dependencies]
+lxml = ">=4.9.2" # mypy coverage-report
+mypy = ">=0.931"
 
 [tool.poetry.urls]
 "Bug Tracker" = "https://github.com/Libranet/autoread_dotenv/issues"
