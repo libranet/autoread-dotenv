@@ -23,11 +23,11 @@ build:
             - python -m pip install autoapi
             - ls -al /home/docs/checkouts/readthedocs.org/user_builds/autoread-dotenv/envs/latest/lib/python3.11/site-packages
             # - poetry add autoapi
-            # - python -m pip install --no-cache-dir -r docs/requirements.txt
+
             - python -m pip install -e .
             - python -c "import markupsafe;markupsafe.__path__"
             - python -c "import autoapi;autoapi.__path__"
-
+            - python -m pip install  -r docs/requirements.txt
 formats: all
 
 # python:
