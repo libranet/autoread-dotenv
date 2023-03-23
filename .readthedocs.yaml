@@ -16,7 +16,8 @@ build:
       # - poetry config virtualenvs.create true
       # Install project's dependencies
       - poetry install --with docs
-      - poetry add autoapi
+      - poetry -add autoapi
+      - python -m pip install autoapi
 
 formats: all
 
