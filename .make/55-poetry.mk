@@ -43,8 +43,8 @@ poetry-check:
 	poetry check
 
 
-.PHONY: poetry-lock-check ## run poetry check on python-package
-poetry-check:
+.PHONY: poetry-lock-check ## run poetry lock --check on python-package
+poetry-lock-check:
 	poetry lock --check
 
 

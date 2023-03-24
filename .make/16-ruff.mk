@@ -5,8 +5,8 @@ ruff:
 	- ruff docs/ src/ tests/
 
 
-.PHONY: ruff-check  ## run ruff --fcheck on python-files
-ruff-fix:
+.PHONY: ruff-check  ## run ruff --check on python-files
+ruff-check:
 	- ruff --check docs/ src/ tests/
 
 

@@ -212,9 +212,9 @@ sign-commit = false
 [tool.pylint.format]
 max-line-length = 120
 good-names = [
-    "i",  # counter in loop
-    "ok", # status
-    "ts", # timestamp or timeseries object
+    "foo", # dummy variable
+    "i",   # counter in loop
+    "ok",  # status
 ]
 
 [tool.pylint.messages_control]

@@ -46,6 +46,14 @@ jobs:
               run: |
                   make ruff-check
 
+            - name: Pylint
+              run: |
+                  make pylint
+
+            - name: Mypy
+              run: |
+                  make mypy
+
             - name: Check poetry
               run: |
                   make poetry-check

@@ -1,9 +1,10 @@
 # pylint: disable=import-outside-toplevel
 # pylint: disable=missing-function-docstring
-"""Testing of module autoread_dotenv.patch."""
+"""Testing of module sitecustomize."""
 
 
 def test_import_sitecustomize() -> None:
+    # pylint: disable=unused-import
     try:
         import sitecustomize  # noqa: F401
     except ImportError:
