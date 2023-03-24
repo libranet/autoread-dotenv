@@ -93,4 +93,4 @@ def cancel():
     zz_autoread_dotenv = "autoread_dotenv.autoread:autoread_dotenv"
 
     """
-    pass
+    pass  # pylint: disable=unnecessary-pass
