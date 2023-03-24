@@ -1,5 +1,10 @@
 # See ../makefile
 
+.PHONY: sphinx-build-which  ## show which sphinx-build is used
+sphinx-build-which:
+	@ which sphinx-build
+
+
 .PHONY: sphinx-docs  ## generate sphinx-docs in var/html-docs
 sphinx-docs: poetry-export-requirements-docs
 	sphinx-build -b html -d var/cache/sphinx-doctrees -w var/log/sphinx-build.log docs var/html-docs

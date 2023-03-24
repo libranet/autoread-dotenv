@@ -1,5 +1,10 @@
 # See ../makefile
 
+.PHONY: pytest-which  ## show which pytest is used
+pytest-which:
+	@ which pytest
+
+
 .PHONY: pytest ## run pytest on python-files
 pytest:
 	- pytest tests

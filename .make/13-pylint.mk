@@ -1,6 +1,6 @@
 # See ../makefile
 
-.PHONY: flake8-pylint  ## show which pylint is used
+.PHONY: pylint-which  ## show which pylint is used
 pylint-which:
 	@ which pylint
 
