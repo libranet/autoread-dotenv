@@ -34,22 +34,19 @@ jobs:
               run: |
                   pip install poetry==${{ env.POETRY_VERSION }}
 
-            - name: Install packages
+            - name: Install
               run: |
-                  make create-dirs
-                  make symlink-venv-dirs
-                  make dotenv-install
-
-            # install: create-dirs symlink-venv-dirs dotenv-install poetry-install
-            - name: Install packages
-              run: |
-                  poetry install
+                  make install
 
             - name: Flake8
               run: |
-                  ./bin/flake8 src
+                  make flake8
+
+            - name: Ruff
+              run: |
+                  make ruff-check
 
             - name: Check poetry
               run: |
-                  poetry check
-                  poetry lock --check
+                  make poetry-check
+                  make poetry-lock-check

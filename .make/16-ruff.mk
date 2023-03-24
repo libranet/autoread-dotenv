@@ -1,11 +1,15 @@
 # See ../makefile
 
-
 .PHONY: ruff  ## run ruff on python-files
 ruff:
-	- .venv/bin/ruff src/ tests/
+	- ruff docs/ src/ tests/
+
+
+.PHONY: ruff-check  ## run ruff --fcheck on python-files
+ruff-fix:
+	- ruff --check docs/ src/ tests/
 
 
 .PHONY: ruff-fix  ## run ruff --fix on python-files
 ruff-fix:
-	- .venv/bin/ruff --fix src/ tests/
+	- ruff --fix docs/ src/ tests/

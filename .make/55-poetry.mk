@@ -38,6 +38,16 @@ poetry-build:
 	poetry build
 
 
+.PHONY: poetry-check ## run poetry check on python-package
+poetry-check:
+	poetry check
+
+
+.PHONY: poetry-lock-check ## run poetry check on python-package
+poetry-check:
+	poetry lock --check
+
+
 .PHONY: poetry-env-info ## run env info
 poetry-env-info:
 	poetry env info

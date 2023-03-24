@@ -16,13 +16,7 @@
 #   Thus shell variables, even exported environment variables, cannot propagate upwards.
 #   Therefore better concatenate your multiline-commands with ";\" into a single line.
 
-# Set default goal to not be dependent on sorting / ordering.
-.DEFAULT_GOAL := help  # defined in .make/00-help.mk
-
 PROJECT_NAME='autoread-dotenv'
-
-# Add virtualenv to PATH, same effect as activating the virtualenv
-export PATH := $(shell pwd)/.venv/bin:$(PATH)
 
 # Source the env-vars in your .env, if that file exists.
 -include .env
