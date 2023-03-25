@@ -31,4 +31,5 @@ install-rtd:
 	- python -m pip install --upgrade pip
 	- python -m pip install poetry
 	- poetry config virtualenvs.create false --local
-	- poetry install --with docs --without dev --without ipython --without profiling --without testing --without typing
+#	- poetry install --with docs --without dev --without ipython --without profiling --without testing --without typing
+	- poetry install --only docs

@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased (YYYY-MM-DD)
 
-- Refactor of granular makefiles.
+- Refactoring of granular makefiles.
 
 - Refactored and renamed entrypoint into ``autoread_dotenv.entrypoint``.
 
