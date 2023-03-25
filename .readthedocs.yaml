@@ -14,7 +14,7 @@ build:
             # - python -c "import sys;print(sys.path)"
             # - python -m pip install --upgrade pip
             # # Install poetry
-            # - python -m pip install poetry
+            - python -m pip install poetry
             # # Tell poetry to use a virtual environment
             # - poetry config virtualenvs.create false
             # # Install project's dependencies
