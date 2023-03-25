@@ -94,7 +94,7 @@ license = "MIT"
 maintainers = ["Wouter Vanden Hove <wouter@libranet.eu>"]
 homepage = "https://github.com/libranet/autoread_dotenv"
 repository = "https://github.com/libranet/autoread_dotenv"
-documentation = "https://github.com/libranet/autoread_dotenv"
+documentation = "https://autoadd-bindir.readthedocs.io"
 keywords = ["entrypoints", "dotenv", "sitecustomize"]
 classifiers = [
     "Development Status :: 4 - Beta",
