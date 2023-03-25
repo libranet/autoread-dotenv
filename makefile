@@ -18,12 +18,9 @@
 
 PROJECT_NAME='autoread-dotenv'
 
-# Source the env-vars in your .env, if that file exists.
--include .env
-
 # include re-usable makefiles
 -include .make/*.mk
 
 
 .PHONY: install  ## full initial installation
-install: create-dirs symlink-venv-dirs dotenv-install poetry-install
+install: create-dirs symlink-venv-dirs dotenv-install pip-upgrade poetry-install

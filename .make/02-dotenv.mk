@@ -1,5 +1,12 @@
 # See ../makefile
 
+# Source .env.example, because .env might not yet exist.
+-include .env.example
+
+# Source .env, if it exists. This Overrides any env-vars sourced in .env.example.
+-include .env
+
+
 .PHONY: dotenv-install-from-example ## instantiate the dotenv-file (no override)
 # cp --backup  creates .env~, but will overwrite this next time.
 # safest way, is to not overwrite existing .env-files, manual intervention needed.

@@ -7,26 +7,23 @@
 # It's the equivalent of r-strings in Python.  Multiline strings are treated as
 # verbose regular expressions by Black.  Use [ ] to denote a significant space
 # character.
+#
+# poetry install (--with|--without) (docs|dev|ipython|profiling|testing|typing)
 
 [build-system]
-# requires = ["poetry>=1.1", "poetry-dynamic-versioning"]
-# build-backend = "poetry.masonry.api"
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 
 [tool.bandit]
-# bandit does not use this config by default. you need to invoke
-# "bandit --configfile pyproject.toml"
+# bandit does not use this config by default.
+# You need to invoke "bandit --configfile pyproject.toml"
 # see https://github.com/PyCQA/bandit/issues/318"
 baseline = "etc/bandit-baseline.json"
-targets = ["src", "tests"]
-recursive = true
 exclude_dirs = [".venv", "var"]
-#skips = ["*_test.py", "test_*.py"]
-#skips = ["*/test_*.py", ]
-# skips = ["test_*.py"]
+recursive = true
 skips = ["B101"]
+targets = ["src", "tests"]
 
 
 [tool.black]
@@ -36,10 +33,10 @@ include = '\.py$'          # regex -> single-quotes
 
 
 [tool.coverage.html]
-directory = "var/coverage/html" # relative to $CWD
+directory = "var/coverage/html"
 
 [tool.coverage.xml]
-output = "var/coverage/coverage.xml" # relative to $CWD
+output = "var/coverage/coverage.xml"
 
 
 [tool.coverage.report]
@@ -55,7 +52,7 @@ include = ["src/*"]
 
 [tool.coverage.run]
 branch = true
-data_file = "var/coverage/coverage.db" # defaults to .coverage
+data_file = "var/coverage/coverage.db"
 
 
 [tool.flake8]
@@ -67,18 +64,17 @@ per_file_ignores = [
 
 
 [tool.isort]
+include_trailing_comma = true # corresponds to -tc flag
+known_third_party = []
 line_length = 120             # corresponds to -w  flag
 multi_line_output = 3         # corresponds to -m  flag
-include_trailing_comma = true # corresponds to -tc flag
 skip_glob = '^((?!py$).)*$'   # isort all Python files
-known_third_party = []
 
 
 [tool.mypy]
 # cfr https://mypy.readthedocs.io/en/stable/config_file.html#using-a-pyproject-toml-file
 cache_dir = "var/cache/mypy"
 check_untyped_defs = true
-# disallow_untyped_defs = true
 exclude = "^bin/"
 ignore_missing_imports = true
 mypy_path = ["src"]
@@ -87,10 +83,10 @@ mypy_path = ["src"]
 [tool.poetry]
 name = "autoread_dotenv"
 version = "1.1.1a0" # version managed by poetry-dynamic-versioning
+license = "MIT"
 description = "Automatically set env-vars at the beginning of every python-process in your in-project virtualenv."
 readme = "docs/readme.md"
 authors = ["Wouter Vanden Hove <wouter@libranet.eu>"]
-license = "MIT"
 maintainers = ["Wouter Vanden Hove <wouter@libranet.eu>"]
 homepage = "https://github.com/libranet/autoread_dotenv"
 repository = "https://github.com/libranet/autoread_dotenv"
@@ -229,7 +225,6 @@ log_cli_level = "NOTSET"
 filterwarnings = []
 markers = ["unit", "integration"]
 testpaths = ["tests"]
-
 # the junit-report is used to report coverage in gitlab
 addopts = "--color=yes --junit-xml='var/coverage/pytest.xml'"
 
