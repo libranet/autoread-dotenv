@@ -160,7 +160,7 @@ pytest = ">=7.0.1"
 pytest-cov = ">=3.0.0"
 
 [tool.poetry.group.typing.dependencies]
-lxml = ">=4.9.2" # mypy coverage-report
+lxml = { version = ">=4.9.2", optional = true, allow-prereleases = false } # mypy coverage-report
 mypy = ">=0.931"
 
 [tool.poetry.urls]
