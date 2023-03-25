@@ -13,4 +13,4 @@ pip-which:
 
 .PHONY: pip-upgrade ##
 pip-upgrade:
-	 python-m pip install --upgrade pip
+	 python -m pip install --upgrade pip
