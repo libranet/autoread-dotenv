@@ -16,7 +16,7 @@ build:
             # # Install poetry
             - python -m pip install poetry
             # # Tell poetry to use a virtual environment
-            - poetry config virtualenvs.create false ----local
+            - poetry config virtualenvs.create false --local
             # # Install project's dependencies
             # - poetry install --with docs
             - poetry install
