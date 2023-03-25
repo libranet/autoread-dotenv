@@ -8,7 +8,9 @@
 # verbose regular expressions by Black.  Use [ ] to denote a significant space
 # character.
 #
-# poetry install (--with|--without) (docs|dev|ipython|profiling|testing|typing)
+#   > poetry install
+#   > poetry install --only docs
+#   > poetry install (--with|--without) (docs|dev|ipython|profiling|testing|typing)
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -126,8 +128,11 @@ isort = ">=5.10.1"
 pre-commit = ">=2.14.1"
 pre-commit-hooks = ">=4.1.0"
 pylint = ">=2.12.2"
-pyroma = ">=4.2"
 ruff = ">=0.0.254"
+
+[tool.poetry.group.dist.dependencies]
+pyroma = ">=4.2"
+twine = ">=4.0.2"
 
 [tool.poetry.group.docs.dependencies]
 # poetry install --with | --without docs

@@ -1,4 +1,4 @@
-name: Lint
+name: Linting
 
 env:
     POETRY_VERSION: "1.4.0"
@@ -53,6 +53,10 @@ jobs:
             - name: Mypy
               run: |
                   make mypy
+
+            - name: Pyroma
+              run: |
+                  make pyroma
 
             - name: Check poetry
               run: |
