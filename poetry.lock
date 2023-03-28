@@ -25,6 +25,22 @@ files = [
 ]
 
 [[package]]
+name = "argcomplete"
+version = "2.1.2"
+description = "Bash tab completion for argparse"
+category = "dev"
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "argcomplete-2.1.2-py3-none-any.whl", hash = "sha256:4ba9cdaa28c361d251edce884cd50b4b1215d65cdc881bd204426cdde9f52731"},
+    {file = "argcomplete-2.1.2.tar.gz", hash = "sha256:fc82ef070c607b1559b5c720529d63b54d9dcf2dcfc2632b10e6372314a34457"},
+]
+
+[package.extras]
+lint = ["flake8", "mypy"]
+test = ["coverage", "flake8", "mypy", "pexpect", "wheel"]
+
+[[package]]
 name = "astroid"
 version = "2.15.1"
 description = "An abstract syntax tree for Python with inference support."
@@ -240,6 +256,18 @@ typing = ["importlib-metadata (>=5.1)", "mypy (==0.991)", "tomli", "typing-exten
 virtualenv = ["virtualenv (>=20.0.35)"]
 
 [[package]]
+name = "cachetools"
+version = "5.3.0"
+description = "Extensible memoizing collections and decorators"
+category = "dev"
+optional = false
+python-versions = "~=3.7"
+files = [
+    {file = "cachetools-5.3.0-py3-none-any.whl", hash = "sha256:429e1a1e845c008ea6c85aa35d4b98b65d6a9763eeef3e37e92728a12d1de9d4"},
+    {file = "cachetools-5.3.0.tar.gz", hash = "sha256:13dfddc7b8df938c21a940dfa6557ce6e94a2f1cdfa58eb90c805721d58f2c14"},
+]
+
+[[package]]
 name = "certifi"
 version = "2022.12.7"
 description = "Python package for providing Mozilla's CA Bundle."
@@ -338,6 +366,18 @@ python-versions = ">=3.6.1"
 files = [
     {file = "cfgv-3.3.1-py2.py3-none-any.whl", hash = "sha256:c6a0883f3917a037485059700b9e75da2464e6c27051014ad85ba6aaa5884426"},
     {file = "cfgv-3.3.1.tar.gz", hash = "sha256:f5a830efb9ce7a445376bb66ec94c638a9787422f96264c98edc6bdeed8ab736"},
+]
+
+[[package]]
+name = "chardet"
+version = "5.1.0"
+description = "Universal encoding detector for Python 3"
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "chardet-5.1.0-py3-none-any.whl", hash = "sha256:362777fb014af596ad31334fde1e8c327dfdb076e1960d1694662d46a6917ab9"},
+    {file = "chardet-5.1.0.tar.gz", hash = "sha256:0d62712b956bc154f85fb0a266e2a3c5913c2967e00348701b32411d6def31e5"},
 ]
 
 [[package]]
@@ -451,6 +491,24 @@ files = [
     {file = "colorama-0.4.6-py2.py3-none-any.whl", hash = "sha256:4f1d9991f5acc0ca119f9d443620b77f9d6b33703e51011c16baf57afb285fc6"},
     {file = "colorama-0.4.6.tar.gz", hash = "sha256:08695f5cb7ed6e0531a20572697297273c47b8cae5a63ffc6d6ed5c201be6e44"},
 ]
+
+[[package]]
+name = "colorlog"
+version = "6.7.0"
+description = "Add colours to the output of Python's logging module."
+category = "dev"
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "colorlog-6.7.0-py2.py3-none-any.whl", hash = "sha256:0d33ca236784a1ba3ff9c532d4964126d8a2c44f1f0cb1d2b0728196f512f662"},
+    {file = "colorlog-6.7.0.tar.gz", hash = "sha256:bd94bd21c1e13fac7bd3153f4bc3a7dc0eb0974b8bc2fdf1a989e474f6e582e5"},
+]
+
+[package.dependencies]
+colorama = {version = "*", markers = "sys_platform == \"win32\""}
+
+[package.extras]
+development = ["black", "flake8", "mypy", "pytest", "types-colorama"]
 
 [[package]]
 name = "commonmark"
@@ -1428,6 +1486,44 @@ files = [
 setuptools = "*"
 
 [[package]]
+name = "nox"
+version = "2022.11.21"
+description = "Flexible test automation."
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "nox-2022.11.21-py3-none-any.whl", hash = "sha256:0e41a990e290e274cb205a976c4c97ee3c5234441a8132c8c3fd9ea3c22149eb"},
+    {file = "nox-2022.11.21.tar.gz", hash = "sha256:e21c31de0711d1274ca585a2c5fde36b1aa962005ba8e9322bf5eeed16dcd684"},
+]
+
+[package.dependencies]
+argcomplete = ">=1.9.4,<3.0"
+colorlog = ">=2.6.1,<7.0.0"
+packaging = ">=20.9"
+virtualenv = ">=14"
+
+[package.extras]
+tox-to-nox = ["jinja2", "tox"]
+
+[[package]]
+name = "nox-poetry"
+version = "1.0.2"
+description = "nox-poetry"
+category = "dev"
+optional = false
+python-versions = ">=3.7,<4.0"
+files = [
+    {file = "nox-poetry-1.0.2.tar.gz", hash = "sha256:22bc397979393a0283f5161af708a3a430e1c7e0cc2be274c7b27e9e46de0412"},
+    {file = "nox_poetry-1.0.2-py3-none-any.whl", hash = "sha256:a53c36eccbd67f15b5b83dd6562d077dd326c71fd4a942528d8b2299c417dbbe"},
+]
+
+[package.dependencies]
+nox = ">=2020.8.22"
+packaging = ">=20.9"
+tomlkit = ">=0.7"
+
+[[package]]
 name = "packaging"
 version = "23.0"
 description = "Core utilities for Python packages"
@@ -1710,6 +1806,26 @@ typing-extensions = {version = ">=3.10.0", markers = "python_version < \"3.10\""
 [package.extras]
 spelling = ["pyenchant (>=3.2,<4.0)"]
 testutils = ["gitpython (>3)"]
+
+[[package]]
+name = "pyproject-api"
+version = "1.5.1"
+description = "API to interact with the python pyproject.toml based projects"
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "pyproject_api-1.5.1-py3-none-any.whl", hash = "sha256:4698a3777c2e0f6b624f8a4599131e2a25376d90fe8d146d7ac74c67c6f97c43"},
+    {file = "pyproject_api-1.5.1.tar.gz", hash = "sha256:435f46547a9ff22cf4208ee274fca3e2869aeb062a4834adfc99a4dd64af3cf9"},
+]
+
+[package.dependencies]
+packaging = ">=23"
+tomli = {version = ">=2.0.1", markers = "python_version < \"3.11\""}
+
+[package.extras]
+docs = ["furo (>=2022.12.7)", "sphinx (>=6.1.3)", "sphinx-autodoc-typehints (>=1.22,!=1.23.4)"]
+testing = ["covdefaults (>=2.2.2)", "importlib-metadata (>=6)", "pytest (>=7.2.1)", "pytest-cov (>=4)", "pytest-mock (>=3.10)", "virtualenv (>=20.17.1)", "wheel (>=0.38.4)"]
 
 [[package]]
 name = "pyproject-hooks"
@@ -2414,6 +2530,34 @@ files = [
 ]
 
 [[package]]
+name = "tox"
+version = "4.4.8"
+description = "tox is a generic virtualenv management and test command line tool"
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "tox-4.4.8-py3-none-any.whl", hash = "sha256:12fe562b8992ea63b1e92556b7e28600cd1b70c9e01ce08984f60ce2d32c243c"},
+    {file = "tox-4.4.8.tar.gz", hash = "sha256:524640254de8b0f03facbdc6b7c18a35700592e3ada0ede42f509b3504b745ff"},
+]
+
+[package.dependencies]
+cachetools = ">=5.3"
+chardet = ">=5.1"
+colorama = ">=0.4.6"
+filelock = ">=3.10"
+packaging = ">=23"
+platformdirs = ">=3.1.1"
+pluggy = ">=1"
+pyproject-api = ">=1.5.1"
+tomli = {version = ">=2.0.1", markers = "python_version < \"3.11\""}
+virtualenv = ">=20.21"
+
+[package.extras]
+docs = ["furo (>=2022.12.7)", "sphinx (>=6.1.3)", "sphinx-argparse-cli (>=1.11)", "sphinx-autodoc-typehints (>=1.22,!=1.23.4)", "sphinx-copybutton (>=0.5.1)", "sphinx-inline-tabs (>=2022.1.2b11)", "sphinxcontrib-towncrier (>=0.2.1a0)", "towncrier (>=22.12)"]
+testing = ["build[virtualenv] (>=0.10)", "covdefaults (>=2.3)", "devpi-process (>=0.3)", "diff-cover (>=7.5)", "distlib (>=0.3.6)", "flaky (>=3.7)", "hatch-vcs (>=0.3)", "hatchling (>=1.13)", "psutil (>=5.9.4)", "pytest (>=7.2.2)", "pytest-cov (>=4)", "pytest-mock (>=3.10)", "pytest-xdist (>=3.2.1)", "re-assert (>=1.1)", "time-machine (>=2.9)", "wheel (>=0.40)"]
+
+[[package]]
 name = "traitlets"
 version = "5.9.0"
 description = "Traitlets Python configuration system"
@@ -2666,4 +2810,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8.0,<4.0"
-content-hash = "940a1cd3d50f45c26429b2785a770c8b6dd48b12b0350b2cd83c983164034f59"
+content-hash = "0844b5572f84a609a841f2c8a64d108a59ee163ad33634632b6866f386b6c528"
