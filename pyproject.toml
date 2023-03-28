@@ -156,8 +156,12 @@ tuna = ">=0.5.11"
 
 [tool.poetry.group.testing.dependencies]
 # poetry install --with | --without testing
+nox = ">=2022.11.21"
+nox-poetry = ">=1.0.2"
 pytest = ">=7.0.1"
 pytest-cov = ">=3.0.0"
+tox = ">=4.4.8"
+
 
 [tool.poetry.group.typing.dependencies]
 lxml = { version = ">=4.9.2", optional = true, allow-prereleases = false } # mypy coverage-report
@@ -232,6 +236,32 @@ markers = ["unit", "integration"]
 testpaths = ["tests"]
 # the junit-report is used to report coverage in gitlab
 addopts = "--color=yes --junit-xml='var/coverage/pytest.xml'"
+
+
+# [tool.tox.legacy_tox_ini]
+# # envlist = ["py38", "py39", "py310", "py311"]
+# # isolated_build = true
+# toxworkdir = "var/cache/tox"
+
+
+[tool.tox]
+# see https://tox.wiki/en/3.5.0/example/basic.html#pyproject-toml-tox-legacy-ini
+legacy_tox_ini = """
+[tox]
+envlist = py{39,310,311}
+# envlist = [py39, py310, py311]
+isolated_build = True
+toxworkdir = var/cache/tox
+
+[testenv]
+allowlist_externals =
+    make
+    poetry
+skip_install = true
+commands =
+    make install
+    pytest --pdb --exitfirst
+"""
 
 
 [tool.ruff]
