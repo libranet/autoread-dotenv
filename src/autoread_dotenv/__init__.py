@@ -23,6 +23,7 @@ The .env-file must reside in the root of your project-directory.
 
       bin/       -> .venv/bin/
       lib/       -> .venv/lib/
+      lib64/       -> .venv/lib64/
       pyvenv.cfg -> .venv/pyvenv.cfg
 
 """
@@ -30,6 +31,7 @@ The .env-file must reside in the root of your project-directory.
 __version__ = "1.0"
 __copyright__ = "Copyright 2023 Libranet - MIT License."
 
+import os
 import pathlib as pl
 import sys
 import typing as tp
@@ -61,9 +63,11 @@ def entrypoint() -> None:
     """Set environment-variable from the in-project .env-file."""
     dotenv_file = get_dotenv_path()
 
+    enforce_dotenv = bool(os.getenv("ENFORCE_DOTENV", "1"))
+
     if dotenv_file and dotenv_available:
         try:
-            dotenv.load_dotenv(dotenv_file, override=False, interpolate=True, verbose=True)
+            dotenv.load_dotenv(dotenv_file, override=enforce_dotenv, interpolate=True, verbose=True)
         except AttributeError:  # pragma: no cover
             # this happens when django-dotenv was installed
             # while we depend on python-dotenv.
