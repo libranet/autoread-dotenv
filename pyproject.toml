@@ -82,6 +82,10 @@ ignore_missing_imports = true
 mypy_path = ["src"]
 
 
+[tool.nox]
+envdir = "var/cache/nox"
+
+
 [tool.poetry]
 name = "autoread_dotenv"
 version = "1.1.1a0" # version managed by poetry-dynamic-versioning

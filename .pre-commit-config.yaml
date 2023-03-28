@@ -12,16 +12,6 @@
 #   > pre-commit run --all-files
 
 repos:
-  # docs: https://github.com/charliermarsh/ruff-pre-commit
-  - repo: local
-    hooks:
-      - id: ruff
-        name: ruff
-        entry: .venv/bin/ruff
-        language: system
-        args: [--fix, --exit-non-zero-on-fix]
-        types: [python]
-
   # docs: https://black.readthedocs.io/en/stable/integrations/source_version_control.html
   - repo: local
     hooks:
@@ -57,6 +47,16 @@ repos:
         name: mypy
         entry: .venv/bin/mypy
         language: system
+        types: [python]
+
+  # docs: https://github.com/charliermarsh/ruff-pre-commit
+  - repo: local
+    hooks:
+      - id: ruff
+        name: ruff
+        entry: .venv/bin/ruff
+        language: system
+        args: [--fix, --exit-non-zero-on-fix]
         types: [python]
 
   # - repo: local
