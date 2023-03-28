@@ -1,23 +1,5 @@
 # See ../makefile
 
-
-.PHONY: symlink-venv-dirs ## symlinks .venv-dirs to make bin/python work
-symlink-venv-dirs:
-	ln -sf .venv/bin ;\
-	ln -sf .venv/lib ;\
-	ln -sf .venv/lib64 ;\
-	ln -sf .venv/pyvenv.cfg
-
-
-.PHONY: create-dirs ## initialize dir-structure, create dirs
-create-dirs:
-	mkdir -p var ;\
-	mkdir -p var/cache ;\
-	mkdir -p var/cache/vscode ;\
-	mkdir -p var/log ;\
-	mkdir -p var/tmp
-
-
 .PHONY: poetry-install ## run poetry install to create the virtualenv
 poetry-install:
 	poetry install
