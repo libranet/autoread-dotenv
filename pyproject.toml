@@ -88,7 +88,7 @@ envdir = "var/cache/nox"
 
 [tool.poetry]
 name = "autoread_dotenv"
-version = "1.1.1a0" # version managed by poetry-dynamic-versioning
+version = "1.0.1a0"
 license = "MIT"
 description = "Automatically set env-vars at the beginning of every python-process in your in-project virtualenv."
 readme = "docs/readme.md"
@@ -123,11 +123,13 @@ sitecustomize-entrypoints = ">=0.1.0"
 
 [tool.poetry.group.dev.dependencies]
 # poetry install --with | --without dev
-bandit = ">=1.7.5"
+bandit = { extras = ["toml"], version = ">=1.7.4" }
 black = { version = ">=22.1.0", allow-prereleases = true }
 flake8 = ">=4.0.1"
 flake8-bugbear = ">=23.2.13"
+flake8-docstrings = ">=1.6.0"
 flake8-pyproject = ">=1.2.2"
+flake8-rst-docstrings = ">=0.2.5"
 isort = ">=5.10.1"
 pre-commit = ">=2.14.1"
 pre-commit-hooks = ">=4.1.0"
@@ -160,11 +162,13 @@ tuna = ">=0.5.11"
 
 [tool.poetry.group.testing.dependencies]
 # poetry install --with | --without testing
+coverage = { extras = ["toml"], version = ">=6.2" }
 nox = ">=2022.11.21"
 nox-poetry = ">=1.0.2"
 pytest = ">=7.0.1"
+pytest-codecov = ">=0.5.1"
 pytest-cov = ">=3.0.0"
-tox = ">=4.4.8"
+tox = ">=4.4.7"
 
 
 [tool.poetry.group.typing.dependencies]
@@ -181,18 +185,18 @@ mypy = ">=0.931"
 name = "conda-base"
 
 
-[tool.poetry-dynamic-versioning]
-# cfr https://github.com/mtkennerly/poetry-dynamic-versioning
-enable = true
-vcs = "git"
-style = "semver"
+# [tool.poetry-dynamic-versioning]
+# # cfr https://github.com/mtkennerly/poetry-dynamic-versioning
+# enable = true
+# vcs = "git"
+# style = "semver"
 
-[tool.poetry-dynamic-versioning.substitution]
-files = [
-    "src/autoread_dotenv/__init__.py",
-    "src/*/__version__.py",
-    "docs/changes.rst",
-]
+# [tool.poetry-dynamic-versioning.substitution]
+# files = [
+#     "src/autoread_dotenv/__init__.py",
+#     "src/*/__version__.py",
+#     "docs/changes.md",
+# ]
 
 
 [tool.poetry.plugins] # Optional super table
@@ -202,21 +206,20 @@ files = [
 # https://github.com/Darsstar/sitecustomize-entrypoints/blob/main/src/sitecustomize/__init__.py
 autoread_dotenv = "autoread_dotenv:entrypoint"
 
+
 [tool.poetry-release]
-release-replacements = [
-    { file = "docs/changes.rst", pattern = "TBD \\(Unreleased\\)", replace = "{version} \\({date}\\)" },
-    { file = "src/autoread_dotenv/__init__.py", pattern = '__version__ = "{version}"', replace = '__version__ = "{next_version}"' },
-    # { file="CHANGELOG.md", pattern="\\(https://semver.org/spec/v2.0.0.html\\).", replace="(https://semver.org/spec/v20.0.html).\n\n## [Unreleased]"},
-]
+disable-dev = false
 disable-push = false
 disable-tag = false
-disable-dev = false
-release-commit-message = "Release {package_name} {version}"
-post-release-commit-message = "Start next development iteration {next_version}"
-tag-name = "{version}"
-sign-tag = false
 sign-commit = false
-
+sign-tag = false
+post-release-commit-message = "Start next development iteration {next_version}"
+release-commit-message = "Release {package_name} {version}"
+tag-name = "{version}"
+release-replacements = [
+    { file = "docs/changes.md", pattern = "Unreleased \\(YYYY-MM-DD\\)", replace = "{version} ({date})" },
+    { file = "src/autoadd_bindir/__init__.py", pattern = '__version__ = "{version}"', replace = '__version__ = "{next_version}"' },
+]
 
 [tool.pylint.format]
 max-line-length = 120
