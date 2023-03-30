@@ -6,15 +6,15 @@ ruff-which:
 
 
 .PHONY: ruff  ## run ruff on python-files
-ruff:
+ruff: ruff-which
 	- ruff docs/ src/ tests/
 
 
 .PHONY: ruff-check  ## run ruff --check on python-files
-ruff-check:
+ruff-check: ruff-which
 	- ruff check docs/ src/ tests/
 
 
 .PHONY: ruff-fix  ## run ruff --fix on python-files
-ruff-fix:
+ruff-fix: ruff-which
 	- ruff --fix docs/ src/ tests/

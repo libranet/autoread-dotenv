@@ -6,6 +6,6 @@ pyroma-which:
 
 
 .PHONY: pyroma  ## run pyroma
-pyroma:
+pyroma: pyroma-which
 	- pyroma .
 
