@@ -10,6 +10,11 @@ poetry-install-no-dev:
 	poetry install --no-dev
 
 
+.PHONY: poetry-lock ## run poetry lock to update poetry.lock
+poetry-lock:
+	poetry lock
+
+
 .PHONY: poetry-update ## run poetry update to update your project-dependencies
 poetry-update:
 	poetry update
@@ -45,6 +50,6 @@ poetry-export-requirements:
 	poetry export --format requirements.txt --output requirements.txt
 
 
-.PHONY: poetry-export-requirements-docs  ## generate a requirements.txt-file for readthedocs
-poetry-export-requirements-docs:
-	poetry export --format requirements.txt --only=docs --without-hashes --output docs/requirements.txt
+# .PHONY: poetry-export-requirements-docs  ## generate a requirements.txt-file for readthedocs
+# poetry-export-requirements-docs:
+# 	poetry export --format requirements.txt --only=docs --without-hashes --output docs/requirements.txt

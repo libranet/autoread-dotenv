@@ -26,7 +26,7 @@ pytest-pdb-cov: pytest-which
 
 
 .PHONY: pytest-cov-pdb  ## run pytest with the --pdb-flag and generate html-coverage
-pytest-cov-pdb: pytest-which pytest-pdb-cov
+pytest-cov-pdb: pytest-pdb-cov
 
 
 .PHONY: pytest-pdb-cov-lf
