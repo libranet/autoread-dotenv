@@ -1,7 +1,7 @@
 # See ../makefile
 
 # readthedocs already provisions a virtualenv for us.
-# So we only need to install our packags into that virtualenv.
+# So we only need to install our packages into that virtualenv.
 .PHONY: install-rtd  ## installation for readthedocs
 install-rtd:
 	- python -m pip install --upgrade pip

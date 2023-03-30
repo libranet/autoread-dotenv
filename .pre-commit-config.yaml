@@ -69,6 +69,25 @@ repos:
   #         # see https://github.com/PyCQA/bandit/issues/318
   #         args: ["--configfile pyproject.toml", "--baseline etc/bandit-baseline.json"]
 
+  - repo: local
+    hooks:
+      - id: poetry-check
+        name: poetry-check
+        description: run poetry check to validate config
+        entry: poetry check
+        language: python
+        language_version: python3
+        pass_filenames: false
+        files: ^pyproject.toml$
+
+      # - id: poetry-lock
+      #   name: poetry-lock
+      #   description: run poetry lock to update lock file
+      #   entry: poetry lock
+      #   language: python
+      #   language_version: python3
+      #   pass_filenames: false
+
   # The following are all pre-commit-hooks
   # docs: https://github.com/pre-commit/pre-commit-hooks
 
@@ -119,22 +138,3 @@ repos:
         entry: .venv/bin/trailing-whitespace-fixer
         language: system
         types: [text]
-
-  - repo: local
-    hooks:
-      - id: poetry-check
-        name: poetry-check
-        description: run poetry check to validate config
-        entry: poetry check
-        language: python
-        language_version: python3
-        pass_filenames: false
-        files: ^pyproject.toml$
-
-      # - id: poetry-lock
-      #   name: poetry-lock
-      #   description: run poetry lock to update lock file
-      #   entry: poetry lock
-      #   language: python
-      #   language_version: python3
-      #   pass_filenames: false
