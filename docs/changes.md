@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 
 
-## Unreleased (YYYY-MM-DD)
+## 1.0.1 (2023-03-30)
 
 - Refactoring of granular makefiles.
 

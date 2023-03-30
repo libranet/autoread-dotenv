@@ -218,7 +218,7 @@ release-commit-message = "Release {package_name} {version}"
 tag-name = "{version}"
 release-replacements = [
     { file = "docs/changes.md", pattern = "Unreleased \\(YYYY-MM-DD\\)", replace = "{version} ({date})" },
-    { file = "src/autoadd_bindir/__init__.py", pattern = '__version__ = "{version}"', replace = '__version__ = "{next_version}"' },
+    { file = "src/*/__init__.py", pattern = '__version__ = "{version}"', replace = '__version__ = "{next_version}"' },
 ]
 
 [tool.pylint.format]
