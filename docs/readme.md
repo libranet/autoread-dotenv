@@ -1,7 +1,7 @@
 [![Testing](https://img.shields.io/github/actions/workflow/status/libranet/autoread-dotenv/testing.yaml?branch=main&longCache=true&style=flat-square&label=tests&logo=GitHub%20Actions&logoColor=fff")](https://github.com/libranet/autoread-dotenv/actions/workflows/testing.yaml)
 [![Linting](https://img.shields.io/github/actions/workflow/status/libranet/autoread-dotenv/linting.yaml?branch=main&longCache=true&style=flat-square&label=linting&logo=GitHub%20Actions&logoColor=fff")](https://github.com/libranet/autoread-dotenv/actions/workflows/linting.yaml)
 [![Read the Docs](https://readthedocs.org/projects/autoread-dotenv/badge/?version=latest)](https://autoread-dotenv.readthedocs.io/en/latest/)
-[![Codecov](https://codecov.io/gh/libranet/autoread-dotenv/branch/main/graph/badge.svg?token=AFP6UMXEN5)](https://codecov.io/gh/libranet/autoread-dotenv)
+[![Codecov](https://codecov.io/gh/libranet/autoread-dotenv/branch/main/graph/badge.svg?token=QTOWRXGH61)](https://codecov.io/gh/libranet/autoread-dotenv)
 [![PyPi Package](https://img.shields.io/pypi/v/autoread-dotenv?color=%2334D058&label=pypi%20package)](https://pypi.org/project/autoread-dotenv/)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/libranet/autoread-dotenv/blob/main/docs/license.md)
 
