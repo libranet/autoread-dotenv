@@ -48,10 +48,18 @@ git-tmp-clone:
 	@ git clone ${GIT_CLONE_URL} ${CLONE_DIR}
 
 
+.PHONY: git-latest-tag  ## show latest tag
+git-latest-tag:
+	$(eval LATEST_TAG := $(git describe --tags --abbrev=0)) \
+	@ echo -e "Latest tag: ${LATEST_TAG}"
+	export LATEST_TAG
+
+
 .PHONY: publish-to-pypi  ## publish-to-pypi
 publish-to-pypi: git-tmp-clone
 	set -e ; \
-	LATEST_TAG=$$(git describe --tags --abbrev=0)
+	$(eval LATEST_TAG := $(git describe --tags --abbrev=0)) \
+	mkdir -p ${CLONE_DIR}-${LATEST_TAG}
 	cd ${CLONE_DIR}-${LATEST_TAG} && \
 	git fetch --tags && \
 	&& \

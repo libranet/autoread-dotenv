@@ -21,11 +21,14 @@ build-backend = "poetry.core.masonry.api"
 # bandit does not use this config by default.
 # You need to invoke "bandit --configfile pyproject.toml"
 # see https://github.com/PyCQA/bandit/issues/318"
-baseline = "etc/bandit-baseline.json"
+# baseline = "etc/bandit-baseline.json"
 exclude_dirs = [".venv", "var"]
 recursive = true
-skips = ["B101"]
-targets = ["src", "tests"]
+skips = [
+    # see https://bandit.readthedocs.io/en/1.7.3/plugins/index.html#plugin-id-groupings
+    "B101", # assert_used
+]
+targets = ["docs", "src", "tests"]
 
 
 [tool.black]

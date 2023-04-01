@@ -61,4 +61,17 @@ jobs:
             - name: Check poetry
               run: |
                   make poetry-check
+
+            - name: Check poetry lock
+              run: |
                   make poetry-lock-check
+
+            - name: Bandit
+              run: |
+                  make bandit-html
+
+            - name: Upload Bandit Report
+              uses: actions/upload-artifact@v2
+              with:
+                  name: Bandit Report
+                  path: var/html-bandit/index.html
