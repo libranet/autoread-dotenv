@@ -15,7 +15,7 @@ bandit:
 bandit-html:
 	@ mkdir -p var/html-bandit
 	@ echo -e "Bandit-report generated in var/html-bandit/index.html"
-	bin/bandit --config pyproject.toml --recursive . --format html > var/html-bandit/index.html
+	bandit --config pyproject.toml --recursive . --format html > var/html-bandit/index.html
 
 
 .PHONY: bandit-update-baseline  ## update bandit baseline
