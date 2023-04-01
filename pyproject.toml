@@ -26,9 +26,12 @@ exclude_dirs = [".venv", "var"]
 recursive = true
 skips = [
     # see https://bandit.readthedocs.io/en/1.7.3/plugins/index.html#plugin-id-groupings
-    "B101", # assert_used
+    # "B101", # assert_used
 ]
 targets = ["docs", "src", "tests"]
+
+[tool.bandit.assert_used]
+skips = ["*/test_*.py"]
 
 
 [tool.black]

@@ -70,8 +70,10 @@ jobs:
               run: |
                   make bandit-html
 
+            # https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts
             - name: Upload Bandit Report
               uses: actions/upload-artifact@v2
               with:
                   name: Bandit Report
                   path: var/html-bandit/index.html
+                  retention-days: 10

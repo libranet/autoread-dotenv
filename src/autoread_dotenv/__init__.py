@@ -15,6 +15,7 @@ The .env-file must reside in the root of your project-directory.
           bin/
               python
           lib/
+          lib64/
           pyvenv.cfg
 
   We also support toplevel-symlinks to the corresponding .venv-files:
@@ -23,13 +24,14 @@ The .env-file must reside in the root of your project-directory.
 
       bin/       -> .venv/bin/
       lib/       -> .venv/lib/
-      lib64/       -> .venv/lib64/
+      lib64/     -> .venv/lib64/
       pyvenv.cfg -> .venv/pyvenv.cfg
 
 """
 
 __version__ = "1.0.1"
-__copyright__ = "Copyright 2023 Libranet - MIT License."
+__copyright__ = "Copyright 2023 Libranet"
+__license__ = "MIT License"
 
 import os
 import pathlib as pl

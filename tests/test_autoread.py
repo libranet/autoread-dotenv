@@ -26,3 +26,9 @@ def test_autoread_dotenv() -> None:
     entrypoint()
     foo = os.getenv("FOO")
     assert foo == "foo"
+
+
+def test_cancel() -> None:
+    from autoread_dotenv import cancel
+
+    assert cancel() is None
