@@ -23,6 +23,11 @@
     "python.envFile": "${workspaceFolder}/.env",
     "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
     "python.linting.enabled": true,
+    "python.linting.banditArgs": [
+        "--configfile",
+        "${workspaceFolder}/pyproject.toml",
+        "--recursive"
+    ],
     "python.terminal.activateEnvironment": true,
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true,
