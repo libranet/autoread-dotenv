@@ -22,4 +22,4 @@ precommit-run-files: pre-commit-which
 
 .PHONY: precommit-validate-config  ## validate .pre-commit-config.yaml
 precommit-validate-config: pre-commit-which
-        pre-commit validate-config
+	pre-commit validate-config
