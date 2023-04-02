@@ -94,22 +94,27 @@ Attributes
 
    Simple warning-formatting .
 
-   .. py:method:: simple_message(msg, *args, **kwargs)
-      :classmethod:
-
-      Simple warning-message without any traceback-info.
-
-
    .. py:method:: __enter__()
+
+      Enter contextmanager.
 
 
    .. py:method:: __exit__(*args)
+
+      Exit contextmanager.
+
+
+   .. py:method:: simple_message(message, *args, **kwargs)
+      :staticmethod:
+
+      Return a simple warning-message without any traceback-info.
 
 
 
 .. py:function:: get_dotenv_path()
 
    Return the location of the .env for in-project virtualenvs.
+
    Return None of no .env-file is found.
 
 
