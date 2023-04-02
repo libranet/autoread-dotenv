@@ -9,6 +9,12 @@ mypy-which:
 mypy: mypy-which
 	mypy src tests
 
+
 .PHONY: mypy-report ## run mypy with html-reporting
 mypy-report: mypy-which
-	mypy src tests --html-report  var/coverage-mypy/
+	@ mkdir -p var/html/mypy/
+	mypy src tests --html-report var/html/mypy/
+
+
+.PHONY: mypy-html ## alias for mypy-report
+mypy-html: mypy-report

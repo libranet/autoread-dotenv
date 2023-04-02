@@ -7,9 +7,10 @@ sphinx-build-which:
 
 .PHONY: sphinx-docs  ## generate sphinx-docs in var/html-docs
 sphinx-docs: sphinx-build-which
-	sphinx-build -b html -d var/cache/sphinx-doctrees -w var/log/sphinx-build.log docs var/html-docs
-	@echo
-	@echo "Build finished."
+	@ mkdir -p var/html/docs
+	sphinx-build -b html -d var/cache/sphinx-doctrees -w var/log/sphinx-build.log docs var/html/docs
+	@ echo
+	@ echo "Build finished."
 
 
 .PHONY : docs  ## alias for sphinx-docs

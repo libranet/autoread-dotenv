@@ -41,10 +41,12 @@ include = '\.py$'          # regex -> single-quotes
 
 
 [tool.coverage.html]
-directory = "var/coverage/html"
+# directory = "var/coverage/html"
+directory = "var/html/coverage"
 
 [tool.coverage.xml]
-output = "var/coverage/coverage.xml"
+# output = "var/coverage/coverage.xml"
+output = "var/html/coverage/coverage.xml"
 
 
 [tool.coverage.report]
@@ -60,14 +62,16 @@ include = ["src/*"]
 
 [tool.coverage.run]
 branch = true
-data_file = "var/coverage/coverage.db"
+data_file = "var/cache/coverage/coverage.db"
 
 
 [tool.flake8]
 max_line_length = 121
 per_file_ignores = [
     "tests/test_entrypoints.py:B011", # B011: Do not call assert False
-    "__init__.py:F401",               # F401: imported but unused
+    # "__init__.py:F401",               # F401: imported but unused
+    "__init__.py:B028", # B028: No explicit stacklevel argument found.
+
 ]
 
 
@@ -122,14 +126,12 @@ packages = [{ include = "autoread_dotenv", from = "src" }]
 
 
 [tool.poetry.dependencies]
-# These packages are mandatory and form the core of this package’s distribution.
 python = ">=3.8.0,<4.0"
 python-dotenv = ">=1.0.0"
 sitecustomize-entrypoints = ">=0.1.0"
 
 [tool.poetry.group.dev.dependencies]
 # poetry install --with | --without dev
-bandit = { extras = ["toml"], version = ">=1.7.4" }
 black = { version = ">=22.1.0", allow-prereleases = true }
 flake8 = ">=4.0.1"
 flake8-bugbear = ">=23.2.13"
@@ -165,6 +167,11 @@ ipython = ">=8.4.0"
 # poetry install --with | --without profiling
 importtime-waterfall = ">=1.0.0"
 tuna = ">=0.5.11"
+
+[tool.poetry.group.security.dependencies]
+bandit = { extras = ["toml"], version = ">=1.7.4" }
+safety = ">=2.3.5"
+
 
 [tool.poetry.group.testing.dependencies]
 # poetry install --with | --without testing
@@ -248,7 +255,7 @@ filterwarnings = []
 markers = ["unit", "integration"]
 testpaths = ["tests"]
 # the junit-report is used to report coverage in gitlab
-addopts = "--color=yes --junit-xml='var/coverage/pytest.xml'"
+addopts = "--color=yes --junit-xml='var/cache/coverage/pytest.xml'"
 
 
 # [tool.tox.legacy_tox_ini]
