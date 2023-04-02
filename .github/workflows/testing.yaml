@@ -82,8 +82,8 @@ jobs:
               uses: codecov/codecov-action@v3
               with:
                   fail_ci_if_error: false # optional (default = false)
-                  # files: var/coverage/coverage.xml, # optional
-                  directory: var/coverage
+                  # files: var/html/coverage/coverage.xml, # optional
+                  directory: var/html/coverage
                   flags: unittests # optional
                   token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
                   verbose: true # optional (default = false)
