@@ -22,6 +22,7 @@
              bin/
                  python
              lib/
+             lib64/
              pyvenv.cfg
 
      We also support toplevel-symlinks to the corresponding .venv-files:
@@ -30,12 +31,21 @@
 
          bin/       -> .venv/bin/
          lib/       -> .venv/lib/
+         lib64/     -> .venv/lib64/
          pyvenv.cfg -> .venv/pyvenv.cfg
 
 
 
 Package Contents
 ----------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   autoread_dotenv.SimpleWarning
+
 
 
 Functions
@@ -56,21 +66,44 @@ Attributes
 
    autoread_dotenv.__version__
    autoread_dotenv.__copyright__
-   autoread_dotenv.dotenv_available
+   autoread_dotenv.__license__
+   autoread_dotenv.DOTENV_INSTALLED
 
 
 .. py:data:: __version__
-   :value: '1.0'
+   :value: '1.0.1'
 
 
 
 .. py:data:: __copyright__
-   :value: 'Copyright 2023 Libranet - MIT License.'
+   :value: 'Copyright 2023 Libranet'
 
 
 
-.. py:data:: dotenv_available
+.. py:data:: __license__
+   :value: 'MIT License'
+
+
+
+.. py:data:: DOTENV_INSTALLED
    :value: 1
+
+
+
+.. py:class:: SimpleWarning
+
+   Simple warning-formatting .
+
+   .. py:method:: simple_message(msg, *args, **kwargs)
+      :classmethod:
+
+      Simple warning-message without any traceback-info.
+
+
+   .. py:method:: __enter__()
+
+
+   .. py:method:: __exit__(*args)
 
 
 

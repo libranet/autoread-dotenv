@@ -37,43 +37,73 @@ import os
 import pathlib as pl
 import sys
 import typing as tp
+import warnings
 
 try:
     import dotenv
 
-    dotenv_available = 1  # pylint: disable=invalid-name
+    DOTENV_INSTALLED = 1
 except ImportError:  # pragma: no cover
-    dotenv_available = 0  # pylint: disable=invalid-name
+    DOTENV_INSTALLED = 0
 
 
-def get_dotenv_path() -> tp.Optional[pl.Path]:
+class SimpleWarning:
+    """Simple warning-formatting ."""
+
+    def __init__(self) -> None:
+        """Initialize class."""
+        self.old_format: tp.Optional[tp.Callable] = warnings.formatwarning
+
+    def __enter__(self) -> "SimpleWarning":
+        """Enter contextmanager."""
+        warnings.formatwarning = self.simple_message  # type: ignore
+        return self
+
+    def __exit__(self, *args) -> None:
+        """Exit contextmanager."""
+        warnings.formatwarning = self.old_format  # type: ignore
+
+    @staticmethod
+    def simple_message(message: str, *args, **kwargs) -> str:  # pylint: disable=unused-argument
+        """Return a simple warning-message without any traceback-info."""
+        return f"Warning from {__name__}: {message}\n"
+
+
+def get_dotenv_path() -> pl.Path:
     """Return the location of the .env for in-project virtualenvs.
+
     Return None of no .env-file is found.
     """
     # sys.prefix is <project-root>/.venv or <project-root> when using toplevel symlinks to .venv
     prefix = pl.Path(sys.prefix)
     base_dir = prefix.parent if prefix.name == ".venv" else prefix
     dotenv_file = base_dir / ".env"
-
-    if not dotenv_file.exists():  # pragma: no cover
-        return None
-
     return dotenv_file
 
 
 def entrypoint() -> None:
     """Set environment-variable from the in-project .env-file."""
-    dotenv_file = get_dotenv_path()
+    dotenv_file: pl.Path = get_dotenv_path()
 
-    enforce_dotenv = bool(os.getenv("ENFORCE_DOTENV", "1"))
+    if not DOTENV_INSTALLED:  # pragma: no cover
+        with SimpleWarning():
+            warnings.warn("Module 'dotenv' not found. Please pip install 'python-dotenv'.")
+        return
 
-    if dotenv_file and dotenv_available:
-        try:
-            dotenv.load_dotenv(dotenv_file, override=enforce_dotenv, interpolate=True, verbose=True)
-        except AttributeError:  # pragma: no cover
-            # this happens when django-dotenv was installed
-            # while we depend on python-dotenv.
-            pass
+    if not dotenv_file.exists():  # pragma: no cover
+        with SimpleWarning():
+            warnings.warn(f"{dotenv_file} does not yet exist, please create it.")
+        return
+
+    enforce_dotenv: bool = bool(os.getenv("ENFORCE_DOTENV", "1"))
+
+    try:
+        dotenv.load_dotenv(dotenv_file, override=enforce_dotenv, interpolate=True, verbose=True)
+    except AttributeError:  # pragma: no cover
+        warnings.warn(
+            "Module 'dotenv.load_dotenv' not found."
+            + "This occurs when django-dotenv was installed while we depend on python-dotenv."
+        )
 
 
 def cancel():

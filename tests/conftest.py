@@ -38,7 +38,7 @@ Usage:
   > pytest tests/foo/test_bar*
 
   # run only specific tests inside specific modules
-  > pytest  tests/test_foo/test_bar*::*test_baz
+  > pytest tests/test_foo/test_bar*::*test_baz
 
   # only run tests with a certain marker
   > pytest -v -m "integration"

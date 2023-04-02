@@ -66,12 +66,18 @@ data_file = "var/cache/coverage/coverage.db"
 
 
 [tool.flake8]
+# Google Python style is not RST until after processed by Napoleon
+# See https://github.com/peterjc/flake8-rst-docstrings/issues/17
+extend-ignore = ["RST201", "RST203", "RST213", "RST301"]
+ignore = [
+    "D103", # Missing docstring in public function
+    "B028", # No explicit stacklevel argument found.
+    "W503", # incompatible with black, see https://github.com/psf/black/issues/52
+]
 max_line_length = 121
 per_file_ignores = [
     "tests/test_entrypoints.py:B011", # B011: Do not call assert False
     # "__init__.py:F401",               # F401: imported but unused
-    "__init__.py:B028", # B028: No explicit stacklevel argument found.
-
 ]
 
 
@@ -246,6 +252,7 @@ good-names = [
 disable = [
     "C0116", # missing-function-docstring
 ]
+
 
 [tool.pytest.ini_options]
 cache_dir = "var/cache/pytest"
