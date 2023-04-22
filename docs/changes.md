@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 ## Unreleased (YYYY-MM-DD)
 
 
+- Add py.typed file in package.
+
 - Add security-checks with ``bandit``.
 
 
