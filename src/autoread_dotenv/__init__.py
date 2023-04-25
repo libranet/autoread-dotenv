@@ -83,8 +83,6 @@ def get_dotenv_path() -> pl.Path:
 
 def entrypoint() -> None:
     """Set environment-variable from the in-project .env-file."""
-    dotenv_file: pl.Path = get_dotenv_path()
-
     if not DOTENV_INSTALLED:  # pragma: no cover
         with SimpleWarning():
             warnings.warn("Module 'dotenv' not found. Please pip install 'python-dotenv'.")
@@ -94,7 +92,8 @@ def entrypoint() -> None:
         with SimpleWarning():
             warnings.warn(f"{dotenv_file} does not yet exist, please create it.")
         return
-
+        
+    dotenv_file: pl.Path = get_dotenv_path()
     enforce_dotenv: bool = bool(os.getenv("ENFORCE_DOTENV", "1"))
 
     try:
