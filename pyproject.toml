@@ -110,9 +110,9 @@ description = "Automatically set env-vars at the beginning of every python-proce
 readme = "docs/readme.md"
 authors = ["Wouter Vanden Hove <wouter@libranet.eu>"]
 maintainers = ["Wouter Vanden Hove <wouter@libranet.eu>"]
-homepage = "https://github.com/libranet/autoread_dotenv"
-repository = "https://github.com/libranet/autoread_dotenv"
-documentation = "https://autoadd-bindir.readthedocs.io"
+homepage = "https://github.com/libranet/autoread-dotenv"
+repository = "https://github.com/libranet/autoread-dotenv"
+documentation = "https://autoread-dotenv.readthedocs.io"
 keywords = ["entrypoints", "dotenv", "sitecustomize"]
 classifiers = [
     "Development Status :: 4 - Beta",
@@ -134,69 +134,66 @@ packages = [{ include = "autoread_dotenv", from = "src" }]
 [tool.poetry.dependencies]
 python = ">=3.8.0,<4.0"
 python-dotenv = ">=1.0.0"
-sitecustomize-entrypoints = ">=0.1.0"
+sitecustomize-entrypoints = ">=1.1.0"
 
 [tool.poetry.group.dev.dependencies]
-# poetry install --with | --without dev
-black = { version = ">=22.1.0", allow-prereleases = true }
-flake8 = ">=4.0.1"
-flake8-bugbear = ">=23.2.13"
-flake8-docstrings = ">=1.6.0"
-flake8-pyproject = ">=1.2.2"
-flake8-rst-docstrings = ">=0.2.5"
-isort = ">=5.10.1"
-pre-commit = ">=2.14.1"
-pre-commit-hooks = ">=4.1.0"
-pylint = ">=2.12.2"
-ruff = ">=0.0.254"
+black = { version = ">=22.1", allow-prereleases = true }
+flake8 = ">=4.0"
+flake8-bugbear = ">=23.2"
+flake8-docstrings = ">=1.6"
+flake8-pyproject = ">=1.2"
+flake8-rst-docstrings = ">=0.2"
+isort = ">=5.10"
+pre-commit = ">=2.14"
+pre-commit-hooks = ">=4.1"
+pylint = ">=2.12"
+ruff = ">=0.0"
 
 [tool.poetry.group.dist.dependencies]
 pyroma = ">=4.2"
-twine = ">=4.0.2"
+twine = ">=4.0"
 
 [tool.poetry.group.docs.dependencies]
-# poetry install --with | --without docs
-autoapi = ">=2.0.1"
-markupsafe = ">=2.1.2"
-myst-parser = ">=1.0.0"
-recommonmark = ">=0.7.1"
-Sphinx = ">=4.4.0"
-sphinx-autoapi = ">=1.8.4"
-sphinx-rtd-theme = ">=1.0.0"
+autoapi = ">=2.0"
+markupsafe = ">=2.1"
+myst-parser = ">=1.0"
+recommonmark = ">=0.7"
+Sphinx = ">=4.4"
+sphinx-autoapi = ">=1.8"
+sphinx-rtd-theme = ">=1.0"
 
 [tool.poetry.group.ipython.dependencies]
-# poetry install --with | --without ipython
-ipdb = ">=0.13.9"
-ipython = ">=8.4.0"
+ipdb = ">=0.13"
+ipython = ">=8.4"
 
 [tool.poetry.group.profiling.dependencies]
-# poetry install --with | --without profiling
-importtime-waterfall = ">=1.0.0"
-tuna = ">=0.5.11"
+importtime-waterfall = ">=1.0"
+tuna = ">=0.5"
 
 [tool.poetry.group.security.dependencies]
-bandit = { extras = ["toml"], version = ">=1.7.4" }
-safety = ">=2.3.5"
+bandit = { extras = ["toml"], version = ">=1.7" }
+safety = ">=2.3"
 
 
 [tool.poetry.group.testing.dependencies]
-# poetry install --with | --without testing
 coverage = { extras = ["toml"], version = ">=6.2" }
-nox = ">=2022.11.21"
-nox-poetry = ">=1.0.2"
-pytest = ">=7.0.1"
-pytest-codecov = ">=0.5.1"
-pytest-cov = ">=3.0.0"
-tox = ">=4.4.7"
+hypothesis = ">=6.72"
+nox = ">=2022.11"
+nox-poetry = ">=1.0"
+pytest = ">=7.0"
+pytest-codecov = ">=0.5"
+pytest-cov = ">=3.0"
+tox = ">=4.4"
 
 
 [tool.poetry.group.typing.dependencies]
-lxml = { version = ">=4.9.2", optional = true, allow-prereleases = false } # mypy coverage-report
-mypy = ">=0.931"
+lxml = { version = ">=4.9", optional = true, allow-prereleases = false } # mypy coverage-report
+mypy = ">=0.9"
 
 [tool.poetry.urls]
-"Bug Tracker" = "https://github.com/Libranet/autoread_dotenv/issues"
-
+"Bug Tracker" = "https://github.com/libranet/autoread-dotenv/issues"
+repository = "https://github.com/libranet/autoread-dotenv"
+Docs = "https://autoread-dotenv.readthedocs.io"
 
 [tool.poetry2conda]
 # https://pypi.org/project/poetry2conda/

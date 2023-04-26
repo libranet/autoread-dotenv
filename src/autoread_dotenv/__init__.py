@@ -69,32 +69,36 @@ class SimpleWarning:
         return f"Warning from {__name__}: {message}\n"
 
 
-def get_dotenv_path() -> pl.Path:
+def get_dotenv_path() -> tp.Optional[pl.Path]:
     """Return the location of the .env for in-project virtualenvs.
 
-    Return None of no .env-file is found.
+    Return None of the .env-file does not exist.
     """
     # sys.prefix is <project-root>/.venv or <project-root> when using toplevel symlinks to .venv
     prefix = pl.Path(sys.prefix)
     base_dir = prefix.parent if prefix.name == ".venv" else prefix
     dotenv_file = base_dir / ".env"
-    return dotenv_file
+
+    if dotenv_file.exists():
+        return dotenv_file
+
+    return None
 
 
 def entrypoint() -> None:
     """Set environment-variable from the in-project .env-file."""
+    dotenv_file: tp.Optional[pl.Path] = get_dotenv_path()
+    enforce_dotenv: bool = bool(os.getenv("ENFORCE_DOTENV", "1"))
+
     if not DOTENV_INSTALLED:  # pragma: no cover
         with SimpleWarning():
             warnings.warn("Module 'dotenv' not found. Please pip install 'python-dotenv'.")
         return
 
-    if not dotenv_file.exists():  # pragma: no cover
+    if not dotenv_file:  # pragma: no cover
         with SimpleWarning():
             warnings.warn(f"{dotenv_file} does not yet exist, please create it.")
         return
-        
-    dotenv_file: pl.Path = get_dotenv_path()
-    enforce_dotenv: bool = bool(os.getenv("ENFORCE_DOTENV", "1"))
 
     try:
         dotenv.load_dotenv(dotenv_file, override=enforce_dotenv, interpolate=True, verbose=True)
@@ -103,29 +107,3 @@ def entrypoint() -> None:
             "Module 'dotenv.load_dotenv' not found."
             + "This occurs when django-dotenv was installed while we depend on python-dotenv."
         )
-
-
-def cancel():
-    """No-op function that can be used the cancel a registered entrypoint.
-
-    Imagine you have multiple sitecustomize-entrypoints. If these entrypoints
-    are registered via third-party packages, you cannot control the order of execution.
-
-    Now suppose some of these entrypoints need an environment-variable that first need to be set
-    by ``autoread_dotenv`` needs to be executed before the others
-
-    entrypoint 1:  foo.needs_envvar:bar
-    entrypoint 2:  autoread_dotenv.autoread:autoread_dotenv
-
-    in your project's pyproject.toml:
-
-    [tool.poetry.plugins."sitecustomize"]
-
-    # cancel the first registration using the original name
-    autoread_dotenv = "autoread_dotenv.autoread:cancel"
-
-    # re-register the same function under different name
-    zz_autoread_dotenv = "autoread_dotenv.autoread:autoread_dotenv"
-
-    """
-    pass  # pylint: disable=unnecessary-pass

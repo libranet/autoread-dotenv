@@ -82,9 +82,3 @@ def test_autoread_dotenv_not_enforce_dotenv() -> None:
     entrypoint()
     foo_value = os.getenv("FOO")
     assert foo_value == "bar"  # value in .env is ignored
-
-
-def test_cancel() -> None:
-    from autoread_dotenv import cancel
-
-    assert cancel() is None

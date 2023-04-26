@@ -10,6 +10,8 @@ All notable changes to this project will be documented in this file.
 
 - Add security-checks with ``bandit``.
 
+- Remove function ``autoread_dotenv.cancel``, since it has been been moved ``sitecustomize-entrypoints`` v1.1.0?
+
 
 ## 1.0.1 (2023-03-30)
 
@@ -17,7 +19,7 @@ All notable changes to this project will be documented in this file.
 
 - Refactored and renamed entrypoint into ``autoread_dotenv.entrypoint``.
 
-- Add boilerplate-files to comply with Github's [_Community Standards_](https://github.com/libranet/autoadd-bindir/community)
+- Add boilerplate-files to comply with Github's [_Community Standards_](https://github.com/libranet/autoread-dotenv/community)
 
 - Test releasing via ``poetry-release``.
 
