@@ -12,13 +12,13 @@
 Install via pip:
 
 ```bash
-> bin/pip install autoread_dotenv
+> bin/pip install autoread-dotenv
 ```
 
 Or add to your poetry-based project:
 
 ```bash
-> poetry add autoread_dotenv
+> poetry add autoread-dotenv
 ```
 
 
