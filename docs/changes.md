@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 
 
+## Unreleased (YYYY-MM-DD)
+
+ - No changes yet?
+
+
 ## 1.0.2 (2023-04-30)
 
 - Add py.typed file in package.
