@@ -29,7 +29,7 @@ The .env-file must reside in the root of your project-directory.
 
 """
 
-__version__ = "1.0.1"
+__version__ = "1.0.2"
 __copyright__ = "Copyright 2023 Libranet"
 __license__ = "MIT License"
 

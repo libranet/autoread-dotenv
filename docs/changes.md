@@ -5,12 +5,15 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased (YYYY-MM-DD)
 
-
 - Add py.typed file in package.
 
 - Add security-checks with ``bandit``.
 
 - Remove function ``autoread_dotenv.cancel``, since it has been been moved ``sitecustomize-entrypoints`` v1.1.0?
+
+- Remove range-pinning ``python = ">=3.8.0,<4.0"``, only specifybotton-range ``">=3.8.0"``
+
+- Remove rang-pinned dependencies ``tox``, ``nox``.          .
 
 
 ## 1.0.1 (2023-03-30)
