@@ -104,7 +104,7 @@ envdir = "var/cache/nox"
 
 [tool.poetry]
 name = "autoread_dotenv"
-version = "1.0.2"
+version = "1.0.3a0"
 license = "MIT"
 description = "Automatically set env-vars at the beginning of every python-process in your in-project virtualenv."
 readme = "docs/readme.md"
