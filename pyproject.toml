@@ -132,7 +132,8 @@ packages = [{ include = "autoread_dotenv", from = "src" }]
 
 
 [tool.poetry.dependencies]
-python = ">=3.8.0,<4.0"
+# python = ">=3.8.0,<4.0"
+python = ">=3.8.0"
 python-dotenv = ">=1.0.0"
 sitecustomize-entrypoints = ">=1.1.0"
 
@@ -178,12 +179,12 @@ safety = ">=2.3"
 [tool.poetry.group.testing.dependencies]
 coverage = { extras = ["toml"], version = ">=6.2" }
 hypothesis = ">=6.72"
-nox = ">=2022.11"
-nox-poetry = ">=1.0"
+# nox = ">=2022.11"
+# nox-poetry = ">=1.0"
 pytest = ">=7.0"
 pytest-codecov = ">=0.5"
 pytest-cov = ">=3.0"
-tox = ">=4.4"
+# tox = ">=4.4"
 
 
 [tool.poetry.group.typing.dependencies]
