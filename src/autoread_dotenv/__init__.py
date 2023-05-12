@@ -79,7 +79,7 @@ def get_dotenv_path() -> tp.Optional[pl.Path]:
     base_dir = prefix.parent if prefix.name == ".venv" else prefix
     dotenv_file = base_dir / ".env"
 
-    if dotenv_file.exists():
+    if dotenv_file.is_file():
         return dotenv_file
 
     return None
