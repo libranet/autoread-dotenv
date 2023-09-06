@@ -23,4 +23,4 @@ PROJECT_NAME='autoread-dotenv'
 
 
 .PHONY: install  ## full initial installation
-install: create-dirs symlink-venv-dirs dotenv-install pip-upgrade poetry-install
+install: create-dirs symlink-venv-dirs dotenv-install poetry-install pip-upgrade
