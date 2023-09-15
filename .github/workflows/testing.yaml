@@ -46,7 +46,7 @@ jobs:
                     - "3.9"
                     - "3.10"
                     - "3.11"
-                    - "3.12-dev"
+                    # - "3.12-dev"
                 include:
                     # Run 3.12 tests with relaxed constraints
                     - python-version: "3.12-dev"
@@ -79,7 +79,7 @@ jobs:
 
             # https://github.com/codecov/codecov-action
             - name: "Upload coverage to Codecov"
-              uses: codecov/codecov-action@v4
+              uses: codecov/codecov-action@v3
               with:
                   fail_ci_if_error: false # optional (default = false)
                   # files: var/html/coverage/coverage.xml, # optional
