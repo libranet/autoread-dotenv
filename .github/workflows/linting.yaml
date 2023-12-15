@@ -72,7 +72,7 @@ jobs:
 
             # https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts
             - name: Upload Bandit Report
-              uses: actions/upload-artifact@v3
+              uses: actions/upload-artifact@v4
               with:
                   name: Bandit Report
                   path: var/html-bandit/index.html
