@@ -85,10 +85,17 @@ def get_dotenv_path() -> tp.Optional[pl.Path]:
     return None
 
 
+def str_to_bool(value: str) -> bool:
+    """Convert a string value to a boolean."""
+    if value.lower() in {"1", "true", "yes"}:
+        return True
+    return False
+
+
 def entrypoint() -> None:
     """Set environment-variable from the in-project .env-file."""
     dotenv_file: tp.Optional[pl.Path] = get_dotenv_path()
-    enforce_dotenv: bool = bool(os.getenv("ENFORCE_DOTENV", "1"))
+    enforce_dotenv: bool = str_to_bool(os.getenv("AUTOREAD_ENFORCE_DOTENV", "1"))
 
     if not DOTENV_INSTALLED:  # pragma: no cover
         with SimpleWarning():

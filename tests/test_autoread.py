@@ -31,9 +31,9 @@ def test_autoread_dotenv(monkeypatch) -> None:
 
 
 def test_autoread_dotenv_enforce_dotenv(monkeypatch) -> None:
-    from autoread_dotenv import entrypoint
+    from autoread_dotenv import entrypoint, str_to_bool
 
-    enforce_dotenv = bool(os.getenv("ENFORCE_DOTENV", "1"))
+    enforce_dotenv = str_to_bool(os.getenv("AUTOREAD_ENFORCE_DOTENV", "1"))
     assert enforce_dotenv is True
 
     # initially already set in .env & loaded via sitecustomize
@@ -54,13 +54,13 @@ def test_autoread_dotenv_enforce_dotenv(monkeypatch) -> None:
 
 
 def test_autoread_dotenv_not_enforce_dotenv() -> None:
-    from autoread_dotenv import entrypoint
+    from autoread_dotenv import entrypoint, str_to_bool
 
     # existing env-vars will now not be overriden by anything set in the .env
-    # monkeypatch.setenv("ENFORCE_DOTENV", "")
-    os.environ["ENFORCE_DOTENV"] = ""
+    # monkeypatch.setenv("AUTOREAD_ENFORCE_DOTENV", "")
+    os.environ["AUTOREAD_ENFORCE_DOTENV"] = ""
 
-    enforce_dotenv = bool(os.getenv("ENFORCE_DOTENV", "1"))
+    enforce_dotenv = str_to_bool(os.getenv("AUTOREAD_ENFORCE_DOTENV", "1"))
     assert enforce_dotenv is False
 
     # initially already set in .env & loaded via sitecustomize

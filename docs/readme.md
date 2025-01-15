@@ -41,6 +41,12 @@ Sitecustomize and all its registered entrypoints will be executed at the start o
 For more information, please see [sitecustomize-entrypoints](http://pypi.python.org/pypi/sitecustomize-entrypoints)
 
 
+## Avoid overriding existing environments variables
+
+By default, your .env-file read by ``autoread-dotenv`` will override any pre-existing environment variables.
+You can avoid this behaviour by setting ``AUTOREAD_ENFORCE_DOTENV=0``.
+
+
 ## Compatibility
 
  [![Python Version](https://img.shields.io/pypi/pyversions/autoread-dotenv?:alt:PyPI-PythonVersion)](https://pypi.org/project/autoread-dotenv/)

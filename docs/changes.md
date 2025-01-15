@@ -3,9 +3,11 @@
 All notable changes to this project will be documented in this file.
 
 
-## Unreleased (YYYY-MM-DD)
+## 1.0.3 (2025-01-15)
 
- - No changes yet?
+- Rename environment-variable ``ENFORCE_DOTENV`` into ``AUTOREAD_AUTOREAD_ENFORCE_DOTENV``.
+
+- Fix string to bool conversion when "AUTOREAD_AUTOREAD_ENFORCE_DOTENV" env-variable is set.
 
 
 ## 1.0.2 (2023-04-30)

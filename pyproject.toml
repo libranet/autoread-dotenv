@@ -36,16 +36,14 @@ skips = ["*/test_*.py"]
 
 [tool.black]
 line-length = 120
-target_version = ["py310"]
-include = '\.py$'          # regex -> single-quotes
+target-version = ["py310"]
+include = '\.py$'  # regex -> single-quotes
 
 
 [tool.coverage.html]
-# directory = "var/coverage/html"
 directory = "var/html/coverage"
 
 [tool.coverage.xml]
-# output = "var/coverage/coverage.xml"
 output = "var/html/coverage/coverage.xml"
 
 
@@ -104,7 +102,7 @@ envdir = "var/cache/nox"
 
 [tool.poetry]
 name = "autoread_dotenv"
-version = "1.0.3a0"
+version = "1.0.3"
 license = "MIT"
 description = "Automatically set env-vars at the beginning of every python-process in your in-project virtualenv."
 readme = "docs/readme.md"

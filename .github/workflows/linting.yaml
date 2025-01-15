@@ -1,7 +1,7 @@
 name: Linting
 
 env:
-    POETRY_VERSION: "1.4.0"
+    POETRY_VERSION: "1.8.4"
 
 on:
     pull_request:
