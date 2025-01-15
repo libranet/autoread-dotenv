@@ -118,6 +118,7 @@ classifiers = [
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.10",
@@ -143,27 +144,31 @@ flake8-docstrings = ">=1.6"
 flake8-pyproject = ">=1.2"
 flake8-rst-docstrings = ">=0.2"
 isort = ">=5.10"
-pre-commit = ">=2.14"
-pre-commit-hooks = ">=4.1"
 pylint = ">=2.12"
 ruff = ">=0.0"
 
-[tool.poetry.group.dist.dependencies]
-pyroma = ">=4.2"
-twine = ">=4.0"
+# [tool.poetry.group.dist.dependencies]
+# pyroma = ">=4.2"
+# twine = ">=4.0"
 
 [tool.poetry.group.docs.dependencies]
 autoapi = ">=2.0"
 markupsafe = ">=2.1"
-myst-parser = ">=1.0"
+# myst-parser = ">=3.10"
 recommonmark = ">=0.7"
-Sphinx = ">=4.4"
+sphinx = ">=4.4,<5.0"
 sphinx-autoapi = ">=1.8"
 sphinx-rtd-theme = ">=1.0"
+# Work-around https://github.com/pypi/warehouse/issues/15749
+docutils = "!=0.21"
 
 [tool.poetry.group.ipython.dependencies]
 ipdb = ">=0.13"
 ipython = ">=8.4"
+
+[tool.poetry.group.precommit.dependencies]
+pre-commit = ">=2.14"
+pre-commit-hooks = ">=4.1"
 
 [tool.poetry.group.profiling.dependencies]
 importtime-waterfall = ">=1.0"
@@ -176,12 +181,9 @@ safety = ">=2.3"
 [tool.poetry.group.testing.dependencies]
 coverage = { extras = ["toml"], version = ">=6.2" }
 hypothesis = ">=6.72"
-# nox = ">=2022.11"
-# nox-poetry = ">=1.0"
 pytest = ">=7.0"
 pytest-codecov = ">=0.5"
 pytest-cov = ">=3.0"
-# tox = ">=4.4"
 
 [tool.poetry.group.typing.dependencies]
 lxml = { version = ">=4.9", optional = true, allow-prereleases = false } # mypy coverage-report
