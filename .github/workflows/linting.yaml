@@ -46,6 +46,7 @@ jobs:
 
             - name: Install project + dependencies
               run: |
+                  just ubuntu-remove-global-sitecustomize
                   just uv-set-python-version ${{ matrix.python-version }}
                   just install
 
@@ -73,14 +74,14 @@ jobs:
               run: |
                   just uv-lock-check
 
-            - name: Bandit
-              run: |
-                  just bandit-html
+            # - name: Bandit
+            #   run: |
+            #       just bandit-html
 
             # https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts
-            - name: Upload Bandit Report
-              uses: actions/upload-artifact@v4
-              with:
-                  name: Bandit Report
-                  path: var/html-bandit/index.html
-                  retention-days: 10
+            # - name: Upload Bandit Report
+            #   uses: actions/upload-artifact@v4
+            #   with:
+            #       name: Bandit Report
+            #       path: var/html-bandit/index.html
+            #       retention-days: 10

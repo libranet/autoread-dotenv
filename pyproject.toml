@@ -50,7 +50,6 @@ dependencies = [
 ]
 
 [dependency-groups]
-
 dev = [
     "autoread-dotenv>=1.0.3",
     "pylint>=3.1.0",
@@ -66,6 +65,11 @@ packaging = [
 pre-commit = [
     "pre-commit>=3.5",  # 3.5 still supports python3.8
     "pre-commit-hooks>=5.0.0",
+]
+security = [
+    "bandit>=1.7",
+    #bandit = { extras = ["toml"], version = ">=1.7" }
+    "safety>=2.3",
 ]
 testing = [
     "pytest>=8.1.1",

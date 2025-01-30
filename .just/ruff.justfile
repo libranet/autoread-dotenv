@@ -2,7 +2,8 @@
 
 
 # display absolute path to the executable
-RUFF_EXE := `which ruff || true`
+# RUFF_EXE := `which ruff || true`
+RUFF_EXE := which('ruff')
 
 
 # show which ruff is used

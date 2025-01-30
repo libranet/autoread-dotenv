@@ -78,6 +78,7 @@ jobs:
 
             - name: Install project + dependencies
               run: |
+                  just ubuntu-remove-global-sitecustomize
                   just uv-set-python-version ${{ matrix.python-version }}
                   just install
 
