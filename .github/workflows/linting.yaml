@@ -32,7 +32,7 @@ jobs:
 
             - name: Install just
               run: |
-                  curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s --  --to ~/bin
+                  curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to /usr/local/bin
                   which just
                   just --version
 
@@ -42,39 +42,39 @@ jobs:
 
             - name: Install
               run: |
-                  make install
+                  just install
 
             - name: Flake8
               run: |
-                  make flake8
+                  just flake8
 
             - name: Ruff
               run: |
-                  make ruff-check
+                  just ruff-check
 
             - name: Pylint
               run: |
-                  make pylint
+                  just pylint
 
             - name: Mypy
               run: |
-                  make mypy
+                  just mypy
 
             - name: Pyroma
               run: |
-                  make pyroma
+                  just pyroma
 
             - name: Check poetry
               run: |
-                  make poetry-check
+                  just poetry-check
 
             - name: Check poetry lock
               run: |
-                  make poetry-lock-check
+                  just poetry-lock-check
 
             - name: Bandit
               run: |
-                  make bandit-html
+                  just bandit-html
 
             # https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts
             - name: Upload Bandit Report
