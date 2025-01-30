@@ -57,11 +57,11 @@ dev = [
     "ruff>=0.8.6",
 ]
 ipython = [
-    "ipython>=8.31.0",
+    "ipython>=8.0",
     "rich>=13.9.4",
 ]
 pre-commit = [
-    "pre-commit>=4.0.1",
+    "pre-commit>=3.5",
     "pre-commit-hooks>=5.0.0",
 ]
 
