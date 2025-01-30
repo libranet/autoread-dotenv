@@ -42,11 +42,11 @@ jobs:
               run: |
                   just install
 
-            - name: Flake8
+            - name: Ruff format
               run: |
-                  just flake8
+                  just ruff-format
 
-            - name: Ruff
+            - name: Ruff check
               run: |
                   just ruff-check
 
