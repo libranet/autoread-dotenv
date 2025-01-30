@@ -9,6 +9,7 @@
 #
 #   > just install
 #   > uv sync
+#   > uv sync --all-groups
 #   > uv sync --with <groupname>
 
 
@@ -24,7 +25,7 @@ description = "Automatically set env-vars at the beginning of every python-proce
 readme = "docs/readme.md"
 authors = [{ name = "Wouter Vanden Hove", email = "wouter@libranet.eu" }]
 maintainers = [{ name = "Wouter Vanden Hove", email = "wouter@libranet.eu" }]
-requires-python = ">=3.10,<4.0"
+requires-python = ">=3.8"
 license = { file = "license.md" }
 keywords = ["entrypoints", "dotenv", "sitecustomize"]
 classifiers = [
@@ -80,60 +81,6 @@ repository = "https://github.com/libranet/autoread-dotenv"
 documentation = "https://autoread-dotenv.readthedocs.io"
 
 
-# for the moment we duplicate [dependency-groups] into [tool.poetry.group.<groupname>.dependencies]
-# remove when poetry properly supports [dependency-groups]
-# install via:
-# poetry install --with databricks,dev,ipython,pre-commit, testing,typing
-
-[tool.poetry.group.databricks.dependencies]
-# black = "==22.6.0"
-databricks-connect = "==13.2.0"
-# ipykernel = "==6.17.1"
-# ipython = "==8.10.0"  # ensure minimum ipython version for Python autocomplete with jedi 0.17.x
-# jedi = "==0.18.1"
-jinja2 = "==2.11.3"
-matplotlib = "==3.5.2"
-# pyarrow = "==8.0.0"  # compile-error in docker
-pyspark = ">=3.5.1"
-# six==1.16.0"
-# tokenize-rt==4.2.1"
-
-[tool.poetry.group.dev.dependencies]
-autoread-dotenv = ">=1.0.3"
-pylint = ">=3.1.0"
-ruff = ">=0.8.6"
-
-[tool.poetry.group.ipython.dependencies]
-ipython = ">=8.31.0"
-rich = ">=13.9.4"
-
-[tool.poetry.group.jupyter.dependencies]
-ipykernel = ">=6.29.5"
-
-[tool.poetry.group.licensing.dependencies]
-azure-identity = "==1.16.1"
-azure-keyvault-keys = "==4.9.0"
-azure-keyvault-secrets = "==4.8.0"
-msgpack = ">=1.1.0"
-# requests-toolbelt = ">=1.0.0"
-
-[tool.poetry.group.pre-commit.dependencies]
-pre-commit = ">=4.0.1"
-pre-commit-hooks = ">=5.0.0"
-
-[tool.poetry.group.testing.dependencies]
-pytest = ">=8.1.1"
-pytest-azurepipelines = ">=1.0.5" # depends on pytest-nunit
-pytest-clarity = ">=1.0"
-pytest-cov = ">=5.0.0"
-pytest-dotenv = ">=0.5.2"
-pytest-nunit = ">=1.0.7"
-
-[tool.poetry.group.typing.dependencies]
-mypy = ">=1.14.1"
-
-
-
 [tool.coverage.html]
 directory = "var/html/coverage"
 
@@ -154,7 +101,6 @@ include = ["src/*"]
 [tool.coverage.run]
 branch = true
 data_file = "var/cache/coverage/coverage.db"
-
 
 
 [tool.hatch]
@@ -181,12 +127,10 @@ include = [  # include only these files
 #     ".python-version",
 #     "etc/**",
 #     "justfile",
-#     "pyproject-poetry.toml",
 #     "scripts/**",
 #     "tests/**",
 #     "todo.md",
 # ]
-
 
 
 [tool.mypy]
