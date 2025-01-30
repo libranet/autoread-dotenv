@@ -77,6 +77,13 @@ typing = [
     "mypy>=1.14.1",
 ]
 
+# https://packaging.python.org/en/latest/guides/creating-and-discovering-plugins/
+# https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#advanced-plugins
+# https://github.com/Darsstar/sitecustomize-entrypoints/blob/main/src/sitecustomize/__init__.py
+[project.entry-points.sitecustomize]
+autoread_dotenv = "autoread_dotenv:entrypoint"
+
+
 [project.urls]
 homepage = "https://github.com/libranet/autoread-dotenv"
 repository = "https://github.com/libranet/autoread-dotenv"
@@ -110,12 +117,12 @@ data_file = "var/cache/coverage/coverage.db"
 
 [tool.hatch.build]
 #ignore-gitignore = true  # ignore .gitignore
-include = [  # include only these files
-    "src/**/",
-    "docs/**",
-    "license.md",
-    "pyproject.toml",
-]
+# include = [  # include only these files
+#     "src/**/",
+#     "docs/**",
+#     "license.md",
+#     "pyproject.toml",
+# ]
 # exclude = [
 #     # "src/**/__pycache__/**",
 #     # "src/**/*.pyc",
@@ -175,8 +182,7 @@ markers = [  # avoid warnings about unregistered markers
     "slow",
 ]
 testpaths = ["tests"]
-# the nunit-report is used to report coverage in azure pipelines.
-addopts = "--color=yes --nunitxml='var/coverage/pytest-nunit.xml' --report-dir='var/coverage/html'"
+# addopts = "--color=yes --report-dir='var/coverage/html'"
 # report-dir = "var/cache/coverage"
 
 
