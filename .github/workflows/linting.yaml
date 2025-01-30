@@ -38,8 +38,9 @@ jobs:
               with:
                   version: "latest"
 
-            - name: Install
+            - name: Install project + dependencies
               run: |
+                  just uv-set-python-version ${{ matrix.python-version }}
                   just install
 
             - name: Ruff format

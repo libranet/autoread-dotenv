@@ -74,8 +74,9 @@ jobs:
               with:
                   python-version: ${{ matrix.python-version }}
 
-            - name: Install packages
+            - name: Install project + dependencies
               run: |
+                  just uv-set-python-version ${{ matrix.python-version }}
                   just install
 
             - name: Run tests with coverage
