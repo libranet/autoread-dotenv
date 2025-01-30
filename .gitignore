@@ -36,6 +36,7 @@
 
 # .env can contain secrets
 /.env
+/.env.backup
 
 # exclude toplevel var-dir
 /var/

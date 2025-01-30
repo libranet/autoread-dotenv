@@ -6,7 +6,7 @@
     "editor.tabSize": 4,
     "files.associations": {
         ".env": "dotenv",
-        ".env.example": "dotenv"
+        ".env.template": "dotenv"
     },
     "makefile.extensionOutputFolder": "./var/cache/vscode",
     "[makefile]": { // per-language config

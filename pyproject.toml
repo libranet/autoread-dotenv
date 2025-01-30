@@ -149,8 +149,8 @@ isort = ">=5.10"
 pylint = ">=2.12"
 ruff = ">=0.0"
 
-# [tool.poetry.group.dist.dependencies]
-# pyroma = ">=4.2"
+[tool.poetry.group.dist.dependencies]
+pyroma = ">=4.2"
 # twine = ">=4.0"
 
 [tool.poetry.group.docs.dependencies]
@@ -195,11 +195,6 @@ mypy = ">=0.9"
 "Bug Tracker" = "https://github.com/libranet/autoread-dotenv/issues"
 repository = "https://github.com/libranet/autoread-dotenv"
 Docs = "https://autoread-dotenv.readthedocs.io"
-
-[tool.poetry2conda]
-# https://pypi.org/project/poetry2conda/
-# https://levelup.gitconnected.com/publishing-your-python-package-on-conda-and-conda-forge-309a405740cf
-name = "conda-base"
 
 
 # [tool.poetry-dynamic-versioning]

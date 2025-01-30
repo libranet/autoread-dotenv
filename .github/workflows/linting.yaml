@@ -30,6 +30,12 @@ jobs:
               with:
                   python-version: "3.11"
 
+            - name: Install just
+              run: |
+                  curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s --  --to ~/bin
+                  which just
+                  just --version
+
             - name: Set up Poetry
               run: |
                   pip install poetry==${{ env.POETRY_VERSION }}
