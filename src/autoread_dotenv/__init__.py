@@ -30,15 +30,15 @@ The .env-file must reside in the root of your project-directory.
 
 """
 
-__version__ = "1.0.3"
-__copyright__ = "Copyright 2023 Libranet"
-__license__ = "MIT License"
+from __future__ import annotations
 
 import os
 import pathlib as pl
 import sys
 import typing as tp
 import warnings
+
+from typing_extensions import Self
 
 try:
     import dotenv
@@ -47,30 +47,34 @@ try:
 except ImportError:  # pragma: no cover
     DOTENV_INSTALLED = 0
 
+from autoread_dotenv.__metadata__ import __copyright__, __version__
+
+__all__ = ["__copyright__", "__version__", "entrypoint", "get_dotenv_path", "str_to_bool"]
+
 
 class SimpleWarning:
     """Simple warning-formatting ."""
 
     def __init__(self) -> None:
         """Initialize class."""
-        self.old_format: tp.Optional[tp.Callable] = warnings.formatwarning
+        self.old_format: tp.Callable | None = warnings.formatwarning
 
-    def __enter__(self) -> "SimpleWarning":
+    def __enter__(self) -> Self:
         """Enter contextmanager."""
-        warnings.formatwarning = self.simple_message  # type: ignore
+        warnings.formatwarning = self.simple_message  # type: ignore[assignment]
         return self
 
-    def __exit__(self, *args) -> None:
+    def __exit__(self, *args, **kwargs) -> None:
         """Exit contextmanager."""
-        warnings.formatwarning = self.old_format  # type: ignore
+        warnings.formatwarning = self.old_format  # type: ignore[assignment]
 
     @staticmethod
-    def simple_message(message: str, *args, **kwargs) -> str:  # pylint: disable=unused-argument
+    def simple_message(message: str) -> str:
         """Return a simple warning-message without any traceback-info."""
         return f"Warning from {__name__}: {message}\n"
 
 
-def get_dotenv_path() -> tp.Optional[pl.Path]:
+def get_dotenv_path() -> pl.Path | None:
     """
     Return the location of the .env for in-project virtualenvs.
 
@@ -89,30 +93,29 @@ def get_dotenv_path() -> tp.Optional[pl.Path]:
 
 def str_to_bool(value: str) -> bool:
     """Convert a string value to a boolean."""
-    if value.lower() in {"1", "true", "yes"}:
-        return True
-    return False
+    return value.lower() in {"1", "true", "yes"}
 
 
 def entrypoint() -> None:
     """Set environment-variable from the in-project .env-file."""
-    dotenv_file: tp.Optional[pl.Path] = get_dotenv_path()
+    dotenv_file: pl.Path | None = get_dotenv_path()
     enforce_dotenv: bool = str_to_bool(os.getenv("AUTOREAD_ENFORCE_DOTENV", "1"))
 
     if not DOTENV_INSTALLED:  # pragma: no cover
         with SimpleWarning():
-            warnings.warn("Module 'dotenv' not found. Please pip install 'python-dotenv'.")
+            warnings.warn("Module 'dotenv' not found. Please pip install 'python-dotenv'.", stacklevel=2)
         return
 
     if not dotenv_file:  # pragma: no cover
         with SimpleWarning():
-            warnings.warn(f"{dotenv_file} does not yet exist, please create it.")
+            warnings.warn(f"{dotenv_file} does not yet exist, please create it.", stacklevel=2)
         return
 
     try:
         dotenv.load_dotenv(dotenv_file, override=enforce_dotenv, interpolate=True, verbose=True)
     except AttributeError:  # pragma: no cover
         warnings.warn(
-            "Module 'dotenv.load_dotenv' not found."
-            + "This occurs when django-dotenv was installed while we depend on python-dotenv."
+            "Module 'dotenv.load_dotenv' not found. \
+                This occurs when django-dotenv was installed while we depend on python-dotenv.",
+            stacklevel=2,
         )
