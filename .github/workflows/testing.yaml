@@ -73,12 +73,6 @@ jobs:
               uses: actions/setup-python@v5
               with:
                   python-version: ${{ matrix.python-version }}
-                  # TODO: This appears to require poetry to be installed before usage
-                  # cache: "poetry"
-
-            - name: Set up Poetry
-              run: |
-                  pip install poetry==${{ env.POETRY_VERSION }}
 
             - name: Install packages
               run: |
