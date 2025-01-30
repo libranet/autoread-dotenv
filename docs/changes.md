@@ -3,10 +3,11 @@
 All notable changes to this project will be documented in this file.
 
 
-
 ## 1.0.4 (YYY-MM-DD)
 
-- Nothing yet
+- Switch from ``poetry`` to ``uv`` to manage this package.
+
+- Switch from ``make`` to ``just`` as task-runner.
 
 
 ## 1.0.3 (2025-01-15)
@@ -18,7 +19,7 @@ All notable changes to this project will be documented in this file.
 
 ## 1.0.2 (2023-04-30)
 
-- Add py.typed file in package.
+- Add ``py.typed`` file to package.
 
 - Add security-checks with ``bandit``.
 
