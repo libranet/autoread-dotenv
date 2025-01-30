@@ -100,14 +100,14 @@ mypy_path = ["src"]
 envdir = "var/cache/nox"
 
 
-[tool.poetry]
+[project]
 name = "autoread_dotenv"
 version = "1.0.3"
 license = "MIT"
 description = "Automatically set env-vars at the beginning of every python-process in your in-project virtualenv."
 readme = "docs/readme.md"
-authors = ["Wouter Vanden Hove <wouter@libranet.eu>"]
-maintainers = ["Wouter Vanden Hove <wouter@libranet.eu>"]
+authors = [{ name = "Wouter Vanden Hove", email = "wouter@libranet.eu" }]
+maintainers = [{ name = "Wouter Vanden Hove", email = "wouter@libranet.eu" }]
 homepage = "https://github.com/libranet/autoread-dotenv"
 repository = "https://github.com/libranet/autoread-dotenv"
 documentation = "https://autoread-dotenv.readthedocs.io"
@@ -129,12 +129,14 @@ classifiers = [
     "Typing :: Typed",
 ]
 packages = [{ include = "autoread_dotenv", from = "src" }]
+requires-python = ">=3.8"
 
-[tool.poetry.dependencies]
-# python = ">=3.8.0,<4.0"
-python = ">=3.8.0"
-python-dotenv = ">=1.0.0"
-sitecustomize-entrypoints = ">=1.1.0"
+dependencies = [
+    # python>=3.8.0,<4.0",
+    # "python>=3.8.0",
+    "python-dotenv>=1.0.0",
+    "sitecustomize-entrypoints>=1.1.0",
+]
 
 [tool.poetry.group.dev.dependencies]
 black = { version = ">=22.1", allow-prereleases = true }

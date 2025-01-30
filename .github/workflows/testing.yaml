@@ -5,7 +5,7 @@ env:
     # https://github.com/pytest-dev/pytest/issues/7443
     # https://github.com/actions/runner/issues/241
     PY_COLORS: 1
-    POETRY_VERSION: "1.8.4"
+    POETRY_VERSION: "2.0.1"
 
 on:
     pull_request:
@@ -48,7 +48,6 @@ jobs:
                     - "3.11"
                     - "3.12"
                     - "3.13"
-                    # - "3.12-dev"
                 # include:
                 #     # Run 3.12 tests with relaxed constraints
                 #     - python-version: "3.12-dev"
