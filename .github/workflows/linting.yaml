@@ -27,6 +27,10 @@ jobs:
               with:
                   python-version: "3.11"
 
+            - name: Show env variables
+                run: |
+                    printenv
+
             - name: Install just
               run: |
                   curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to /usr/local/bin

@@ -5,6 +5,7 @@ env:
     # https://github.com/pytest-dev/pytest/issues/7443
     # https://github.com/actions/runner/issues/241
     PY_COLORS: 1
+    PATH: "$PATH:.venv/bin"
 
 on:
     pull_request:
@@ -73,6 +74,10 @@ jobs:
               uses: actions/setup-python@v5
               with:
                   python-version: ${{ matrix.python-version }}
+
+            - name: Show env variables
+                run: |
+                    printenv
 
             - name: Install project + dependencies
               run: |
