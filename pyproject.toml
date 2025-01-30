@@ -1,116 +1,31 @@
 # This is a comment.
 # syntax-documentation:
-#  - https://python-poetry.org/docs/pyproject
-#  - https://flit.readthedocs.io/en/latest/pyproject_toml.html
+#  - https://packaging.python.org/en/latest/guides/writing-pyproject-toml/
 #
 # NOTE: you have to use single-quoted strings in TOML for regular expressions.
-# It's the equivalent of r-strings in Python.  Multiline strings are treated as
-# verbose regular expressions by Black.  Use [ ] to denote a significant space
+# It's the equivalent of r-strings in Python. Multiline strings are treated as
+# verbose regular expressions by Black. Use [ ] to denote a significant space
 # character.
 #
-#   > poetry install
-#   > poetry install --only docs
-#   > poetry install (--with|--without) (docs|dev|ipython|profiling|testing|typing)
+#   > just install
+#   > uv sync
+#   > uv sync --with <groupname>
+
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
-
-
-[tool.bandit]
-# bandit does not use this config by default.
-# You need to invoke "bandit --configfile pyproject.toml"
-# see https://github.com/PyCQA/bandit/issues/318"
-# baseline = "etc/bandit-baseline.json"
-exclude_dirs = [".venv", "var"]
-recursive = true
-skips = [
-    # see https://bandit.readthedocs.io/en/1.7.3/plugins/index.html#plugin-id-groupings
-    # "B101", # assert_used
-]
-targets = ["docs", "src", "tests"]
-
-[tool.bandit.assert_used]
-skips = ["*/test_*.py"]
-
-
-[tool.black]
-line-length = 120
-target-version = ["py310"]
-include = '\.py$'  # regex -> single-quotes
-
-
-[tool.coverage.html]
-directory = "var/html/coverage"
-
-[tool.coverage.xml]
-output = "var/html/coverage/coverage.xml"
-
-
-[tool.coverage.report]
-# cfr. https://coverage.readthedocs.io/en/coverage-4.2/excluding.html
-exclude_lines = [
-    "pragma: no cover",
-    "raise AssertionError",
-    "raise NotImplementedError",
-    "if 0:",
-    "if __name__ == .__main__.:",
-]
-include = ["src/*"]
-
-[tool.coverage.run]
-branch = true
-data_file = "var/cache/coverage/coverage.db"
-
-
-[tool.flake8]
-# Google Python style is not RST until after processed by Napoleon
-# See https://github.com/peterjc/flake8-rst-docstrings/issues/17
-extend-ignore = ["RST201", "RST203", "RST213", "RST301"]
-ignore = [
-    "D103", # Missing docstring in public function
-    "B028", # No explicit stacklevel argument found.
-    "W503", # incompatible with black, see https://github.com/psf/black/issues/52
-]
-max_line_length = 121
-per_file_ignores = [
-    "tests/test_entrypoints.py:B011", # B011: Do not call assert False
-    # "__init__.py:F401",               # F401: imported but unused
-]
-
-
-[tool.isort]
-include_trailing_comma = true # corresponds to -tc flag
-known_third_party = []
-line_length = 120             # corresponds to -w  flag
-multi_line_output = 3         # corresponds to -m  flag
-skip_glob = '^((?!py$).)*$'   # isort all Python files
-
-
-[tool.mypy]
-# cfr https://mypy.readthedocs.io/en/stable/config_file.html#using-a-pyproject-toml-file
-cache_dir = "var/cache/mypy"
-check_untyped_defs = true
-exclude = "^bin/"
-ignore_missing_imports = true
-mypy_path = ["src"]
-
-
-[tool.nox]
-envdir = "var/cache/nox"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 
 [project]
 name = "autoread_dotenv"
 version = "1.0.3"
-license = "MIT"
 description = "Automatically set env-vars at the beginning of every python-process in your in-project virtualenv."
 readme = "docs/readme.md"
 authors = [{ name = "Wouter Vanden Hove", email = "wouter@libranet.eu" }]
 maintainers = [{ name = "Wouter Vanden Hove", email = "wouter@libranet.eu" }]
-homepage = "https://github.com/libranet/autoread-dotenv"
-repository = "https://github.com/libranet/autoread-dotenv"
-documentation = "https://autoread-dotenv.readthedocs.io"
+requires-python = ">=3.10,<4.0"
+license = { file = "license.md" }
 keywords = ["entrypoints", "dotenv", "sitecustomize"]
 classifiers = [
     "Development Status :: 4 - Beta",
@@ -128,163 +43,330 @@ classifiers = [
     "Programming Language :: Python :: Implementation :: PyPy",
     "Typing :: Typed",
 ]
-packages = [{ include = "autoread_dotenv", from = "src" }]
-requires-python = ">=3.8"
-
 dependencies = [
-    # python>=3.8.0,<4.0",
-    # "python>=3.8.0",
     "python-dotenv>=1.0.0",
     "sitecustomize-entrypoints>=1.1.0",
 ]
 
+[dependency-groups]
+
+dev = [
+    "autoread-dotenv>=1.0.3",
+    "pylint>=3.1.0",
+    "ruff>=0.8.6",
+]
+ipython = [
+    "ipython>=8.31.0",
+    "rich>=13.9.4",
+]
+pre-commit = [
+    "pre-commit>=4.0.1",
+    "pre-commit-hooks>=5.0.0",
+]
+
+testing = [
+    "pytest>=8.1.1",
+    "pytest-clarity>=1.0",
+    "pytest-cov>=5.0.0",
+    "pytest-dotenv>=0.5.2",
+]
+typing = [
+    "mypy>=1.14.1",
+]
+
+[project.urls]
+homepage = "https://github.com/libranet/autoread-dotenv"
+repository = "https://github.com/libranet/autoread-dotenv"
+documentation = "https://autoread-dotenv.readthedocs.io"
+
+
+# for the moment we duplicate [dependency-groups] into [tool.poetry.group.<groupname>.dependencies]
+# remove when poetry properly supports [dependency-groups]
+# install via:
+# poetry install --with databricks,dev,ipython,pre-commit, testing,typing
+
+[tool.poetry.group.databricks.dependencies]
+# black = "==22.6.0"
+databricks-connect = "==13.2.0"
+# ipykernel = "==6.17.1"
+# ipython = "==8.10.0"  # ensure minimum ipython version for Python autocomplete with jedi 0.17.x
+# jedi = "==0.18.1"
+jinja2 = "==2.11.3"
+matplotlib = "==3.5.2"
+# pyarrow = "==8.0.0"  # compile-error in docker
+pyspark = ">=3.5.1"
+# six==1.16.0"
+# tokenize-rt==4.2.1"
+
 [tool.poetry.group.dev.dependencies]
-black = { version = ">=22.1", allow-prereleases = true }
-flake8 = ">=4.0"
-flake8-bugbear = ">=23.2"
-flake8-docstrings = ">=1.6"
-flake8-pyproject = ">=1.2"
-flake8-rst-docstrings = ">=0.2"
-isort = ">=5.10"
-pylint = ">=2.12"
-ruff = ">=0.0"
-
-[tool.poetry.group.dist.dependencies]
-pyroma = ">=4.2"
-# twine = ">=4.0"
-
-[tool.poetry.group.docs.dependencies]
-autoapi = ">=2.0"
-markupsafe = ">=2.1"
-# myst-parser = ">=3.10"
-recommonmark = ">=0.7"
-sphinx = ">=4.4,<5.0"
-sphinx-autoapi = ">=1.8"
-sphinx-rtd-theme = ">=1.0"
-# Work-around https://github.com/pypi/warehouse/issues/15749
-docutils = "!=0.21"
+autoread-dotenv = ">=1.0.3"
+pylint = ">=3.1.0"
+ruff = ">=0.8.6"
 
 [tool.poetry.group.ipython.dependencies]
-ipdb = ">=0.13"
-ipython = ">=8.4"
+ipython = ">=8.31.0"
+rich = ">=13.9.4"
 
-[tool.poetry.group.precommit.dependencies]
-pre-commit = ">=2.14"
-pre-commit-hooks = ">=4.1"
+[tool.poetry.group.jupyter.dependencies]
+ipykernel = ">=6.29.5"
 
-[tool.poetry.group.profiling.dependencies]
-importtime-waterfall = ">=1.0"
-tuna = ">=0.5"
+[tool.poetry.group.licensing.dependencies]
+azure-identity = "==1.16.1"
+azure-keyvault-keys = "==4.9.0"
+azure-keyvault-secrets = "==4.8.0"
+msgpack = ">=1.1.0"
+# requests-toolbelt = ">=1.0.0"
 
-[tool.poetry.group.security.dependencies]
-bandit = { extras = ["toml"], version = ">=1.7" }
-safety = ">=2.3"
+[tool.poetry.group.pre-commit.dependencies]
+pre-commit = ">=4.0.1"
+pre-commit-hooks = ">=5.0.0"
 
 [tool.poetry.group.testing.dependencies]
-coverage = { extras = ["toml"], version = ">=6.2" }
-hypothesis = ">=6.72"
-pytest = ">=7.0"
-pytest-codecov = ">=0.5"
-pytest-cov = ">=3.0"
+pytest = ">=8.1.1"
+pytest-azurepipelines = ">=1.0.5" # depends on pytest-nunit
+pytest-clarity = ">=1.0"
+pytest-cov = ">=5.0.0"
+pytest-dotenv = ">=0.5.2"
+pytest-nunit = ">=1.0.7"
 
 [tool.poetry.group.typing.dependencies]
-lxml = { version = ">=4.9", optional = true, allow-prereleases = false } # mypy coverage-report
-mypy = ">=0.9"
-
-[tool.poetry.urls]
-"Bug Tracker" = "https://github.com/libranet/autoread-dotenv/issues"
-repository = "https://github.com/libranet/autoread-dotenv"
-Docs = "https://autoread-dotenv.readthedocs.io"
+mypy = ">=1.14.1"
 
 
-# [tool.poetry-dynamic-versioning]
-# # cfr https://github.com/mtkennerly/poetry-dynamic-versioning
-# enable = true
-# vcs = "git"
-# style = "semver"
 
-# [tool.poetry-dynamic-versioning.substitution]
-# files = [
-#     "src/autoread_dotenv/__init__.py",
-#     "src/*/__version__.py",
-#     "docs/changes.md",
+[tool.coverage.html]
+directory = "var/html/coverage"
+
+[tool.coverage.xml]
+output = "var/html/coverage/coverage.xml"
+
+[tool.coverage.report]
+# cfr. https://coverage.readthedocs.io/en/coverage-4.2/excluding.html
+exclude_lines = [
+    "pragma: no cover",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:",
+]
+include = ["src/*"]
+
+[tool.coverage.run]
+branch = true
+data_file = "var/cache/coverage/coverage.db"
+
+
+
+[tool.hatch]
+# https://hatch.pypa.io/latest/
+
+[tool.hatch.build]
+#ignore-gitignore = true  # ignore .gitignore
+include = [  # include only these files
+    "src/**/",
+    "docs/**",
+    "license.md",
+    "pyproject.toml",
+]
+# exclude = [
+#     # "src/**/__pycache__/**",
+#     # "src/**/*.pyc",
+#     ".just/**",
+#     ".vscode/**",
+#     "*.lock",
+#     ".env",
+#     ".env.*",
+#     ".gitignore",
+#     ".pre-commit-config.yaml",
+#     ".python-version",
+#     "etc/**",
+#     "justfile",
+#     "pyproject-poetry.toml",
+#     "scripts/**",
+#     "tests/**",
+#     "todo.md",
 # ]
 
 
-[tool.poetry.plugins] # Optional super table
 
-[tool.poetry.plugins."sitecustomize"]
-# https://python-poetry.org/docs/pyproject/#plugins
-# https://github.com/Darsstar/sitecustomize-entrypoints/blob/main/src/sitecustomize/__init__.py
-autoread_dotenv = "autoread_dotenv:entrypoint"
+[tool.mypy]
+# cfr https://mypy.readthedocs.io/en/stable/config_file.html#using-a-pyproject-toml-file
+cache_dir = "var/cache/mypy"
+check_untyped_defs = true
+exclude = "^bin/"
+ignore_missing_imports = true
+mypy_path = ["src"]
 
 
-[tool.poetry-release]
-disable-dev = false
-disable-push = false
-disable-tag = false
-sign-commit = false
-sign-tag = false
-post-release-commit-message = "Start next development iteration {next_version}"
-release-commit-message = "Release {package_name} {version}"
-tag-name = "{version}"
-release-replacements = [
-    { file = "docs/changes.md", pattern = "Unreleased \\(YYYY-MM-DD\\)", replace = "{version} ({date})" },
-    { file = "src/autoread_dotenv/__init__.py", pattern = '__version__ = "{version}"', replace = '__version__ = "{next_version}"' },
-]
+[tool.pylint.design]
+# complete pylint-config, see https://github.com/PyCQA/pylint/blob/main/pylintrc
+exclude-too-few-public-methods = []
+max-attributes = 11  # default is 11
 
 [tool.pylint.format]
 max-line-length = 120
 good-names = [
-    "foo", # dummy variable
-    "i",   # counter in loop
-    "ok",  # status
+    "i", # counter in loop
 ]
+max-args = 5 # default is 5
 
 [tool.pylint.messages_control]
 disable = [
-    "C0116", # missing-function-docstring
+    # wontfix
+    # "W1203",  # logging-fstring-interpolation
+    # "fixme",  # Disable reporting of TODO, FIXME, and XXX comments
 ]
 
 
 [tool.pytest.ini_options]
 cache_dir = "var/cache/pytest"
-log_cli = false                   # enable to show log-output
+log_cli = false  # enable to show log-output
 log_cli_level = "NOTSET"
 filterwarnings = []
-markers = ["unit", "integration"]
+markers = [  # avoid warnings about unregistered markers
+    "unit",
+    "integration",
+    "slow",
+]
 testpaths = ["tests"]
-# the junit-report is used to report coverage in gitlab
-addopts = "--color=yes --junit-xml='var/cache/coverage/pytest.xml'"
-
-
-# [tool.tox.legacy_tox_ini]
-# # envlist = ["py38", "py39", "py310", "py311"]
-# # isolated_build = true
-# toxworkdir = "var/cache/tox"
-
-
-[tool.tox]
-# see https://tox.wiki/en/3.5.0/example/basic.html#pyproject-toml-tox-legacy-ini
-legacy_tox_ini = """
-[tox]
-envlist = py{39,310,311}
-# envlist = [py39, py310, py311]
-isolated_build = True
-toxworkdir = var/cache/tox
-
-[testenv]
-allowlist_externals =
-    make
-    poetry
-skip_install = true
-commands =
-    make install
-    pytest --pdb --exitfirst
-"""
+# the nunit-report is used to report coverage in azure pipelines.
+addopts = "--color=yes --nunitxml='var/coverage/pytest-nunit.xml' --report-dir='var/coverage/html'"
+# report-dir = "var/cache/coverage"
 
 
 [tool.ruff]
 # https://beta.ruff.rs/docs/configuration/
-cache-dir = "var/cache/ruff"
+# https://docs.astral.sh/ruff/configuration/#using-pyprojecttoml
+cache-dir = "var/cache/ruff" # relative to project_root
 line-length = 120
+
+[tool.ruff.lint]
+ignore = [
+    # D203 conflicts withs D211
+    "D203", # 1 blank line required before class docstring
+    # "D211", # No blank lines allowed before class docstring
+
+    # D212 conflicts with D213
+    "D212",    # Multi-line docstring summary should start at the first line
+    # "D213",  # Multi-line docstring summary should start at the second line
+
+    # conflicts with 'ruff format'
+    "COM812",  # Trailing comma missing
+    "ISC001",  # Implicitly concatenated string literals on one line
+
+    # style preferences - wontfix
+    "G004",    # Logging statement uses f-string
+    "G201",    # Logging .exception(...) should be used instead of .error(..., exc_info=True)
+    "RET504",  # Unnecessary assignment before `return` statement
+    "TRY400",  # Use `logging.exception` instead of `logging.error`
+
+    # TODO: fix all these warnings below
+    "A005",    # Module `logging` shadows a Python standard-library module
+    "ANN001",  # Missing type annotation for function argument
+    "ANN002",  # Missing type annotation for `*args`
+    "ANN003",  # Missing type annotation for `**kwargs`
+    "ANN202",  # Missing return type annotation for private function
+    "ANN201",  # Missing return type annotation for public function
+    "ANN204",  # Missing return type annotation for special method
+    "ANN205",  # Missing return type annotation for staticmethod
+    "ANN206",  # Missing return type annotation for classmethod
+    "ARG001",  # Unused function argument: `model_sample_py`
+    "ARG002",  # Unused method argument: `sampling_period`
+    "ARG003",  # Unused class method argument: `data`
+    "B008",    # Do not perform function call `Auto` in argument defaults; instead, perform the call within the function, or read the default from a module-level singleton variable
+    "C417",    # Unnecessary `map()` usage (rewrite using a list comprehension)
+    "D101",    # Missing docstring in public class
+    "D102",    # Missing docstring in public method
+    "D103",    # Missing docstring in public function
+    "D105",    # Missing docstring in magic method
+    "D100",    # Missing docstring in public module
+    "DTZ007",  # Naive datetime constructed using `datetime.datetime.strptime()` without %z
+    "D107",    # Missing docstring in `__init__`
+    "DTZ001",  # `datetime.datetime()` called without a `tzinfo` argument
+    "E501",    # Line too long (126 > 120)
+    "F841",    # Local variable `ad_build_model_dataset` is assigned to but never used
+    "FBT001",  # Boolean-typed positional argument in function definition
+    "FBT002",  # Boolean default positional argument in function definition
+    "FBT003",  # Boolean positional value in function call
+    "N805",    # First argument of a method should be named `self`
+    "PLR2004", # Magic value used in comparison, consider replacing `2` with a constant variable
+    "PLR0912", # Too many branches (18 > 12)
+    "PLR0913", # Too many arguments in function definition
+    "SLF001",  # Private member accessed: `_automatic_sensitivity`
+    "TRY003",  # Avoid specifying long messages outside the exception class
+]
+
+select = [
+    "A",     # flake8-builtins
+    "ANN",   # flake8-annotations
+    "ARG",   # flake8-unused-arguments
+    "ASYNC", # flake8-async
+    "B",     # flake8-bugbear
+    "BLE",   # flake8-blind-except
+    "C4",    # flake8-comprehensions
+    "COM",   # flake8-commas
+    "D",     # pydocstyle
+    "DJ",    # flake8-django
+    "DTZ",   # flake8-datetimez
+    "E",     # pycodestyle
+    "EM",    # flake8-errmsg
+    "EXE",   # flake8-executable
+    "F",     # pyflakes
+    "FA",    # flake8-future-annotations
+    "FBT",   # flake8-boolean-trap
+    "FLY",   # flynt
+    "FURB",  # refurb
+    "G",     # flake8-logging-format
+    "I",     # isort
+    "ICN",   # flake8-import-conventions
+    "INP",   # flake8-no-pep420
+    "INT",   # flake8-gettext
+    "ISC",   # flake8-implicit-str-concat
+    "LOG",   # flake8-logging
+    "N",     # pep8-naming
+    "PERF",  # perflint
+    "PIE",   # flake8-pie
+    "PGH",   # pygrep-hooks
+    "PL",    # pylint
+    "PYI",   # flake8-pyi
+    "Q",     # flake8-quotes
+    "RET",   # flake8-return
+    "RSE",   # flake8-raise
+    "RUF",   # ruff-specific rules
+    "SIM",   # flake8-simplify
+    "SLF",   # flake8-self
+    "SLOT",  # flake8-slots
+    "T10",   # flake8-debugger
+    "TC",    # flake8-type-checking
+    "TID",   # flake8-tidy-imports
+    "TRY",   # tryceratops
+    "UP",    # pyupgrade
+    "W",     # pycodestyle
+    "YTT",   # flake8-2020
+]
+
+
+[tool.ruff.lint.isort]
+# https://docs.astral.sh/ruff/settings/#lintisort
+combine-as-imports = true
+force-single-line = false
+from-first = false
+known-third-party = []
+known-first-party = ["autoread_dotenv"]
+known-local-folder = ["_helpers"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["INP001"]  # tests-dir should not be a python-package
+
+
+[tool.uv]
+managed = true
+package = true
+default-groups = [
+    # "dev",
+    # "ipython",
+    # "jupyter",
+    # "pre-commit",
+    # "testing",
+    # "typing",
+]

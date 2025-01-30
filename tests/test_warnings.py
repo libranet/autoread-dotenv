@@ -1,6 +1,7 @@
 # pylint: disable=import-outside-toplevel
 # pylint: disable=missing-function-docstring
 """Testing of module autoread_dotenv.__init__."""
+
 import warnings
 
 MODULE_NAME = "autoread_dotenv"

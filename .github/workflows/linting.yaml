@@ -36,6 +36,9 @@ jobs:
                   which just
                   just --version
 
+            - name: Install uv
+              uses: astral-sh/setup-uv@v4
+
             - name: Set up Poetry
               run: |
                   pip install poetry==${{ env.POETRY_VERSION }}

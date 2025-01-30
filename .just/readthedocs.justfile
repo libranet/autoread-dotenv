@@ -6,7 +6,9 @@
 # installation for readthedocs
 [group: 'readthedocs']
 install-rtd:
-    - python -m pip install --upgrade pip
-    - python -m pip install poetry
-    - poetry config virtualenvs.create false --local
-    - poetry install --only docs
+    # - python -m pip install --upgrade pip
+    # - python -m pip install poetry
+    # - poetry config virtualenvs.create false --local
+    # - poetry install --only docs
+    - python -m pip install pip
+    - python -m pip install -r etc/requirements.txt

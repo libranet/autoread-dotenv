@@ -65,6 +65,9 @@ jobs:
                   which just
                   just --version
 
+            - name: Install uv
+              uses: astral-sh/setup-uv@v4
+
             - name: Set up Python ${{ matrix.python-version }}
               uses: actions/setup-python@v5
               with:
@@ -78,11 +81,11 @@ jobs:
 
             - name: Install packages
               run: |
-                  make install
+                  just install
 
             - name: Run tests with coverage
               run: |
-                  make pytest-cov
+                  just pytest-cov
 
             # https://github.com/codecov/codecov-action
             - name: "Upload coverage to Codecov"
