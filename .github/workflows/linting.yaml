@@ -1,8 +1,5 @@
 name: Linting
 
-env:
-    POETRY_VERSION: "2.0.1"
-
 on:
     pull_request:
         types: [opened, reopened, synchronize]
@@ -37,11 +34,9 @@ jobs:
                   just --version
 
             - name: Install uv
-              uses: astral-sh/setup-uv@v4
-
-            - name: Set up Poetry
-              run: |
-                  pip install poetry==${{ env.POETRY_VERSION }}
+              uses: astral-sh/setup-uv@v5
+              with:
+                  version: "latest"
 
             - name: Install
               run: |
@@ -67,13 +62,9 @@ jobs:
               run: |
                   just pyroma
 
-            - name: Check poetry
+            - name: uv lock check
               run: |
-                  just poetry-check
-
-            - name: Check poetry lock
-              run: |
-                  just poetry-lock-check
+                  just uv-lock-check
 
             - name: Bandit
               run: |
