@@ -60,11 +60,13 @@ ipython = [
     "ipython>=8.0",
     "rich>=13.9.4",
 ]
+packaging = [
+    "pyroma>=4.2",
+]
 pre-commit = [
-    "pre-commit>=3.5",
+    "pre-commit>=3.5",  # 3.5 still supports python3.8
     "pre-commit-hooks>=5.0.0",
 ]
-
 testing = [
     "pytest>=8.1.1",
     "pytest-clarity>=1.0",
