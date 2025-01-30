@@ -1,4 +1,5 @@
-"""autoread_dotenv.__init__.
+"""
+autoread_dotenv.__init__.
 
 We assume following directory-structure:
 The virtualenv of your project **must** be created as a
@@ -70,7 +71,8 @@ class SimpleWarning:
 
 
 def get_dotenv_path() -> tp.Optional[pl.Path]:
-    """Return the location of the .env for in-project virtualenvs.
+    """
+    Return the location of the .env for in-project virtualenvs.
 
     Return None of the .env-file does not exist.
     """

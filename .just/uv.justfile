@@ -81,7 +81,7 @@ uv-lock args="":
 # check uv.lock is up-to-date
 [group: 'uv']
 uv-lock-check args="":
-    uv lock -check {{args}}
+    uv lock --check {{args}}
 
 
 # build the python-package

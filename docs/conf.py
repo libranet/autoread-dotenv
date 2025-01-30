@@ -10,7 +10,8 @@ import os
 
 
 def read(*names: str) -> str:
-    r"""Return the contents of a file.
+    r"""
+    Return the contents of a file.
 
     Default encoding is UTF-8, unless specified otherwise.
 
@@ -35,7 +36,8 @@ def read(*names: str) -> str:
 
 
 def read_version(*names: str) -> str:
-    """Read the version of the package.
+    """
+    Read the version of the package.
 
     Returns:
           str: the version-number of the package.
