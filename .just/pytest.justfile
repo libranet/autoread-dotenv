@@ -16,7 +16,7 @@ pytest-marked markers="" args="":
 # run pytest with coverage
 [group: 'pytest']
 pytest-coverage args="":
-    .venv/bin/pytest tests --color=yes --cov=tangent_works --cov-fail-under=5 --cov-report html:var/coverage/html --cov-report xml:var/coverage/pytest-cobertura.xml --cov-report term-missing --junit-xml='var/coverage/pytest-junit.xml' --nunit-xml='var/coverage/pytest-nunit.xml' {{args}}
+    .venv/bin/pytest tests --color=yes --cov=autoread_dotenv --cov-fail-under=5 --cov-report html:var/coverage/html --cov-report xml:var/coverage/pytest-cobertura.xml --cov-report term-missing --junit-xml='var/coverage/pytest-junit.xml' {{args}}
 
 alias pytest-cov := pytest-coverage
 
