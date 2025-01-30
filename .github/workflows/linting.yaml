@@ -22,14 +22,16 @@ jobs:
                   persist-credentials: false
                   fetch-depth: 0
 
+            - name: Show env variables
+              run: |
+                  echo "$HOME/bin" >> $GITHUB_PATH
+                  echo "${pwd}/.venv/bin" >> $GITHUB_PATH
+                  printenv | sort
+
             - name: Set up Python 3.11
               uses: actions/setup-python@v5
               with:
                   python-version: "3.11"
-
-            - name: Show env variables
-              run: |
-                  printenv | sort
 
             - name: Install just
               run: |

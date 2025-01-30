@@ -5,7 +5,6 @@ env:
     # https://github.com/pytest-dev/pytest/issues/7443
     # https://github.com/actions/runner/issues/241
     PY_COLORS: 1
-    PATH: "$PATH:.venv/bin"
 
 on:
     pull_request:
@@ -48,16 +47,18 @@ jobs:
                     - "3.11"
                     - "3.12"
                     - "3.13"
-                # include:
-                #     # Run 3.12 tests with relaxed constraints
-                #     - python-version: "3.12-dev"
-                #       relax: true # ??
 
         steps:
             - uses: actions/checkout@v4
               with:
                   persist-credentials: false
                   fetch-depth: 0
+
+            - name: Show env variables
+              run: |
+                  echo "$HOME/bin" >> $GITHUB_PATH
+                  echo "${pwd}/.venv/bin" >> $GITHUB_PATH
+                  printenv | sort
 
             - name: Install just
               run: |
@@ -70,14 +71,10 @@ jobs:
               with:
                   version: "latest"
 
-            - name: Set up Python ${{ matrix.python-version }}
-              uses: actions/setup-python@v5
-              with:
-                  python-version: ${{ matrix.python-version }}
-
-            - name: Show env variables
-              run: |
-                  printenv | sort
+            # - name: Set up Python ${{ matrix.python-version }}
+            #   uses: actions/setup-python@v5
+            #   with:
+            #       python-version: ${{ matrix.python-version }}
 
             - name: Install project + dependencies
               run: |
