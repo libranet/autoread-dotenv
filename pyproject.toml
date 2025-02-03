@@ -150,10 +150,11 @@ data_file = "var/cache/coverage/coverage.db"
 # cfr https://mypy.readthedocs.io/en/stable/config_file.html#using-a-pyproject-toml-file
 cache_dir = "var/cache/mypy"
 check_untyped_defs = true
+disallow_untyped_defs = true
 exclude = "^bin/"
 ignore_missing_imports = true
 mypy_path = ["src"]
-
+pretty = true
 
 [tool.pylint.design]
 # complete pylint-config, see https://github.com/PyCQA/pylint/blob/main/pylintrc
