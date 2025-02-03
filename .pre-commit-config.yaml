@@ -50,7 +50,6 @@ repos:
     #     entry: check forbidden filenames
     #     language: fail
     #     files: '[^a-z0-9._/-]'
-    #     exclude: '^src/tangent_works/core/Julia/'
 
       - id: check-added-large-files
         name: check added large files
@@ -98,7 +97,6 @@ repos:
         entry: check-yaml
         language: system
         types: [yaml]
-        exclude: '^src/tangent_works/logging.yaml'
 
       - id: check-symlinks
         name: check symlinks
