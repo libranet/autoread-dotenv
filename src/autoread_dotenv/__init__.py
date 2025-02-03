@@ -47,9 +47,9 @@ try:
 except ImportError:  # pragma: no cover
     DOTENV_INSTALLED = 0
 
-from autoread_dotenv.__metadata__ import __copyright__, __version__
+from autoread_dotenv.__metadata__ import __metadata__, __version__
 
-__all__ = ["__copyright__", "__version__", "entrypoint", "get_dotenv_path", "str_to_bool"]
+__all__ = ["__metadata__", "__version__", "entrypoint", "get_dotenv_path", "str_to_bool"]
 
 
 class SimpleWarning:

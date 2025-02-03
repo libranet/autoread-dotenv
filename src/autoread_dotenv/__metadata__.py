@@ -5,6 +5,7 @@ Fetch metadata from the package's pyproject.toml.
 The package must be properly installed in order the metadata to be available.
 
 """
+
 from __future__ import annotations
 
 import importlib.metadata
