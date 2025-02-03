@@ -64,7 +64,7 @@ class SimpleWarning:
         warnings.formatwarning = self.simple_message  # type: ignore[assignment]
         return self
 
-    def __exit__(self, *args, **kwargs) -> None:
+    def __exit__(self, *args: object, **kwargs: dict[str, tp.Any]) -> None:
         """Exit contextmanager."""
         warnings.formatwarning = self.old_format  # type: ignore[assignment]
 
