@@ -1,5 +1,5 @@
 """
-autoread_dotenv.__metadata__.
+autoread_dotenv.__meta__.
 
 Fetch metadata from the package's pyproject.toml.
 The package must be properly installed in order the metadata to be available.
