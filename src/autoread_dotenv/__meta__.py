@@ -10,8 +10,15 @@ from __future__ import annotations
 
 import importlib.metadata
 
+package: str = __package__ or ""
+
+
 try:
-    pkginfo: dict = importlib.metadata.metadata(__package__).json
+    msg = importlib.metadata.metadata(package)
+    pkginfo: dict[str, str | list[str]] = msg.json  # ty: ignore[unresolved-attribute]
+except ValueError:
+    # A distribution name is required. __package__ is None
+    pkginfo = {}
 except importlib.metadata.PackageNotFoundError:  # pragma: no cover
     # fallback if this package is not properly installed
     pkginfo = {}

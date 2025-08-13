@@ -33,12 +33,13 @@ The .env-file must reside in the root of your project-directory.
 from __future__ import annotations
 
 import os
-import pathlib as pl
-import sys
 import typing as tp
 import warnings
 
 from typing_extensions import Self
+
+if tp.TYPE_CHECKING:
+    import pathlib as pl
 
 try:
     import dotenv
@@ -50,7 +51,7 @@ except ImportError:  # pragma: no cover
 from autoread_dotenv.__meta__ import __author__, __author_email__, __copyright__, __license__, __version__
 from autoread_dotenv.utils import get_dotenv_path, str_to_bool
 
-__all__ = [
+__all__: list[str] = [
     "__author__",
     "__author_email__",
     "__copyright__",
