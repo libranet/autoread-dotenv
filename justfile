@@ -48,6 +48,7 @@ import '.just/readthedocs.justfile'
 import '.just/ruff.justfile'
 import '.just/safety.justfile'
 import '.just/sshx.justfile'
+import '.just/ty.justfile'
 import '.just/ubuntu.justfile'
 import '.just/uv.justfile'
 

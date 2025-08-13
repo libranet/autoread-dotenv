@@ -28,10 +28,10 @@ jobs:
                   echo "${pwd}/.venv/bin" >> $GITHUB_PATH
                   printenv | sort
 
-            - name: Set up Python 3.11
+            - name: Set up Python 3.1.
               uses: actions/setup-python@v5
               with:
-                  python-version: "3.11"
+                  python-version: "3.13"
 
             - name: Install just
               run: |
@@ -65,6 +65,10 @@ jobs:
             - name: Mypy
               run: |
                   just mypy
+
+            - name: Ty
+              run: |
+                  just ty-check
 
             - name: Pyroma
               run: |
