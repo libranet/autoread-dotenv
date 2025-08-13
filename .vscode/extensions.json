@@ -3,6 +3,10 @@
     "recommendations": [
         // sorted alphabetically
 
+        // marketplace: https://marketplace.visualstudio.com/items?itemName=astral-sh.ty
+        // repo: https://github.com/astral-sh/ty-vscode
+        "astral-sh.ty",
+
         // support for the Ruff linter.
         // marketplace: https://marketplace.visualstudio.com/items?itemName=charliermarsh.ruff
         // repo: https://github.com/astral-sh/ruff-vscode

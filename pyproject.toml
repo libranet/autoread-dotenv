@@ -68,7 +68,7 @@ pre-commit = [
 ]
 security = [
     "bandit>=1.7",
-    #bandit = { extras = ["toml"], version = ">=1.7" }
+    # bandit = { extras = ["toml"], version = ">=1.7" }
     "safety>=2.3",
 ]
 testing = [
@@ -79,6 +79,7 @@ testing = [
 ]
 typing = [
     "mypy>=1.14.1",
+    "ty>=0.0.1a17",
 ]
 
 # https://packaging.python.org/en/latest/guides/creating-and-discovering-plugins/
