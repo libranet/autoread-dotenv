@@ -1,5 +1,7 @@
 # pylint: disable=import-outside-toplevel
 # pylint: disable=missing-function-docstring
+# mypy: disallow_untyped_defs=False
+
 """Testing of module autoread_dotenv."""
 
 import os
