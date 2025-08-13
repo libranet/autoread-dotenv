@@ -51,7 +51,10 @@ from autoread_dotenv.__meta__ import __author__, __author_email__, __copyright__
 from autoread_dotenv.utils import get_dotenv_path, str_to_bool
 
 __all__ = [
+    "__author__",
+    "__author_email__",
     "__copyright__",
+    "__license__",
     "__version__",
     "entrypoint",
     "get_dotenv_path",
@@ -78,28 +81,6 @@ class SimpleWarning:
     def simple_message(message: str) -> str:
         """Return a simple warning-message without any traceback-info."""
         return f"Warning from {__name__}: {message}\n"
-
-
-def get_dotenv_path() -> pl.Path | None:
-    """
-    Return the location of the .env for in-project virtualenvs.
-
-    Return None of the .env-file does not exist.
-    """
-    # sys.prefix is <project-root>/.venv or <project-root> when using toplevel symlinks to .venv
-    prefix = pl.Path(sys.prefix)
-    base_dir = prefix.parent if prefix.name == ".venv" else prefix
-    dotenv_file = base_dir / ".env"
-
-    if dotenv_file.is_file():
-        return dotenv_file
-
-    return None
-
-
-def str_to_bool(value: str) -> bool:
-    """Convert a string value to a boolean."""
-    return value.lower() in {"1", "true", "yes"}
 
 
 def entrypoint() -> None:
