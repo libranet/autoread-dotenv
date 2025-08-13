@@ -204,6 +204,9 @@ known-local-folder = ["_helpers"]
     ]
 
 
+[tool.ty]
+
+
 [tool.uv]
 managed = true
 package = true
