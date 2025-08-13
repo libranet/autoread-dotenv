@@ -8,8 +8,8 @@
             // Avoid pytest-coverage breaking debugging, see
             // - https://code.visualstudio.com/docs/python/testing#_pytest-configuration-settings
             // - https://stackoverflow.com/questions/69443189/running-pytest-cov-along-with-pytest-in-vs-code
-            "name": "Pytest",
-            "type": "debugpy",
+            "name": "Python: Debug Tests",
+            "type": "python",
             "request": "launch",
             "program": "${file}",
             "purpose": [
@@ -17,8 +17,7 @@
             ],
             "console": "integratedTerminal",
             "env": {
-                //"PYTEST_ADDOPTS": "--no-cov --nunit-xml='var/coverage2/pytest-nunit.xml"
-
+                "PYTEST_ADDOPTS": "--no-cov"
             },
             "justMyCode": false
         }
