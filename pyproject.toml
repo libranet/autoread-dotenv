@@ -14,8 +14,8 @@
 
 
 [build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+requires = ["uv_build>=0.8.9,<0.9.0"]
+build-backend = "uv_build"
 
 
 [project]
@@ -114,36 +114,6 @@ include = ["src/*"]
 [tool.coverage.run]
 branch = true
 data_file = "var/cache/coverage/coverage.db"
-
-
-[tool.hatch]
-# https://hatch.pypa.io/latest/
-
-[tool.hatch.build]
-#ignore-gitignore = true  # ignore .gitignore
-# include = [  # include only these files
-#     "src/**/",
-#     "docs/**",
-#     "license.md",
-#     "pyproject.toml",
-# ]
-# exclude = [
-#     # "src/**/__pycache__/**",
-#     # "src/**/*.pyc",
-#     ".just/**",
-#     ".vscode/**",
-#     "*.lock",
-#     ".env",
-#     ".env.*",
-#     ".gitignore",
-#     ".pre-commit-config.yaml",
-#     ".python-version",
-#     "etc/**",
-#     "justfile",
-#     "scripts/**",
-#     "tests/**",
-#     "todo.md",
-# ]
 
 
 [tool.mypy]
