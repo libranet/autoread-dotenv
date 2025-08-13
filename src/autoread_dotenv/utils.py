@@ -40,7 +40,6 @@ import warnings
 from typing_extensions import Self
 
 
-
 class SimpleWarning:
     """Simple warning-formatting ."""
 
@@ -83,4 +82,3 @@ def get_dotenv_path() -> pl.Path | None:
 def str_to_bool(value: str) -> bool:
     """Convert a string value to a boolean."""
     return value.lower() in {"1", "true", "yes"}
-

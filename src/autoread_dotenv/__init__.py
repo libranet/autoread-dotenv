@@ -49,7 +49,13 @@ except ImportError:  # pragma: no cover
 
 from autoread_dotenv.__meta__ import __author__, __author_email__, __copyright__, __license__, __version__
 from autoread_dotenv.utils import get_dotenv_path, str_to_bool
-__all__ = ["__copyright__", "__version__", "entrypoint", "get_dotenv_path", ]
+
+__all__ = [
+    "__copyright__",
+    "__version__",
+    "entrypoint",
+    "get_dotenv_path",
+]
 
 
 class SimpleWarning:

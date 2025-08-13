@@ -169,6 +169,8 @@ line-length = 120
 
 [tool.ruff.lint]
 ignore = [
+    # COM812 may cause conflicts when used with the ruff formatter
+    "COM812",
     # D203 conflicts withs D211
     "D203", # 1 blank line required before class docstring
     # "D211", # No blank lines allowed before class docstring

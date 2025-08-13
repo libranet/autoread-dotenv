@@ -17,4 +17,3 @@ def test_simple_warning() -> None:
         warning = warning_list[-1]
         assert issubclass(warning.category, UserWarning)
         assert str(warning.message) == "This is a test warning."
-            # assert f"Warning from {MODULE_NAME}" in str(warning.message)
