@@ -36,8 +36,6 @@ import os
 import typing as tp
 import warnings
 
-from typing_extensions import Self
-
 if tp.TYPE_CHECKING:  # pragma: no cover
     import pathlib as pl
 

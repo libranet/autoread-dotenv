@@ -1,6 +1,5 @@
 # pylint: disable=import-outside-toplevel
 # pylint: disable=missing-function-docstring
-# ruff: noqa: F405
 """Testing of module autoread_dotenv.__init__."""
 
 import warnings
