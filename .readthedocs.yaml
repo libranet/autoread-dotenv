@@ -9,7 +9,7 @@ build:
         python: "3.12"
     jobs:
         post_create_environment:
-            - make install-rtd
+            - just install-rtd
 
 formats:
     - htmlzip
