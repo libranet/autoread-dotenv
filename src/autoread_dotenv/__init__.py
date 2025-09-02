@@ -38,7 +38,7 @@ import warnings
 
 from typing_extensions import Self
 
-if tp.TYPE_CHECKING:
+if tp.TYPE_CHECKING:  # pragma: no cover
     import pathlib as pl
 
 try:
@@ -49,7 +49,7 @@ except ImportError:  # pragma: no cover
     DOTENV_INSTALLED = 0
 
 from autoread_dotenv.__meta__ import __author__, __author_email__, __copyright__, __license__, __version__
-from autoread_dotenv.utils import get_dotenv_path, str_to_bool
+from autoread_dotenv.utils import SimpleWarning, get_dotenv_path, str_to_bool
 
 __all__: list[str] = [
     "__author__",
@@ -60,28 +60,6 @@ __all__: list[str] = [
     "entrypoint",
     "get_dotenv_path",
 ]
-
-
-class SimpleWarning:
-    """Simple warning-formatting ."""
-
-    def __init__(self) -> None:
-        """Initialize class."""
-        self.old_format: tp.Callable | None = warnings.formatwarning
-
-    def __enter__(self) -> Self:
-        """Enter contextmanager."""
-        warnings.formatwarning = self.simple_message  # type: ignore[assignment]
-        return self
-
-    def __exit__(self, *args: object, **kwargs: dict[str, tp.Any]) -> None:
-        """Exit contextmanager."""
-        warnings.formatwarning = self.old_format  # type: ignore[assignment]
-
-    @staticmethod
-    def simple_message(message: str) -> str:
-        """Return a simple warning-message without any traceback-info."""
-        return f"Warning from {__name__}: {message}\n"
 
 
 def entrypoint() -> None:

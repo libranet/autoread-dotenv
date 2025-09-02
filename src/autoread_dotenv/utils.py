@@ -37,7 +37,8 @@ import sys
 import typing as tp
 import warnings
 
-from typing_extensions import Self
+if tp.TYPE_CHECKING:  # pragma: no cover
+    import typing_extensions as tpe
 
 
 class SimpleWarning:
@@ -47,7 +48,7 @@ class SimpleWarning:
         """Initialize class."""
         self.old_format: tp.Callable | None = warnings.formatwarning
 
-    def __enter__(self) -> Self:
+    def __enter__(self) -> tpe.Self:
         """Enter contextmanager."""
         warnings.formatwarning = self.simple_message  # type: ignore[assignment]
         return self
@@ -69,9 +70,9 @@ def get_dotenv_path() -> pl.Path | None:
     Return None of the .env-file does not exist.
     """
     # sys.prefix is <project-root>/.venv or <project-root> when using toplevel symlinks to .venv
-    prefix = pl.Path(sys.prefix)
-    base_dir = prefix.parent if prefix.name == ".venv" else prefix
-    dotenv_file = base_dir / ".env"
+    prefix: pl.Path = pl.Path(sys.prefix)
+    base_dir: pl.Path = prefix.parent if prefix.name == ".venv" else prefix
+    dotenv_file: pl.Path = base_dir / ".env"
 
     if dotenv_file.is_file():
         return dotenv_file
