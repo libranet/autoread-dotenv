@@ -15,6 +15,12 @@ Install via pip:
 > bin/pip install autoread-dotenv
 ```
 
+Or via uv:
+
+```bash
+> uv add autoread-dotenv
+```
+
 Or add to your poetry-based project:
 
 ```bash
@@ -32,8 +38,8 @@ The only thing left to do for you is the create a ``.env`` in the root of your p
 The ``autoread_dotenv.entrypoint``-function is registered as a ``sitecustomize``-entrypoint in our pyproject.toml_:
 
 ``` toml
-    [tool.poetry.plugins]
-    [tool.poetry.plugins."sitecustomize"]
+
+    [project.entry-points.sitecustomize]
     autoread_dotenv = "autoread_dotenv:entrypoint"
 ```
 
