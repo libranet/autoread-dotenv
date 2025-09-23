@@ -72,6 +72,12 @@ uv-sync-all-groups args="":
 alias uv-sync-all := uv-sync-all-groups
 
 
+# update all dependencies from all groups
+[group: 'uv']
+uv-sync-upgrade-all-groups args="":
+    uv sync --upgrade --all-groups {{args}}
+
+
 # update uv.lock
 [group: 'uv']
 uv-lock args="":
