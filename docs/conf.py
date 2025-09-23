@@ -5,54 +5,32 @@ Note that not all possible configuration values are present in this autogenerate
 All configuration values have a default; values that are commented out serve to show the default.
 """
 
+from __future__ import annotations
+
 import datetime as dt
-import os
+import pathlib as pl
+import typing as tp
+
+try:
+    import tomllib  # Python 3.11+
+except ModuleNotFoundError:
+    import tomli as tomllib  # For Python < 3.11
 
 
-def read(*names: str) -> str:
-    r"""
-    Return the contents of a file.
+def read_version(pyproject_path: tp.Union[str, pl.Path] = "pyproject.toml") -> str:
+    path = pl.Path(pyproject_path)
+    with path.open("rb") as f:
+        data = tomllib.load(f)
 
-    Default encoding is UTF-8, unless specified otherwise.
+    # PEP 621-compliant
+    if "project" in data and "version" in data["project"]:
+        return data["project"]["version"]
 
-    Args:
-        - names (list, required): list of strings, parts of the path.
-          the path might be relative to the current file.
+    # Poetry-style
+    if "tool" in data and "poetry" in data["tool"]:
+        return data["tool"]["poetry"]["version"]
 
-    Returns:
-      String containing the content of the file.
-
-    Examples:
-        >>> read('docs/readme.rst')
-            u'Overview\n--------\n...'
-
-        >>> read('docs', 'readme.rst')
-            u'Overview\n--------\n...'
-
-    """
-    filename = os.path.join(os.path.dirname(__file__), *names)
-    with open(filename, encoding="utf8") as stream:
-        return stream.read()
-
-
-def read_version(*names: str) -> str:
-    """
-    Read the version of the package.
-
-    Returns:
-          str: the version-number of the package.
-
-    Examples:
-        > read_version("../src/<package_name>/__init__.py")
-            "0.1dev0"
-
-    """
-    lines = read(*names).split("\n")
-    for line in lines:
-        if line.startswith("__version__ = "):
-            version_ = line.split("=")[1].strip().strip('"').strip("'")
-            return version_
-    raise RuntimeError("Unable to find version string.")
+    raise KeyError("Version not found in pyproject.toml")
 
 
 autoclass_content = "both"
@@ -125,7 +103,8 @@ copyright = f"{current_year}, f{owner}"  # pylint: disable=redefined-builtin
 
 # The short X.Y version.
 # version = '0.1'
-version = read_version(f"../src/{module_name}/__init__.py")
+version: str = read_version("../pyproject.toml")
+
 
 # The full version, including alpha/beta/rc tags.
 release = version
