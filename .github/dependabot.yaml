@@ -1,37 +1,23 @@
 # This is a comment.
 # https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
 version: 2
+
 updates:
-    - package-ecosystem: pip
-      directory: "/docs"
+
+    - package-ecosystem: "uv"
+      directory: "/"
+      open-pull-requests-limit: 9
       schedule:
-          interval: daily
-          time: "04:00"
-          timezone: "Europe/Berlin"
+          interval: "monthly"
       labels:
           - "dependencies"
           - "python"
-          - "sitecustomize"
-      open-pull-requests-limit: 99
-    - package-ecosystem: pip
-      directory: "/.github/workflows"
-      schedule:
-          interval: daily
-          time: "04:00"
-          timezone: "Europe/Berlin"
-      labels:
-          - "dependencies"
-          - "python"
-          - "sitecustomize"
-      open-pull-requests-limit: 99
+
     - package-ecosystem: github-actions
       directory: "/"
+      open-pull-requests-limit: 9
       schedule:
-          interval: daily
-          time: "04:00"
-          timezone: "Europe/Berlin"
+          interval: "monthly"
       labels:
           - "dependencies"
           - "github_actions"
-          - "sitecustomize"
-      open-pull-requests-limit: 99
