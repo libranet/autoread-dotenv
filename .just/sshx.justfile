@@ -7,6 +7,13 @@
 sshx-install:
     curl -sSf https://sshx.io/get | sh
 
+
+# install sshx
+[group: 'sshx']
+[windows]
+sshx-install:
+    Write-Host "Not implemented: Install zipfile from https://sshx.io/"
+
 alias install-sshx := sshx-install
 
 

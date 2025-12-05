@@ -6,6 +6,7 @@
 ty-version:
     @ .venv/bin/ty --version
 
+
 # run ty --check on python-files
 [group: 'ty']
 ty-check args="":

@@ -18,6 +18,17 @@ dotenv-install-from-template:
     fi
 
 
+# instantiate the dotenv-file (no override)
+[group: 'dotenv']
+[windows]
+dotenv-install-from-template:
+    #!pwsh.exe
+    if (Test-Path .env) {
+        Write-Host ".env file already exists. Not overwriting it.`n"
+    } else {
+        Write-Host "Copying .env.template to .env"
+        Copy-Item .env.template .env
+    }
 
 # # replace placeholder __CWD__ with current working directory
 # [group: 'dotenv']
@@ -39,6 +50,24 @@ dotenv-set-basedir:
         echo -e "Error: .env file not found!\n" >&2
         exit 1
     fi
+
+
+# replace placeholder __CWD__ with current working directory
+[group: 'dotenv']
+[windows]
+dotenv-set-basedir:
+    #!pwsh.exe
+    if (Test-Path .env) {
+        $cwd = Get-Location
+        Write-Host "Replacing string __CWD__ with current directory $cwd in .env file."
+        $content = Get-Content .env -Raw
+        $content = $content -replace [regex]::Escape('__CWD__'), $cwd
+        Set-Content .env $content
+        Write-Host ".env updated successfully. Please review any credentials.`n"
+    } else {
+        Write-Error ".env file not found!"
+        exit 1
+    }
 
 
 # install .env-file from .env.template

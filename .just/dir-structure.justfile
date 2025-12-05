@@ -10,6 +10,7 @@ export PATH := if os_family() == "windows" { venv_bin_dir + x";${PATH}" } else {
 
 # initialize dir-structure, create dirs
 [group: 'dir-structure']
+[unix]
 create-dirs:
     # vscode does not create cache-dirs, so we need to create it
     @ echo -e "In current working dir: ${PWD}"
@@ -24,9 +25,27 @@ create-dirs:
     mkdir -p var/tmp
     @ echo -e ""
 
+# initialize dir-structure, create dirs
+[group: 'dir-structure']
+[windows]
+create-dirs:
+    #!pwsh.exe
+    Write-Host "In current working dir: $(Get-Location)"
+    Write-Host "Creating project directory-structure:"
+    New-Item -ItemType Directory -Path var -Force | Out-Null
+    New-Item -ItemType Directory -Path var/cache -Force | Out-Null
+    New-Item -ItemType Directory -Path var/cache/mypy -Force | Out-Null
+    New-Item -ItemType Directory -Path var/cache/vscode -Force | Out-Null
+    New-Item -ItemType Directory -Path var/coverage -Force | Out-Null
+    New-Item -ItemType Directory -Path var/log -Force | Out-Null
+    New-Item -ItemType Directory -Path var/run -Force | Out-Null
+    New-Item -ItemType Directory -Path var/tmp -Force | Out-Null
+    Write-Host ""
+
 
 # symlinks to venv-dirs to make bin/python work
 [group: 'dir-structure']
+[unix]
 symlink-venv-dirs:
     @ echo -e "Creating .venv-symlinks:"
     ln -sf .venv/bin
@@ -35,6 +54,17 @@ symlink-venv-dirs:
     ln -sf .venv/pyvenv.cfg
     @ echo -e ""
 
+# symlinks to venv-dirs to make bin/python work
+[group: 'dir-structure']
+[windows]
+symlink-venv-dirs:
+    #!pwsh
+    Write-Host "Creating .venv-symlinks"
+    New-Item -ItemType SymbolicLink -Name "bin" -Target ".venv/Scripts" -Force | Out-Null
+    New-Item -ItemType SymbolicLink -Name "lib" -Target ".venv/Lib" -Force | Out-Null
+    # New-Item -ItemType SymbolicLink -Name "lib64" -Target ".venv/Lib" -Force | Out-Null
+    New-Item -ItemType SymbolicLink -Name "pyvenv.cfg" -Target ".venv/pyvenv.cfg" -Force | Out-Null
+    Write-Host ""
 
 # remove venv-symlinks
 [group: 'dir-structure']
