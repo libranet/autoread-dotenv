@@ -29,14 +29,15 @@
 /pyvenv.cfg
 
 # exclude actual virtual-environment
-/.venv/
+/.venv*
 
 # distribution / packaging
 /dist/
 
 # .env can contain secrets
-/.env
-/.env.backup
+.env*
+# but include .env.template
+!.env.template
 
 # exclude toplevel var-dir
 /var/
