@@ -88,7 +88,7 @@ jobs:
 
             # https://github.com/codecov/codecov-action
             - name: "Upload coverage to Codecov"
-              uses: codecov/codecov-action@v5
+              uses: codecov/codecov-action@671740ac38dd9b0130fbe1cec585b89eea48d3de # v5
               with:
                   fail_ci_if_error: false # optional (default = false)
                   # files: var/html/coverage/coverage.xml, # optional
