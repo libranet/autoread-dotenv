@@ -305,8 +305,8 @@ testing = [
     { name = "pytest", specifier = ">=8.1.1" },
     { name = "pytest-clarity", specifier = ">=1.0" },
     { name = "pytest-cov", specifier = ">=5.0.0" },
-    { name = "pytest-dotenv", specifier = ">=0.5.2" },
-    { name = "pytest-xdist", specifier = ">=3.6.1" },
+    { name = "pytest-dotenv", specifier = ">=0.5" },
+    { name = "pytest-xdist", specifier = ">=3.6" },
 ]
 typing = [
     { name = "mypy", specifier = ">=1.14.1" },
