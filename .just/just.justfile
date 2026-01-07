@@ -30,6 +30,12 @@ list-all:
     @ just --list --unsorted
 
 
+# Count all just recipes
+[group: 'just']
+just-count:
+    @ just --summary | wc -w
+
+
 # select recipe from list
 [group: 'just']
 choose:
@@ -90,8 +96,8 @@ just-where:
 [windows]
 just-create-symlinks:
     @ Write-Host "Create symlinks:"
-    @ bin/create-symlink.ps1 justfile $env:USERPROFILE\justfile
-    @ bin/create-symlink.ps1 bin\just.exe $env:USERPROFILE\bin\just.exe
+    @ bin/create-symlink.ps1 justfile "$env:USERPROFILE\justfile"
+    @ bin/create-symlink.ps1 bin\just.exe "$env:USERPROFILE\bin\just.exe"
 
 
 [group: 'just']
