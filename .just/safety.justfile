@@ -9,8 +9,8 @@ safety-which:
 
 # run safety check
 [group: 'safety']
-safety-check:
-    uv run safety check
+safety-check *args:
+    uv run safety check {{args}}
 
 
 # run safety check with html-report

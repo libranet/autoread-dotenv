@@ -19,6 +19,7 @@ mypy-report path="var/html/mypy/" *args: mypy-which
     @ mkdir -p {{path}}
     uv run mypy src tests --html-report {{path}} {{args}}
 
+# alias mypy-html-report := mypy-report
 
 # alias for mypy-report
 [group: 'mypy']

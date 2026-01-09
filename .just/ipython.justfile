@@ -9,7 +9,7 @@ symlink-ipython:
 
 # open python-shell
 [group: 'ipython']
-python-shell args="":
+python-shell *args:
     @ .venv/bin/python {{args}}
 
 alias python := python-shell
@@ -17,7 +17,7 @@ alias python := python-shell
 
 # open ipython-shell
 [group: 'ipython']
-ipython-shell args="":
+ipython-shell *args:
     @ .venv/bin/ipython {{args}}
 
 alias ipython := ipython-shell
@@ -25,7 +25,7 @@ alias ip := ipython-shell
 
 # open ipython-shell
 [group: 'ipython']
-ipython-shell-debug args="":
+ipython-shell-debug *args:
     @ .venv/bin/ipython --debug {{args}}
 
 alias ipython-debug := ipython-shell-debug
