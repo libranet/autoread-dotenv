@@ -5,17 +5,9 @@
 [![PyPi Package](https://img.shields.io/pypi/v/autoread-dotenv?color=%2334D058&label=pypi%20package)](https://pypi.org/project/autoread-dotenv/)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/libranet/autoread-dotenv/blob/main/docs/license.md)
 
-
-
 ## Installation
 
-Install via pip:
-
-```bash
-> bin/pip install autoread-dotenv
-```
-
-Or via uv:
+Install via uv:
 
 ```bash
 > uv add autoread-dotenv
@@ -27,11 +19,21 @@ Or add to your poetry-based project:
 > poetry add autoread-dotenv
 ```
 
+Install via pip:
+
+```bash
+> bin/pip install autoread-dotenv
+```
+
+## Set up a local development environment
+
+```bash
+> just install
+```
 
 ## Usage
 
 The only thing left to do for you is the create a ``.env`` in the root of your project.
-
 
 ## Registered sitecustomize-entrypoint
 
@@ -46,12 +48,10 @@ The ``autoread_dotenv.entrypoint``-function is registered as a ``sitecustomize``
 Sitecustomize and all its registered entrypoints will be executed at the start of *every* python-process.
 For more information, please see [sitecustomize-entrypoints](http://pypi.python.org/pypi/sitecustomize-entrypoints)
 
-
 ## Avoid overriding existing environments variables
 
 By default, your .env-file read by ``autoread-dotenv`` will override any pre-existing environment variables.
 You can avoid this behaviour by setting ``AUTOREAD_ENFORCE_DOTENV=0``.
-
 
 ## Compatibility
 
@@ -59,7 +59,6 @@ You can avoid this behaviour by setting ``AUTOREAD_ENFORCE_DOTENV=0``.
  [![PyPI - Implementation](https://img.shields.io/pypi/implementation/autoread-dotenv?:alt:PyPI-Implementation)](https://pypi.org/project/autoread-dotenv/)
 
 ``autoread-dotenv``  works on Python 3.8+, including PyPy3. Tested until Python 3.13,
-
 
 ## Notable dependencies
 
