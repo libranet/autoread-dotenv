@@ -78,8 +78,7 @@ pre-commit = [
     "pre-commit-hooks>=5.0.0",
 ]
 security = [
-    "bandit>=1.7",
-    # bandit = { extras = ["toml"], version = ">=1.7" }
+    "bandit[toml]>1.7",
     "safety>=2.3",
 ]
 testing = [
@@ -90,7 +89,7 @@ testing = [
     "pytest-xdist>=3.6",
 ]
 typing = [
-    "mypy>=1.14.1",
+    "mypy[reports]>1.1",
     "ty>=0.0.1a17",
 ]
 
@@ -220,16 +219,28 @@ known-local-folder = ["_helpers"]
 
 
 [tool.ty]
+# https://docs.astral.sh/ty/reference/configuration/
 
+[tool.ty.analysis]
+# Disable support for `type: ignore` comments
+respect-type-ignore-comments = true
+
+[tool.ty.environment]
+# extra-paths = ["docs/"]
+
+[tool.ty.rules]
+possibly-unresolved-reference = "warn"
+division-by-zero = "ignore"
+
+[tool.ty.src]
+include = [
+    "src",
+    "tests",
+]
 
 [tool.uv]
+# Settings reference: https://docs.astral.sh/uv/reference/settings/
+keyring-provider = "subprocess"
 managed = true
 package = true
-default-groups = [
-    # "dev",
-    # "ipython",
-    # "jupyter",
-    # "pre-commit",
-    # "testing",
-    # "typing",
-]
+default-groups = "all"
