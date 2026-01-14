@@ -130,7 +130,7 @@ data_file = "var/cache/coverage/coverage.db"
 
 [tool.mypy]
 # cfr https://mypy.readthedocs.io/en/stable/config_file.html#using-a-pyproject-toml-file
-cache_dir = "var/cache/mypy"
+cache_dir = "$MYPY_CONFIG_FILE_DIR/var/cache/mypy"
 check_untyped_defs = true
 disallow_untyped_defs = true
 exclude = "^bin/"
