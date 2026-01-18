@@ -210,7 +210,7 @@ sdist = { url = "https://files.pythonhosted.org/packages/05/c0/27f55ac0c5b99861c
 
 [[package]]
 name = "autoread-dotenv"
-version = "1.0.3"
+version = "1.0.4"
 source = { editable = "." }
 dependencies = [
     { name = "python-dotenv", version = "1.0.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.9'" },

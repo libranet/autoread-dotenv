@@ -2,11 +2,33 @@
 
 All notable changes to this project will be documented in this file.
 
-## 1.0.4 (YYYY-MM-DD)
+## 1.0.4 (2026-01-18)
 
 - Switch from `poetry` to `uv` to manage this package.
 
 - Switch from `make` to `just` as task-runner.
+
+- Add support for Python 3.14.
+
+- Increase test coverage to 100%.
+
+- Modernize GitHub Actions workflows and re-enable dependabot.
+
+- Add `fail-fast: false` to linting workflow to run all Python versions.
+
+- Fix codecov upload configuration.
+
+- Fix mypy type-ignore comments for Python 3.8 compatibility.
+
+- Modernize readthedocs configuration.
+
+- Add `.just/gh.justfile` with GitHub CLI commands.
+
+- Update justfiles to use `uv run` instead of direct `.venv/bin` paths.
+
+- Bump locked dependency versions.
+
+- No functional changes in the package.
 
 ## 1.0.3 (2025-01-15)
 

@@ -20,7 +20,7 @@ build-backend = "uv_build"
 
 [project]
 name = "autoread_dotenv"
-version = "1.0.3"
+version = "1.0.4"
 description = "Automatically set env-vars at the beginning of every python-process in your in-project virtualenv."
 readme = "docs/readme.md"
 authors = [{ name = "Wouter Vanden Hove", email = "wouter@libranet.eu" }]
@@ -181,8 +181,7 @@ markers = [  # avoid warnings about unregistered markers
     "slow",
 ]
 testpaths = ["tests"]
-# addopts = "--color=yes --report-dir='var/coverage/html'"
-# report-dir = "var/cache/coverage"
+pythonpath = ["tests"]  # allows for importing helper-module
 
 
 [tool.ruff]

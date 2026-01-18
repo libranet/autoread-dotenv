@@ -120,3 +120,8 @@ uv-set-python-version version="3.10" *args:
     @ echo -e "Set python version to {{version}}"
 
 
+# bump project version in pyproject.toml
+[group: 'uv']
+uv-bump-version value="patch":
+    uv version {{value}}
+
