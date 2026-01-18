@@ -15,7 +15,7 @@ PACKAGE: str = __package__ or ""
 
 try:
     msg = importlib.metadata.metadata(PACKAGE)
-    pkginfo: dict[str, str | list[str]] = msg.json  # ty: ignore[unresolved-attribute]
+    pkginfo: dict[str, str | list[str]] = msg.json  # type: ignore[attr-defined]  # ty: ignore[unresolved-attribute]
 except ValueError:  # pragma: no cover
     # A distribution name is required. __package__ is None
     pkginfo = {}
@@ -28,4 +28,4 @@ authors: str | list[str] = pkginfo.get("author_email", "unknown")
 
 license_: str | list[str] = pkginfo.get("license_expression") or pkginfo.get("license", "unknown") or "unknown"
 
-version: str | list[str] = pkginfo.get("version", "unknown")
+version: str = pkginfo.get("version", "unknown")  # type: ignore[assignment]
