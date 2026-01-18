@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+
+## 1.1.0 (YYY-MM-DD)
+
+- Drop Python 3.8 support.
+
 ## 1.0.4 (2026-01-18)
 
 - Switch from `poetry` to `uv` to manage this package.

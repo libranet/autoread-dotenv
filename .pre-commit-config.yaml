@@ -184,14 +184,13 @@ repos:
         language: system
         types: [python]
 
-    #   - id: mdformat
-    #     name: mdformat
-    #     description: format markdown files
-    #     entry: mdformat
-    #     language: system
-    #     language_version: python3.14
-    #     types: [markdown]
-    #     exclude: '^_archive/|^\.venv/'
+      - id: mdformat
+        name: mdformat
+        description: format markdown files
+        entry: mdformat
+        language: system
+        types: [markdown]
+        exclude: '^_archive/|^\.venv/'
 
       - id: uv-lock-check
         name: uv lock check
