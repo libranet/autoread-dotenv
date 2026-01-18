@@ -12,8 +12,8 @@ def test_version() -> None:
     assert packaging.version.parse(__version__) >= packaging.version.parse("0.0")
 
 
-def test_copyright() -> None:
-    from autoread_dotenv import __copyright__
+def test_license() -> None:
+    from autoread_dotenv import __license__
 
-    assert isinstance(__copyright__, str)
-    assert "Copyright" in __copyright__
+    assert isinstance(__license__, str)
+    assert "Copyright" in __license__

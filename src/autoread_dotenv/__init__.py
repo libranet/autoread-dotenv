@@ -30,7 +30,7 @@ The .env-file must reside in the root of your project-directory.
 
 """
 
-from __future__ import annotations
+from __future__ import annotations  # make | in typing work in Python 3.8
 
 import os
 import typing as tp
@@ -46,13 +46,16 @@ try:
 except ImportError:  # pragma: no cover
     DOTENV_INSTALLED = 0
 
-from autoread_dotenv.__meta__ import __author__, __author_email__, __copyright__, __license__, __version__
+
+from autoread_dotenv.about import (
+    authors as __author__,
+    license_ as __license__,
+    version as __version__,
+)
 from autoread_dotenv.utils import SimpleWarning, get_dotenv_path, str_to_bool
 
 __all__: list[str] = [
     "__author__",
-    "__author_email__",
-    "__copyright__",
     "__license__",
     "__version__",
     "entrypoint",
