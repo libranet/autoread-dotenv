@@ -139,7 +139,7 @@ jobs:
           uses: codecov/codecov-action@671740ac38dd9b0130fbe1cec585b89eea48d3de  # v5.5.2 released on 09-12-2025
           with:
               fail_ci_if_error: false # optional (default = false)
-              file: var/coverage/pytest-cobertura.xml
+              files: var/coverage/pytest-cobertura.xml
               flags: unittests # optional
               token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
               verbose: true # optional (default = false)
