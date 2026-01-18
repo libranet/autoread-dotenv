@@ -180,7 +180,6 @@ repos:
       - id: ruff-format
         name: ruff format
         entry: ruff format
-        args: [--fix, --exit-non-zero-on-fix]
         language: system
         types: [python]
 
