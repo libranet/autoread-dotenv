@@ -15,7 +15,7 @@ PACKAGE: str = __package__ or ""
 
 try:
     msg = importlib.metadata.metadata(PACKAGE)
-    pkginfo: dict[str, str | list[str]] = msg.json  # type: ignore[attr-defined]  # ty: ignore[unresolved-attribute]
+    pkginfo: dict[str, str | list[str]] = msg.json  # type: ignore[attr-defined]
 except ValueError:  # pragma: no cover
     # A distribution name is required. __package__ is None
     pkginfo = {}
