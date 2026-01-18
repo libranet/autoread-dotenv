@@ -15,3 +15,12 @@ def test_simple_warning() -> None:
         warning = warning_list[-1]
         assert issubclass(warning.category, UserWarning)
         assert str(warning.message) == "This is a test warning."
+
+
+def test_simple_message() -> None:
+    from autoread_dotenv import SimpleWarning
+
+    result = SimpleWarning.simple_message("Test message")
+    assert "Warning from" in result
+    assert "Test message" in result
+    assert result.endswith("\n")

@@ -5,6 +5,7 @@
 """Testing of module autoread_dotenv."""
 
 import os
+import pathlib as pl
 
 
 def test_env_path() -> None:
@@ -85,3 +86,17 @@ def test_autoread_dotenv_not_enforce_dotenv() -> None:
     entrypoint()
     foo_value = os.getenv("FOO")
     assert foo_value == "bar"  # value in .env is ignored
+
+
+def test_get_dotenv_path_returns_none(tmp_path: pl.Path, monkeypatch) -> None:
+    """Test get_dotenv_path returns None when .env doesn't exist."""
+    from autoread_dotenv import get_dotenv_path
+
+    # Create a fake .venv directory without a .env file
+    fake_venv = tmp_path / ".venv"
+    fake_venv.mkdir()
+
+    monkeypatch.setattr("sys.prefix", str(fake_venv))
+
+    result = get_dotenv_path()
+    assert result is None
