@@ -162,12 +162,6 @@ repos:
         language: system
         types: [python]
 
-      - id: fix-encoding-pragma
-        name: fix encoding pragma
-        entry: fix-encoding-pragma --remove
-        language: system
-        types: [python]
-
       - id: name-tests-test
         name: pytests are prefixed tests_*.py
         entry: name-tests-test
