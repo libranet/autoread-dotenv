@@ -10,11 +10,11 @@ from __future__ import annotations  # make | in typing work in Python 3.8
 
 import importlib.metadata
 
-package: str = __package__ or ""
+PACKAGE: str = __package__ or ""
 
 
 try:
-    msg = importlib.metadata.metadata(package)
+    msg = importlib.metadata.metadata(PACKAGE)
     pkginfo: dict[str, str | list[str]] = msg.json  # ty: ignore[unresolved-attribute]
 except ValueError:  # pragma: no cover
     # A distribution name is required. __package__ is None

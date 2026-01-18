@@ -46,7 +46,7 @@ try:
 except ImportError:  # pragma: no cover
     DOTENV_INSTALLED = 0
 
-
+# pylint: disable=wrong-import-position
 from autoread_dotenv.about import (
     authors as __author__,
     license_ as __license__,
