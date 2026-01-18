@@ -14,7 +14,7 @@ currently being supported with security updates.
 
 This project follows a 90 day disclosure timeline.
 
-To report a security issue, please an email security@libranet.eu with
+To report a security issue, please an email <security@libranet.eu> with
 
 - a description of the issue
 - the steps you took to create the issue,

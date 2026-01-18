@@ -1,11 +1,11 @@
-autoread_dotenv
-===============
+autoread_dotenv.utils
+=====================
 
-.. py:module:: autoread_dotenv
+.. py:module:: autoread_dotenv.utils
 
 .. autoapi-nested-parse::
 
-   autoread_dotenv.__init__.
+   autoread_dotenv.utils.
 
    We assume following directory-structure:
    The virtualenv of your project **must** be created as a
@@ -36,24 +36,12 @@ autoread_dotenv
 
 
 
-Submodules
-----------
-
-.. toctree::
-   :maxdepth: 1
-
-   /modules/autoread_dotenv/about/index
-   /modules/autoread_dotenv/utils/index
-
-
-Attributes
-----------
+Classes
+-------
 
 .. autoapisummary::
 
-   autoread_dotenv.__author__
-   autoread_dotenv.__license__
-   autoread_dotenv.__version__
+   autoread_dotenv.utils.SimpleWarning
 
 
 Functions
@@ -61,21 +49,41 @@ Functions
 
 .. autoapisummary::
 
-   autoread_dotenv.get_dotenv_path
-   autoread_dotenv.entrypoint
+   autoread_dotenv.utils.get_dotenv_path
+   autoread_dotenv.utils.str_to_bool
 
 
-Package Contents
-----------------
+Module Contents
+---------------
 
-.. py:data:: __author__
-   :type:  str | list[str]
+.. py:class:: SimpleWarning
 
-.. py:data:: __license__
-   :type:  str | list[str]
+   Simple warning-formatting .
 
-.. py:data:: __version__
-   :type:  str
+
+   .. py:attribute:: old_format
+      :type:  Callable | None
+
+
+   .. py:method:: __enter__()
+
+      Enter contextmanager.
+
+
+
+   .. py:method:: __exit__(*args, **kwargs)
+
+      Exit contextmanager.
+
+
+
+   .. py:method:: simple_message(message)
+      :staticmethod:
+
+
+      Return a simple warning-message without any traceback-info.
+
+
 
 .. py:function:: get_dotenv_path()
 
@@ -84,8 +92,8 @@ Package Contents
    Return None of the .env-file does not exist.
 
 
-.. py:function:: entrypoint()
+.. py:function:: str_to_bool(value)
 
-   Set environment-variable from the in-project .env-file.
+   Convert a string value to a boolean.
 
 
