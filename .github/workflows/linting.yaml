@@ -1,4 +1,42 @@
+# linting - Github Actions
+#
+# Security references:
+#  - https://securitylab.github.com/resources/github-actions-preventing-pwn-requests
+#  - https://securitylab.github.com/resources/github-actions-untrusted-input
+#  - https://securitylab.github.com/resources/github-actions-building-blocks
+#  - https://securitylab.github.com/resources/github-actions-new-patterns-and-mitigations
+#
+# Used actions:
+#   - actions/checkout
+#     repo: https://github.com/actions/checkout
+#     releases: https://github.com/actions/checkout/tags
+#
+#   - astral-sh/setup-uv: set up uv environment
+#     repo: https://github.com/astral-sh/setup-uv
+#     releases: https://github.com/astral-sh/setup-uv/tags
+#     https://docs.astral.sh/uv/guides/integration/github/
+
+
 name: Linting
+
+concurrency:
+    # see https://docs.github.com/en/actions/using-jobs/using-concurrency
+    # cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+    group: ${{ github.workflow }}-${{ github.ref }}
+
+env:
+    # Enable colored output for pytest
+    # https://github.com/pytest-dev/pytest/issues/7443
+    # https://github.com/actions/runner/issues/241
+    PY_COLORS: 1
+
+    # Pin just version for reproducible builds
+    # https://github.com/casey/just/releases
+    JUST_VERSION: "1.46.0"  # released on 2026-01-02
+
+    # Pin uv version for reproducible builds
+    # https://github.com/astral-sh/uv/releases
+    UV_VERSION: "0.9.26"  # released on 2026-01-15
 
 on:
     pull_request:
@@ -11,81 +49,116 @@ permissions:
     contents: read
 
 jobs:
+    # see https://docs.astral.sh/uv/guides/integration/github/
     run-tests:
         name: Python linters
-        runs-on: ubuntu-latest
+        runs-on: ${{ matrix.os }}
         timeout-minutes: 5
-
+        strategy:
+            matrix:
+                os:
+                    - ubuntu-latest
+                python-version:
+                    - "3.14"
+                    - "3.13"
+                    - "3.12"
+                    - "3.11"
+                    - "3.10"
+                    - "3.9"
+                    - "3.8"
         steps:
-            - uses: actions/checkout@v5
-              with:
-                  persist-credentials: false
-                  fetch-depth: 0
 
-            - name: Show env variables
-              run: |
-                  echo "$HOME/bin" >> $GITHUB_PATH
-                  echo "${pwd}/.venv/bin" >> $GITHUB_PATH
-                  printenv | sort
+        # repo: https://github.com/actions/checkout
+        # releases: https://github.com/actions/checkout/tags
+        - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8  # v6.0.1 released on 02-12-2025
+          with:
+              persist-credentials: false
+              fetch-depth: 0
 
-            - name: Set up Python 3.1.
-              uses: actions/setup-python@v6
-              with:
-                  python-version: "3.13"
+        # - name: Show env variables
+        #   run: |
+        #       echo "$HOME/bin" >> $GITHUB_PATH
+        #       echo "${pwd}/.venv/bin" >> $GITHUB_PATH
+        #       printenv | sort
 
-            - name: Install just
-              run: |
-                  curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to /usr/local/bin
-                  which just
-                  just --version
+        # repo: https://github.com/extractions/setup-just
+        # releases: https://github.com/extractions/setup-just/releases
+        - name: Install pinned version of just
+          uses: extractions/setup-just@v3
+          with:
+              just-version: ${{ env.JUST_VERSION }}
 
-            - name: Install uv
-              uses: astral-sh/setup-uv@ed21f2f24f8dd64503750218de024bcf64c7250a # v7.1.5
-              with:
-                  version: "latest"
+        # repo: https://github.com/astral-sh/setup-uv
+        # releases: https://github.com/astral-sh/setup-uv/tags
+        # docs: https://docs.astral.sh/uv/guides/integration/github
+        - name: Install pinned version of uv
+          uses: astral-sh/setup-uv@61cb8a9741eeb8a550a1b8544337180c0fc8476b  # v7.1.6 released on 13-12-2025
+          with:
+              python-version: ${{ matrix.python-version }}
+              version: ${{ env.UV_VERSION }}
+              enable-cache: true
+              cache-dependency-glob: "uv.lock"
+              prune-cache: true
 
-            - name: Install project + dependencies
-              run: |
-                  just ubuntu-remove-global-sitecustomize
-                  just uv-set-python-version ${{ matrix.python-version }}
-                  just install
+        - name: Remove sitecustomize.py
+          run: just ubuntu-remove-global-sitecustomize
 
-            - name: Ruff format
-              run: |
-                  just ruff-format
+        - name: Set up Python ${{ matrix.python-version }}
+          run: uv python install ${{ matrix.python-version }}
 
-            - name: Ruff check
-              run: |
-                  just ruff-check
+        # - name: Install the project
+        #   run: uv sync --all-groups
 
-            - name: Pylint
-              run: |
-                  just pylint
+        - name: Install project + dependencies
+          run: |
+              just uv-set-python-version ${{ matrix.python-version }}
+              just install
 
-            - name: Mypy
-              run: |
-                  just mypy
+        - name: Pre-commit
+          run: uv run pre-commit run --all-files
 
-            - name: Ty
-              run: |
-                  just ty-check
+        - name: Ruff format
+          run: |
+              just ruff-format
 
-            - name: Pyroma
-              run: |
-                  just pyroma
+        # - name: Ruff check
+        #   run: uv run ruff check src tests
 
-            - name: uv lock check
-              run: |
-                  just uv-lock-check
+        - name: Ruff check
+          run: |
+              just ruff-check
 
-            # - name: Bandit
-            #   run: |
-            #       just bandit-html
+        # - name: Pylint
+        #   run: uv run pylint src
 
-            # https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts
-            # - name: Upload Bandit Report
-            #   uses: actions/upload-artifact@v4
-            #   with:
-            #       name: Bandit Report
-            #       path: var/html-bandit/index.html
-            #       retention-days: 10
+        - name: Pylint
+          run: |
+              just pylint
+
+        - name: Mypy
+          run: |
+              just mypy
+
+        - name: Ty
+          run: |
+              just ty-check
+
+        - name: Pyroma
+          run: |
+              just pyroma
+
+        - name: uv lock check
+          run: |
+              just uv-lock-check
+
+        # - name: Bandit
+        #   run: |
+        #       just bandit-html
+
+        # https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts
+        # - name: Upload Bandit Report
+        #   uses: actions/upload-artifact@v4
+        #   with:
+        #       name: Bandit Report
+        #       path: var/html-bandit/index.html
+        #       retention-days: 10
