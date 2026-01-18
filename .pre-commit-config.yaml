@@ -189,6 +189,7 @@ repos:
         description: format markdown files
         entry: mdformat
         language: system
+        language_version: python3.14
         types: [markdown]
         exclude: '^_archive/|^\.venv/'
 
