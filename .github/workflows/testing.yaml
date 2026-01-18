@@ -109,16 +109,22 @@ jobs:
               python-version: ${{ matrix.python-version }}
               version: ${{ env.UV_VERSION }}
 
-        - name: Remove sitecustomize.py
-          run: |
-              sudo rm -f /usr/lib/python3.*/sitecustomize.py
-              sudo rm -f /etc/python3.*/sitecustomize.py
+        # - name: Remove sitecustomize.py
+        #   run: |
+        #       sudo rm -f /usr/lib/python3.*/sitecustomize.py
+        #       sudo rm -f /etc/python3.*/sitecustomize.py
 
         - name: Set up Python ${{ matrix.python-version }}
           run: uv python install ${{ matrix.python-version }}
 
-        - name: Install the project
-          run: uv sync --all-groups
+        - name: Install project + dependencies
+          run: |
+              just ubuntu-remove-global-sitecustomize
+              just uv-set-python-version ${{ matrix.python-version }}
+              just install
+
+        # - name: Install the project
+        #   run: uv sync --all-groups
 
         #- name: Run tests
         #  run: uv run pytest tests --color=yes --cov=src --cov-fail-under=50 --cov-report html:var/coverage/html --cov-report xml:var/coverage/pytest-cobertura.xml --cov-report term-missing -v
