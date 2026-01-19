@@ -72,6 +72,14 @@ uv-sync-all-groups *args:
 alias uv-sync-all := uv-sync-all-groups
 
 
+# install the project with only runtime dependencies (no dev groups)
+[group: 'uv']
+uv-sync-minimal *args:
+    uv sync --no-default-groups {{args}}
+
+alias uv-sync-prod := uv-sync-minimal
+
+
 # update all dependencies from all groups
 [group: 'uv']
 uv-sync-upgrade-all-groups *args:
