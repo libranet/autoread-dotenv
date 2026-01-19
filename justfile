@@ -54,7 +54,6 @@ import? '.just/sshx.justfile'
 import? '.just/ty.justfile'
 import? '.just/ubuntu.justfile'
 import? '.just/uv.justfile'
-import? '.just/foo.justfile'
 
 
 # Display all canonical tasks (default recipe)
