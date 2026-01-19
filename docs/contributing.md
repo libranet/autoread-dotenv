@@ -24,6 +24,16 @@ To set up a development environment, please follow these steps:
    just install
    ```
 
+## Pre-commit hooks
+
+To enable pre-commit hooks for automatic code formatting and linting on each commit:
+
+```sh
+just install-dev
+```
+
+This runs `just install` followed by `pre-commit install`.
+
 ## Issues and feature requests
 
 You've found a bug in the source code, a mistake in the documentation or maybe you'd like a new feature?
