@@ -57,6 +57,7 @@ import? '.just/ubuntu.justfile'
 import? '.just/uv.justfile'
 
 
-# Display all canonical tasks (default recipe)
+# Display all configure tasks (default recipe)
+[group: 'default']
 list:
-    @ just --list --unsorted --no-aliases
+    @ just --list --unsorted
