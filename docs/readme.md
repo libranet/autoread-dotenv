@@ -1,3 +1,5 @@
+# autoread-dotenv
+
 [![Testing](https://img.shields.io/github/actions/workflow/status/libranet/autoread-dotenv/testing.yaml?branch=main&longCache=true&style=flat-square&label=tests&logo=GitHub%20Actions&logoColor=fff%22)](https://github.com/libranet/autoread-dotenv/actions/workflows/testing.yaml)
 [![Linting](https://img.shields.io/github/actions/workflow/status/libranet/autoread-dotenv/linting.yaml?branch=main&longCache=true&style=flat-square&label=linting&logo=GitHub%20Actions&logoColor=fff%22)](https://github.com/libranet/autoread-dotenv/actions/workflows/linting.yaml)
 [![Read the Docs](https://readthedocs.org/projects/autoread-dotenv/badge/?version=latest)](https://autoread-dotenv.readthedocs.io/en/latest/)

@@ -69,7 +69,7 @@ extensions = [
     "sphinx.ext.todo",
     # "sphinx_paramlinks",
     "sphinx_rtd_theme",
-    "recommonmark",
+    "myst_parser",
 ]
 
 

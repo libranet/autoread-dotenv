@@ -18,10 +18,10 @@ To set up a development environment, please follow these steps:
    git clone https://github.com/libranet/autoread-dotenv
    ```
 
-1. Run make install
+1. Install dependencies
 
    ```sh
-   make install
+   just install
    ```
 
 ## Issues and feature requests
