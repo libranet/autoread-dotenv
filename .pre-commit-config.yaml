@@ -53,42 +53,42 @@ repos:
 
       - id: check-added-large-files
         name: check added large files
-        entry: check-added-large-files
+        entry: uv run check-added-large-files
         language: system
 
       - id: check-case-conflict
         name: check case conflicts
         description: Check for files with names that would conflict on a case-insensitive filesystem.
-        entry: check-case-conflict
+        entry: uv run check-case-conflict
         language: system
 
       - id: check-merge-conflict
         name: check merge conflict
-        entry: check-merge-conflict
+        entry: uv run check-merge-conflict
         args: [--assume-in-merge]
         language: system
 
       - id: check-shebang-scripts-are-executable
         name: check shebang scripts are executable
-        entry: check-shebang-scripts-are-executable
+        entry: uv run check-shebang-scripts-are-executable
         language: system
 
       - id: check-json
         name: check json
-        entry: check-json
+        entry: uv run check-json
         language: system
         types: [json]
         exclude: '^.vscode/.*\.json'
 
       - id: check-toml
         name: check toml syntax
-        entry: check-toml
+        entry: uv run check-toml
         language: system
         types: [toml]
 
       - id: check-xml
         name: check xml syntax
-        entry: check-xml
+        entry: uv run check-xml
         language: system
         types: [xml]
 
@@ -100,33 +100,33 @@ repos:
 
       - id: check-symlinks
         name: check symlinks
-        entry: check-symlinks
+        entry: uv run check-symlinks
         language: system
 
       - id: destroyed-symlinks
         name: destroyed symlinks
-        entry: destroyed-symlinks
+        entry: uv run destroyed-symlinks
         language: system
 
       - id: detect-private-key
         name: detect private key
-        entry: detect-private-key
+        entry: uv run detect-private-key
         language: system
 
       - id: fix-byte-order-marker
         name: fix byte order marker
-        entry: fix-byte-order-marker
+        entry: uv run fix-byte-order-marker
         language: system
 
       - id: mixed-line-ending
         name: fix mixed line ending (CLRF/LF)
-        entry: mixed-line-ending
+        entry: uv run mixed-line-ending
         language: system
         types: [text]
 
       - id: trailing-whitespace
         name: fix trailing whitespace (EOL)
-        entry: trailing-whitespace-fixer
+        entry: uv run trailing-whitespace-fixer
         language: system
         types: [text]
 
@@ -134,37 +134,37 @@ repos:
 
       - id: check-ast
         name: check ast
-        entry: check-ast
+        entry: uv run check-ast
         language: system
         types: [python]
 
       - id: check-builtin-literals
         name: check builtin literals
-        entry: check-builtin-literals
+        entry: uv run check-builtin-literals
         language: system
         types: [python]
 
       - id: check-docstring-first
         name: check docstring first
-        entry: check-docstring-first
+        entry: uv run check-docstring-first
         language: system
         types: [python]
 
       - id: debug-statements
         name: check debug statements
-        entry: debug-statement-hook
+        entry: uv run debug-statement-hook
         language: system
         types: [python]
 
       - id: end-of-file-fixer
         name: fix end of files (EOF)
-        entry: end-of-file-fixer
+        entry: uv run end-of-file-fixer
         language: system
         types: [python]
 
       - id: name-tests-test
         name: pytests are prefixed tests_*.py
-        entry: name-tests-test
+        entry: uv run name-tests-test
         args: [--pytest-test-first]
         language: system
         types: [python]
@@ -173,13 +173,13 @@ repos:
 
       - id: ruff-format
         name: ruff format
-        entry: ruff format
+        entry: uv run ruff format
         language: system
         types: [python]
 
       - id: ruff-check
         name: ruff check
-        entry: ruff check
+        entry: uv run ruff check
         args: [--fix]
         language: system
         types: [python]
@@ -187,7 +187,7 @@ repos:
       - id: mdformat
         name: mdformat
         description: format markdown files
-        entry: mdformat
+        entry: uv run mdformat
         language: system
         types: [markdown]
         exclude: '^_archive/|^\.venv/'
