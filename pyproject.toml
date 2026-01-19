@@ -117,6 +117,7 @@ output = "var/html/coverage/coverage.xml"
 
 [tool.coverage.report]
 # cfr. https://coverage.readthedocs.io/en/coverage-4.2/excluding.html
+fail_under = 90
 exclude_lines = [
     "pragma: no cover",
     "raise AssertionError",

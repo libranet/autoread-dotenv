@@ -16,7 +16,7 @@ pytest-marked markers="" *args:
 # run pytest with coverage
 [group: 'pytest']
 pytest-coverage *args:
-    uv run pytest --color=yes --cov=src --cov-fail-under=5 --cov-report html:var/coverage/html --cov-report xml:var/coverage/pytest-cobertura.xml --cov-report term-missing --junit-xml='var/coverage/pytest-junit.xml' {{args}}
+    uv run pytest --color=yes --cov=src --cov-report html:var/coverage/html --cov-report xml:var/coverage/pytest-cobertura.xml --cov-report term-missing --junit-xml='var/coverage/pytest-junit.xml' {{args}}
 
 alias pytest-cov := pytest-coverage
 
