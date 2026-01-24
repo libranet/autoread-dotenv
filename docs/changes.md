@@ -2,9 +2,25 @@
 
 All notable changes to this project will be documented in this file.
 
-## 1.1.0 (YYY-MM-DD)
+## 1.1.0 (YYYY-MM-DD)
 
 - Drop Python 3.8 support.
+
+- Refactor `SimpleWarning` class to `simple_warning()` context manager function.
+
+- Move warning utilities from `utils.py` to new `warnings.py` module.
+
+- Fix warning message to show full expected `.env` path instead of `None`.
+
+- Add `get_expected_dotenv_path()` helper function.
+
+- Use `monkeypatch` consistently in tests.
+
+- Improve test coverage for warning formatting.
+
+- Remove redundant `autoapi` dependency (use `sphinx-autoapi` only).
+
+- Update `from __future__ import annotations` comments.
 
 ## 1.0.4 (2026-01-18)
 
