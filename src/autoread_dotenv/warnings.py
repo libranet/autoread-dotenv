@@ -13,11 +13,7 @@ def simple_warning() -> tp.Iterator[None]:
     old_format = warnings.formatwarning
 
     def simple_format(
-        message: object,
-        category: type[Warning],
-        filename: str,
-        lineno: int,
-        line: str | None = None,
+        message: str,
     ) -> str:
         return f"Warning from {__name__}: {message}\n"
 

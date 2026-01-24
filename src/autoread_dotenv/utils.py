@@ -36,8 +36,11 @@ import sys
 
 
 def get_expected_dotenv_path() -> pl.Path:
-    """Return the expected location of the .env for in-project virtualenvs."""
-    # sys.prefix is <project-root>/.venv or <project-root> when using toplevel symlinks to .venv
+    """Return the expected location of the .env for in-project virtualenvs.
+
+    sys.prefix is <project-root>/.venv or
+    <project-root> when using toplevel symlinks to .venv
+    """
     prefix: pl.Path = pl.Path(sys.prefix)
     base_dir: pl.Path = prefix.parent if prefix.name == ".venv" else prefix
     return base_dir / ".env"
