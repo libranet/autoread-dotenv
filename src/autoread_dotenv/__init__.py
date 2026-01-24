@@ -1,5 +1,4 @@
-"""
-autoread_dotenv.__init__.
+"""autoread_dotenv.__init__.
 
 We assume following directory-structure:
 The virtualenv of your project **must** be created as a
