@@ -184,13 +184,19 @@ repos:
         language: system
         types: [python]
 
+      - id: ty-check
+        name: ty check
+        entry: uv run ty check src/ tests/
+        language: system
+        types: [python]
+        pass_filenames: false
+
       - id: mdformat
         name: mdformat
         description: format markdown files
         entry: uv run mdformat
         language: system
         types: [markdown]
-        exclude: '^_archive/|^\.venv/'
 
       - id: uv-lock-check
         name: uv lock check
