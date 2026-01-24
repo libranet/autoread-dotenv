@@ -21,7 +21,7 @@ def simple_warning() -> tp.Iterator[None]:
     ) -> str:
         return f"Warning from {__name__}: {message}\n"
 
-   # intentional monkeypatch
+    # intentional monkeypatch
     warnings.formatwarning = simple_format  # ty: ignore[invalid-assignment]
     try:
         yield
