@@ -10,7 +10,7 @@ sphinx-build-which:
 # generate sphinx-docs in var/html-docs
 [group: 'sphinx']
 sphinx-docs:
-	sphinx-build -b html -d var/cache/sphinx-doctrees -w var/log/sphinx-build.log docs var/html-docs
+	sphinx-build -b html -d var/cache/sphinx -w var/log/sphinx-build.log docs var/html-docs
 	@echo
 	@echo "Build finished."
 

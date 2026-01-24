@@ -59,7 +59,7 @@ project_prefix = ""
 extensions = [
     "sphinx.ext.napoleon",
     "autoapi.extension",
-    "autoapi.sphinx",
+    # "autoapi.sphinx",
     # "sphinx_click",
     "sphinx.ext.coverage",
     "sphinx.ext.doctest",

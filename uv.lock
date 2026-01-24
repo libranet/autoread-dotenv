@@ -111,16 +111,6 @@ wheels = [
 ]
 
 [[package]]
-name = "autoapi"
-version = "2.0.1"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "sphinx", version = "7.4.7", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },
-    { name = "sphinx", version = "8.1.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/05/c0/27f55ac0c5b99861cca008cdc890316e864e99090db6005dcad4d0c601aa/autoapi-2.0.1.tar.gz", hash = "sha256:4003b17599020652d0738dc1c426d0abf2f58f8a1821f5500816043210b3d1d6", size = 11963, upload-time = "2020-03-04T20:04:44.63Z" }
-
-[[package]]
 name = "autoread-dotenv"
 version = "1.1.0.dev1"
 source = { editable = "." }
@@ -135,7 +125,6 @@ dev = [
     { name = "toml-cli", version = "0.8.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
 ]
 docs = [
-    { name = "autoapi" },
     { name = "docutils" },
     { name = "markupsafe" },
     { name = "mdformat" },
@@ -199,7 +188,6 @@ requires-dist = [
 [package.metadata.requires-dev]
 dev = [{ name = "toml-cli", specifier = ">=0.7.0" }]
 docs = [
-    { name = "autoapi", specifier = ">=2.0" },
     { name = "docutils", specifier = "!=0.21" },
     { name = "markupsafe", specifier = ">=2.1" },
     { name = "mdformat", specifier = ">=0.7" },

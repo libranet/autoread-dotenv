@@ -56,7 +56,6 @@ dev = [
     "toml-cli >=0.7.0",
 ]
 docs = [
-    "autoapi>=2.0",
     "docutils!=0.21",  # Work-around for https://github.com/pypi/warehouse/issues/15749
     "markupsafe>=2.1",
     "mdformat>=0.7",

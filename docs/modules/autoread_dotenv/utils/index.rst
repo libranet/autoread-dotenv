@@ -36,19 +36,12 @@ autoread_dotenv.utils
 
 
 
-Classes
--------
-
-.. autoapisummary::
-
-   autoread_dotenv.utils.SimpleWarning
-
-
 Functions
 ---------
 
 .. autoapisummary::
 
+   autoread_dotenv.utils.get_expected_dotenv_path
    autoread_dotenv.utils.get_dotenv_path
    autoread_dotenv.utils.str_to_bool
 
@@ -56,40 +49,16 @@ Functions
 Module Contents
 ---------------
 
-.. py:class:: SimpleWarning
+.. py:function:: get_expected_dotenv_path()
 
-   Simple warning-formatting .
-
-
-   .. py:attribute:: old_format
-      :type:  Callable | None
-
-
-   .. py:method:: __enter__()
-
-      Enter contextmanager.
-
-
-
-   .. py:method:: __exit__(*args, **kwargs)
-
-      Exit contextmanager.
-
-
-
-   .. py:method:: simple_message(message)
-      :staticmethod:
-
-
-      Return a simple warning-message without any traceback-info.
-
+   Return the expected location of the .env for in-project virtualenvs.
 
 
 .. py:function:: get_dotenv_path()
 
    Return the location of the .env for in-project virtualenvs.
 
-   Return None of the .env-file does not exist.
+   Return None if the .env-file does not exist.
 
 
 .. py:function:: str_to_bool(value)

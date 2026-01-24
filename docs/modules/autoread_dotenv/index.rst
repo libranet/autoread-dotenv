@@ -44,6 +44,7 @@ Submodules
 
    /modules/autoread_dotenv/about/index
    /modules/autoread_dotenv/utils/index
+   /modules/autoread_dotenv/warnings/index
 
 
 Attributes
@@ -62,6 +63,8 @@ Functions
 .. autoapisummary::
 
    autoread_dotenv.get_dotenv_path
+   autoread_dotenv.str_to_bool
+   autoread_dotenv.simple_warning
    autoread_dotenv.entrypoint
 
 
@@ -81,7 +84,17 @@ Package Contents
 
    Return the location of the .env for in-project virtualenvs.
 
-   Return None of the .env-file does not exist.
+   Return None if the .env-file does not exist.
+
+
+.. py:function:: str_to_bool(value)
+
+   Convert a string value to a boolean.
+
+
+.. py:function:: simple_warning()
+
+   Context manager for simplified warning formatting without tracebacks.
 
 
 .. py:function:: entrypoint()
