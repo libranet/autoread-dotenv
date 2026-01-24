@@ -13,11 +13,16 @@ def simple_warning() -> tp.Iterator[None]:
     old_format = warnings.formatwarning
 
     def simple_format(
-        message: str,
+        message: Warning | str,
+        category: type[Warning],  # noqa: ARG001
+        filename: str,  # noqa: ARG001
+        lineno: int,  # noqa: ARG001
+        line: str | None = None,  # noqa: ARG001
     ) -> str:
         return f"Warning from {__name__}: {message}\n"
 
-    warnings.formatwarning = simple_format
+   # intentional monkeypatch
+    warnings.formatwarning = simple_format  # ty: ignore[invalid-assignment]
     try:
         yield
     finally:
