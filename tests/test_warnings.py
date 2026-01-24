@@ -1,14 +1,14 @@
 # pylint: disable=import-outside-toplevel
 # pylint: disable=missing-function-docstring
-"""Testing of module autoread_dotenv.__init__."""
+"""Testing of module autoread_dotenv.warnings."""
 
 import warnings
 
 
 def test_simple_warning() -> None:
-    from autoread_dotenv import SimpleWarning
+    from autoread_dotenv.warnings import simple_warning
 
-    with warnings.catch_warnings(record=True) as warning_list, SimpleWarning():
+    with warnings.catch_warnings(record=True) as warning_list, simple_warning():
         warnings.warn("This is a test warning.", stacklevel=2)
 
         assert len(warning_list) == 1
@@ -17,10 +17,12 @@ def test_simple_warning() -> None:
         assert str(warning.message) == "This is a test warning."
 
 
-def test_simple_message() -> None:
-    from autoread_dotenv import SimpleWarning
+def test_simple_warning_format() -> None:
+    from autoread_dotenv.warnings import simple_warning
 
-    result = SimpleWarning.simple_message("Test message")
-    assert "Warning from" in result
-    assert "Test message" in result
-    assert result.endswith("\n")
+    with simple_warning():
+        # formatwarning is replaced inside the context manager
+        output = warnings.formatwarning("Test message", UserWarning, "test.py", 1)
+
+    assert "Warning from autoread_dotenv.warnings:" in output
+    assert "Test message" in output

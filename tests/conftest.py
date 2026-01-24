@@ -57,3 +57,4 @@ import autoread_dotenv
 importlib.reload(autoread_dotenv)
 importlib.reload(autoread_dotenv.about)
 importlib.reload(autoread_dotenv.utils)
+importlib.reload(autoread_dotenv.warnings)

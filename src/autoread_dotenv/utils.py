@@ -33,48 +33,24 @@ from __future__ import annotations
 
 import pathlib as pl
 import sys
-import typing as tp
-import warnings
-
-if tp.TYPE_CHECKING:  # pragma: no cover
-    import typing_extensions as tpe
 
 
-class SimpleWarning:
-    """Simple warning-formatting ."""
-
-    def __init__(self) -> None:
-        """Initialize class."""
-        self.old_format: tp.Callable | None = warnings.formatwarning
-
-    def __enter__(self) -> tpe.Self:
-        """Enter contextmanager."""
-        warnings.formatwarning = self.simple_message  # type: ignore[assignment]
-        return self
-
-    def __exit__(self, *args: object, **kwargs: dict[str, tp.Any]) -> None:
-        """Exit contextmanager."""
-        warnings.formatwarning = self.old_format  # type: ignore[assignment]
-
-    @staticmethod
-    def simple_message(message: str) -> str:
-        """Return a simple warning-message without any traceback-info."""
-        return f"Warning from {__name__}: {message}\n"
+def get_expected_dotenv_path() -> pl.Path:
+    """Return the expected location of the .env for in-project virtualenvs."""
+    # sys.prefix is <project-root>/.venv or <project-root> when using toplevel symlinks to .venv
+    prefix: pl.Path = pl.Path(sys.prefix)
+    base_dir: pl.Path = prefix.parent if prefix.name == ".venv" else prefix
+    return base_dir / ".env"
 
 
 def get_dotenv_path() -> pl.Path | None:
     """Return the location of the .env for in-project virtualenvs.
 
-    Return None of the .env-file does not exist.
+    Return None if the .env-file does not exist.
     """
-    # sys.prefix is <project-root>/.venv or <project-root> when using toplevel symlinks to .venv
-    prefix: pl.Path = pl.Path(sys.prefix)
-    base_dir: pl.Path = prefix.parent if prefix.name == ".venv" else prefix
-    dotenv_file: pl.Path = base_dir / ".env"
-
+    dotenv_file = get_expected_dotenv_path()
     if dotenv_file.is_file():
         return dotenv_file
-
     return None
 
 

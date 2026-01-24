@@ -5,7 +5,7 @@ The package must be properly installed in order the metadata to be available.
 
 """
 
-from __future__ import annotations  # make | in typing work in Python 3.8
+from __future__ import annotations  # enables X | Y syntax in annotations for Python <3.10
 
 import importlib.metadata
 

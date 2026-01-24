@@ -29,11 +29,11 @@ The .env-file must reside in the root of your project-directory.
 
 """
 
-from __future__ import annotations  # make | in typing work in Python 3.8
+from __future__ import annotations  # enables X | Y syntax in annotations for Python <3.10
 
 import os
 import typing as tp
-import warnings
+import warnings as stdlib_warnings
 
 if tp.TYPE_CHECKING:  # pragma: no cover
     import pathlib as pl
@@ -51,7 +51,8 @@ from autoread_dotenv.about import (
     license_ as __license__,
     version as __version__,
 )
-from autoread_dotenv.utils import SimpleWarning, get_dotenv_path, str_to_bool
+from autoread_dotenv.utils import get_dotenv_path, get_expected_dotenv_path, str_to_bool
+from autoread_dotenv.warnings import simple_warning
 
 __all__: list[str] = [
     "__author__",
@@ -59,6 +60,8 @@ __all__: list[str] = [
     "__version__",
     "entrypoint",
     "get_dotenv_path",
+    "simple_warning",
+    "str_to_bool",
 ]
 
 
@@ -68,19 +71,20 @@ def entrypoint() -> None:
     enforce_dotenv: bool = str_to_bool(os.getenv("AUTOREAD_ENFORCE_DOTENV", "1"))
 
     if not DOTENV_INSTALLED:  # pragma: no cover
-        with SimpleWarning():
-            warnings.warn("Module 'dotenv' not found. Please pip install 'python-dotenv'.", stacklevel=2)
+        with simple_warning():
+            stdlib_warnings.warn("Module 'dotenv' not found. Please pip install 'python-dotenv'.", stacklevel=2)
         return
 
     if not dotenv_file:  # pragma: no cover
-        with SimpleWarning():
-            warnings.warn(f"{dotenv_file} does not yet exist, please create it.", stacklevel=2)
+        with simple_warning():
+            expected_path = get_expected_dotenv_path()
+            stdlib_warnings.warn(f"{expected_path} does not exist, please create it.", stacklevel=2)
         return
 
     try:
         dotenv.load_dotenv(dotenv_file, override=enforce_dotenv, interpolate=True, verbose=True)
     except AttributeError:  # pragma: no cover
-        warnings.warn(
+        stdlib_warnings.warn(
             "Module 'dotenv.load_dotenv' not found. \
                 This occurs when django-dotenv was installed while we depend on python-dotenv.",
             stacklevel=2,

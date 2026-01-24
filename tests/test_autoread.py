@@ -57,27 +57,18 @@ def test_autoread_dotenv_enforce_dotenv(monkeypatch) -> None:
     assert foo_value == "foo"
 
 
-def test_autoread_dotenv_not_enforce_dotenv() -> None:
+def test_autoread_dotenv_not_enforce_dotenv(monkeypatch) -> None:
     from autoread_dotenv import entrypoint, str_to_bool
 
-    # existing env-vars will now not be overriden by anything set in the .env
-    # monkeypatch.setenv("AUTOREAD_ENFORCE_DOTENV", "")
-    os.environ["AUTOREAD_ENFORCE_DOTENV"] = ""
+    # existing env-vars will now not be overridden by anything set in the .env
+    monkeypatch.setenv("AUTOREAD_ENFORCE_DOTENV", "")
 
     enforce_dotenv = str_to_bool(os.getenv("AUTOREAD_ENFORCE_DOTENV", "1"))
     assert enforce_dotenv is False
 
     # initially already set in .env & loaded via sitecustomize
-    # monkeypatch.delenv("FOO", raising=False)
-
-    _ = os.environ.pop("FOO", None)
-    # foo = os.getenv("FOO")
-    # if foo:
-    #     del os.environ["FOO"]
-
-    # monkeypatch.setenv("FOO", "bar")
-    # os.setenv("FOO", "bar")
-    os.environ["FOO"] = "bar"
+    monkeypatch.delenv("FOO", raising=False)
+    monkeypatch.setenv("FOO", "bar")
 
     # test cleared environment
     foo_value = os.getenv("FOO")
