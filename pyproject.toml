@@ -251,8 +251,12 @@ include = [
 ]
 
 [tool.uv]
+<<<<<<< Updated upstream
 # Settings reference: https://docs.astral.sh/uv/reference/settings/
 keyring-provider = "subprocess"
+=======
+# https://docs.astral.sh/uv/reference/settings/
+>>>>>>> Stashed changes
 managed = true
 package = true
 default-groups = "all"
