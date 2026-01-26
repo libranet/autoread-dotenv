@@ -57,16 +57,13 @@ project_prefix = ""
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
 extensions = [
-    "sphinx.ext.napoleon",
     "autoapi.extension",
-    # "autoapi.sphinx",
-    # "sphinx_click",
     "sphinx.ext.coverage",
     "sphinx.ext.doctest",
     "sphinx.ext.ifconfig",
     "sphinx.ext.mathjax",
+    "sphinx.ext.napoleon",
     "sphinx.ext.todo",
-    # "sphinx_paramlinks",
     "sphinx_rtd_theme",
     "myst_parser",
 ]
