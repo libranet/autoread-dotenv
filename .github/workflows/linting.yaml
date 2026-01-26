@@ -85,7 +85,7 @@ jobs:
         # repo: https://github.com/extractions/setup-just
         # releases: https://github.com/extractions/setup-just/releases
         - name: Install pinned version of just
-          uses: extractions/setup-just@v3
+          uses: extractions/setup-just@e33e0265a09d6d736e2ee1e0eb685ef1de4669ff  # v3 released on 2025-031-15
           with:
               just-version: ${{ env.JUST_VERSION }}
 
