@@ -7,6 +7,10 @@
 [![PyPi Package](https://img.shields.io/pypi/v/autoread-dotenv?color=%2334D058&label=pypi%20package)](https://pypi.org/project/autoread-dotenv/)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/libranet/autoread-dotenv/blob/main/docs/license.md)
 
+autoread-dotenv parses your `.env` file when starting any venv-based Python process:
+
+![Demo](img/demo-autoread-dotenv.png)
+
 ## Installation
 
 Install via uv:
