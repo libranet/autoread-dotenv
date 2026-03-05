@@ -258,6 +258,10 @@ managed = true
 package = true
 default-groups = "all"
 
+# Fix critical Zip Slip vulnerability in nltk < 3.9.3 (transitive dep via safety)
+# https://github.com/libranet/autoread-dotenv/security/dependabot/48
+override-dependencies = ["nltk>=3.9.3"]
+
 [[tool.uv.index]]
 name = "testpypi"
 url = "https://test.pypi.org/simple/"
