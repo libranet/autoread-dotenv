@@ -135,7 +135,7 @@ jobs:
         # repo: https://github.com/codecov/codecov-action
         # releases: https://github.com/codecov/codecov-action/tags
         - name: "Upload coverage to Codecov"
-          uses: codecov/codecov-action@671740ac38dd9b0130fbe1cec585b89eea48d3de  # v5.5.2 released on 09-12-2025
+          uses: codecov/codecov-action@1af58845a975a7985b0beb0cbe6fbbb71a41dbad  # v5.5.2 released on 09-12-2025
           with:
               fail_ci_if_error: false # optional (default = false)
               files: var/coverage/pytest-cobertura.xml
