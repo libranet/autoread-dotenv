@@ -35,7 +35,7 @@ jobs:
       # repo: https://github.com/fastify/github-action-merge-dependabot
       # releases: https://github.com/fastify/github-action-merge-dependabot/tags
       # The action waits for required status checks by default
-      - uses: fastify/github-action-merge-dependabot@1b2ed42db8f9d81a46bac83adedfc03eb5149dff  # v3.11.2 released on 03-10-2025
+      - uses: fastify/github-action-merge-dependabot@30c3f8f14a4f7b315ba38dbc1b793d27128fef82  # v3.11.2 released on 03-10-2025
         with:
             # github-token: ${{ secrets.TOKEN_AUTOMERGE }}
             # Using built-in GITHUB_TOKEN for better security (auto-scoped, auto-expires)
