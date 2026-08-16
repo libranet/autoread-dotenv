@@ -205,6 +205,14 @@ repos:
         language: system
         pass_filenames: false
 
+      - id: uv-audit
+        name: uv audit
+        description: audit dependencies for known vulnerabilities
+        entry: uv audit --preview-features audit-command
+        language: system
+        pass_filenames: false
+        files: '^(pyproject\.toml|uv\.lock)$'
+
       - id: pyroma
         name: pyroma
         description: check packaging best-practices
