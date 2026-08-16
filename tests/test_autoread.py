@@ -2,6 +2,8 @@
 
 import os
 import pathlib as pl
+import sys
+import warnings
 
 import pytest
 
@@ -133,3 +135,26 @@ def test_autoread_dotenv_path_override_entrypoint(tmp_path: pl.Path, monkeypatch
 
     entrypoint()
     assert os.getenv("FOO") == "from-override"
+
+
+@pytest.mark.skipif(sys.platform == "win32", reason="chmod-based permission-denial isn't reliable on Windows")
+def test_autoread_dotenv_unreadable_file_warns(tmp_path: pl.Path, monkeypatch) -> None:
+    """An unreadable .env (passes is_file(), fails to open) warns instead of crashing."""
+    from autoread_dotenv import entrypoint
+
+    unreadable_file = tmp_path / "unreadable.env"
+    unreadable_file.write_text("FOO=foo\n")
+    unreadable_file.chmod(0o000)
+    monkeypatch.setenv("AUTOREAD_DOTENV_PATH", str(unreadable_file))
+    monkeypatch.delenv("FOO", raising=False)
+
+    try:
+        with warnings.catch_warnings(record=True) as warning_list:
+            warnings.simplefilter("always")
+            entrypoint()  # must not raise
+
+        assert os.getenv("FOO") is None  # nothing was loaded
+        assert len(warning_list) == 1
+        assert "Could not read" in str(warning_list[-1].message)
+    finally:
+        unreadable_file.chmod(0o644)

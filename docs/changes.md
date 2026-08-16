@@ -40,6 +40,13 @@ All notable changes to this project will be documented in this file.
   containers, editable mounts, ...). Takes precedence over the `sys.prefix`-based discovery. See
   `docs/readme.md` and the `autoread_dotenv.utils.get_expected_dotenv_path` docstring.
 
+- Fix `entrypoint()` crashing every Python process in the venv when `.env` exists but can't be
+  read (e.g. permission-denied): `dotenv.load_dotenv(...)` now catches `OSError` and warns via
+  `simple_warning()`, consistent with the other failure paths in that function. Also fixed the
+  existing "django-dotenv installed instead of python-dotenv" warning to go through
+  `simple_warning()` too (it previously bypassed it), and cleaned up a stray-whitespace bug in
+  that message's line-continuation.
+
 ## 1.0.5 (2026-08-16)
 
 - Add codespell as dev-dependency for spellchecking.
