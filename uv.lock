@@ -178,12 +178,22 @@ dependencies = [
 
 [package.dev-dependencies]
 dev = [
+    { name = "codespell" },
+    { name = "ipython", version = "8.18.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },
+    { name = "ipython", version = "8.39.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.10.*'" },
+    { name = "ipython", version = "9.16.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
+    { name = "pre-commit", version = "4.3.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },
+    { name = "pre-commit", version = "4.6.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
+    { name = "pre-commit-hooks" },
+    { name = "prek" },
     { name = "pytest", version = "8.4.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },
     { name = "pytest", version = "9.1.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
     { name = "pytest-clarity" },
     { name = "pytest-cov" },
     { name = "pytest-dotenv" },
     { name = "pytest-xdist" },
+    { name = "rich" },
+    { name = "ruff" },
     { name = "toml-cli", version = "0.7.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },
     { name = "toml-cli", version = "0.8.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
     { name = "ty" },
@@ -251,11 +261,18 @@ requires-dist = [
 
 [package.metadata.requires-dev]
 dev = [
+    { name = "codespell", specifier = ">=2.4.3" },
+    { name = "ipython", specifier = ">=8.12" },
+    { name = "pre-commit", specifier = ">=3.5" },
+    { name = "pre-commit-hooks", specifier = ">=5.0" },
+    { name = "prek", specifier = ">=0.2" },
     { name = "pytest", specifier = ">=8.3" },
     { name = "pytest-clarity", specifier = ">=1.0" },
     { name = "pytest-cov", specifier = ">=5.0" },
     { name = "pytest-dotenv", specifier = ">=0.5" },
     { name = "pytest-xdist", specifier = ">=3.6" },
+    { name = "rich", specifier = ">=13.9" },
+    { name = "ruff", specifier = ">=0.8" },
     { name = "toml-cli", specifier = ">=0.7.0" },
     { name = "ty", specifier = ">=0.0" },
 ]
