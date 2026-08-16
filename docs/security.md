@@ -2,12 +2,10 @@
 
 ## Supported Versions
 
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
+Only the latest released version receives security updates.
 
 | Version | Supported |
 | ------- | --------- |
-| 1.1.x   | Yes       |
 | 1.0.x   | Yes       |
 | 0.x     | No        |
 
@@ -15,7 +13,7 @@ currently being supported with security updates.
 
 This project follows a 90 day disclosure timeline.
 
-To report a security issue, please an email <security@libranet.eu> with
+To report a security issue, please send an email to <security@libranet.eu> with
 
 - a description of the issue
 - the steps you took to create the issue,
