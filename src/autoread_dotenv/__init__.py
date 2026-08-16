@@ -41,9 +41,9 @@ if tp.TYPE_CHECKING:  # pragma: no cover
 try:
     import dotenv
 
-    DOTENV_INSTALLED = 1
+    DOTENV_INSTALLED = True
 except ImportError:  # pragma: no cover
-    DOTENV_INSTALLED = 0
+    DOTENV_INSTALLED = False
 
 from autoread_dotenv.about import (
     authors as __author__,
