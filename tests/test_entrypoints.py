@@ -1,5 +1,12 @@
 """Testing of module sitecustomize."""
 
+import sys
+
+if sys.version_info >= (3, 10):  # entry_points(group=...) is stdlib-native from here on
+    from importlib.metadata import entry_points
+else:  # pragma: no cover
+    from importlib_metadata import entry_points
+
 
 def test_import_sitecustomize() -> None:
     try:
@@ -10,6 +17,4 @@ def test_import_sitecustomize() -> None:
 
 
 def test_entrypoint_registration() -> None:
-    from sitecustomize._vendor.importlib_metadata import entry_points
-
     assert "autoread_dotenv" in entry_points(group="sitecustomize").names

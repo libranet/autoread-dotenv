@@ -103,9 +103,12 @@ dependencies = [
 [package.dev-dependencies]
 dev = [
     { name = "codespell" },
+    { name = "importlib-metadata", version = "8.7.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },
+    { name = "importlib-metadata", version = "9.0.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
     { name = "ipython", version = "8.18.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },
     { name = "ipython", version = "8.39.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.10.*'" },
     { name = "ipython", version = "9.16.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
+    { name = "packaging" },
     { name = "pre-commit", version = "4.3.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },
     { name = "pre-commit", version = "4.6.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
     { name = "pre-commit-hooks" },
@@ -142,6 +145,7 @@ docs = [
     { name = "sphinx-autoapi", version = "3.6.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },
     { name = "sphinx-autoapi", version = "3.8.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
     { name = "sphinx-rtd-theme" },
+    { name = "tomli", marker = "python_full_version < '3.11'" },
 ]
 ipython = [
     { name = "ipython", version = "8.18.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },
@@ -167,6 +171,9 @@ security = [
     { name = "zizmor", version = "1.29.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
 ]
 testing = [
+    { name = "importlib-metadata", version = "8.7.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },
+    { name = "importlib-metadata", version = "9.0.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
+    { name = "packaging" },
     { name = "pytest", version = "8.4.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },
     { name = "pytest", version = "9.1.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
     { name = "pytest-clarity" },
@@ -187,7 +194,9 @@ requires-dist = [
 [package.metadata.requires-dev]
 dev = [
     { name = "codespell", specifier = ">=2.4.3" },
+    { name = "importlib-metadata", specifier = ">=6.0" },
     { name = "ipython", specifier = ">=8.12" },
+    { name = "packaging", specifier = ">=23.0" },
     { name = "pre-commit", specifier = ">=3.5" },
     { name = "pre-commit-hooks", specifier = ">=5.0" },
     { name = "prek", specifier = ">=0.2" },
@@ -214,6 +223,7 @@ docs = [
     { name = "sphinx", specifier = ">=7.1" },
     { name = "sphinx-autoapi", specifier = ">=3.3" },
     { name = "sphinx-rtd-theme", specifier = ">=3.0" },
+    { name = "tomli", marker = "python_full_version < '3.11'", specifier = ">=2.0" },
 ]
 ipython = [
     { name = "ipython", specifier = ">=8.12" },
@@ -229,6 +239,8 @@ pre-commit = [
 ]
 security = [{ name = "zizmor", specifier = ">=1.0" }]
 testing = [
+    { name = "importlib-metadata", specifier = ">=6.0" },
+    { name = "packaging", specifier = ">=23.0" },
     { name = "pytest", specifier = ">=8.3" },
     { name = "pytest-clarity", specifier = ">=1.0" },
     { name = "pytest-cov", specifier = ">=5.0" },
@@ -979,6 +991,8 @@ name = "importlib-metadata"
 version = "9.0.0"
 source = { registry = "https://pypi.org/simple" }
 resolution-markers = [
+    "python_full_version >= '3.15'",
+    "python_full_version >= '3.11' and python_full_version < '3.15'",
     "python_full_version == '3.10.*'",
 ]
 dependencies = [
@@ -2919,6 +2933,8 @@ name = "zipp"
 version = "4.1.0"
 source = { registry = "https://pypi.org/simple" }
 resolution-markers = [
+    "python_full_version >= '3.15'",
+    "python_full_version >= '3.11' and python_full_version < '3.15'",
     "python_full_version == '3.10.*'",
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/b9/d8/eab98a517c14134c0b2eb4e2387bc5f457334293ec5d2dd3857ec2966802/zipp-4.1.0.tar.gz", hash = "sha256:4cb57381f544315db7688e976e922a2b18cdb513d21cc194eb42232ba2a3e602", size = 26214, upload-time = "2026-05-18T20:08:57.967Z" }
