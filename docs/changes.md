@@ -2,6 +2,39 @@
 
 All notable changes to this project will be documented in this file.
 
+## Unreleased
+
+- Rename `.github/workflows/release.yaml` to `releasing.yaml`.
+
+- Add `pypi` and `test-pypi` entries to `[project.urls]`.
+
+- Fix `docs/security.md`'s "Supported Versions" table listing a `1.1.x` line that was never
+  released; trim the leftover GitHub template text and a grammar typo in the same section.
+
+- Fix typo in `.github/CODEOWNERS`.
+
+- Cap `PYTEST_ADDOPTS`'s `--numprocesses auto` to `--numprocesses 4` in `.env.template`, avoiding
+  noisy `CoverageWarning: No data was collected` from idle pytest-xdist workers on our small test
+  suite.
+
+- Configure the `ty` VS Code extension as the Python language server (`ty.importStrategy`,
+  `ty.interpreter`, `python.languageServer`), replacing the disabled `mypy-type-checker` settings.
+
+- Enable `python.terminal.useEnvFile` so VS Code integrated terminals load `.env`.
+
+- Add `just release`-integrated `bump-dev-version`/`bump-stable-version` recipes so the version is
+  automatically bumped to the next dev-marker after each release, instead of relying on remembering
+  to do it by hand.
+
+- Fix the broken `uv-bump-version` justfile recipe: it ran `uv version {{value}}` (which tries to
+  set the version to the literal string, e.g. `"patch"`) instead of `uv version --bump {{value}}`.
+
+- Bump development version to `1.0.6.dev1`.
+
+- Add a `codespell` pre-commit hook.
+
+- Fix typo in `.just/ty.justfile` comment.
+
 ## 1.0.5 (2026-08-16)
 
 - Add codespell as dev-dependency for spellchecking.

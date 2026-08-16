@@ -15,12 +15,12 @@
         // support for hadolint, a Dockerfile linter
         // marketplace: https://marketplace.visualstudio.com/items?itemName=exiasr.hadolint
         // repo: https://github.com/michaellzc/vscode-hadolint
-        "exiasr.hadolint",
+        // "exiasr.hadolint",
 
         // reStructuredText Language Support for Visual Studio Code
         // marketplace: https://marketplace.visualstudio.com/items?itemName=lextudio.restructuredtext
         // repo: https://github.com/vscode-restructuredtext/vscode-restructuredtext
-        "lextudio.restructuredtext",
+        // "lextudio.restructuredtext",
 
         // support for dotenv file syntax
         // marketplace: https://marketplace.visualstudio.com/items?itemName=mikestead.dotenv

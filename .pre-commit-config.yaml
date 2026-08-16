@@ -73,6 +73,11 @@ repos:
         entry: uv run check-shebang-scripts-are-executable
         language: system
 
+      - id: codespell
+        name: check spelling
+        entry: uv run codespell
+        language: system
+
       - id: check-json
         name: check json
         entry: uv run check-json

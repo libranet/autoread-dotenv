@@ -24,12 +24,6 @@
         "editor.formatOnSave": false
     },
 
-    // "jupyter.defaultKernel": "${workspaceFolder}/.venv/bin/python",
-    // "jupyter.jupyterServerType": "local",
-
-    "mypy-type-checker.args": ["--config-file", "${workspaceFolder}/pyproject.toml"],
-    "mypy-type-checker.cwd": "${workspaceFolder}/",
-    "mypy-type-checker.importStrategy": "fromEnvironment",
 
     "[python]": {
         "editor.defaultFormatter": "charliermarsh.ruff",
@@ -37,24 +31,22 @@
     },
     "python.envFile": "${workspaceFolder}/.env",
     "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+    // the ty extension already defaults this to "None" itself to avoid conflicting with its own
+    // language server, but pin it explicitly so it's reproducible even if Pylance gets installed
+    "python.languageServer": "None",
     "python.terminal.activateEnvironment": true,
+    "python.terminal.useEnvFile": true,
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true,
-    "python.testing.pytestArgs": [
-        "--color=yes",
-        "--cov=src",
-        // "--cov-fail-under=90",
-        // "--cov-report xml:${workspaceFolder}/var/coverage/pytest-cobertura.xml",
-        // "--cov-report html:${workspaceFolder}/var/coverage/html",
-        // "--cov-report term-missing",
-        // "--junit-xml=${workspaceFolder}/var/coverage/pytest-junit.xml",
-        // "--pdb",
-        "-v",
-        "${workspaceFolder}/tests/",
-    ],
+    //"python.testing.pytestArgs": [
+    //    "${workspaceFolder}/tests/",
+    //],
     "ruff.configuration": "${workspaceFolder}/pyproject.toml",
-    // "ruff.lint.args": ["--extend-ignore=F401"],
     "ruff.nativeServer": "on",
+
+    // ty.configuration is auto-discovered from [tool.ty] in pyproject.toml, no path needed
+    "ty.importStrategy": "fromEnvironment",
+    "ty.interpreter": "${workspaceFolder}/.venv/bin/python",
 
     "[yaml]": { // per-language config
         "editor.insertSpaces": true,
