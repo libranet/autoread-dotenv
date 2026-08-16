@@ -11,10 +11,7 @@ name: Auto Merge Dependabot
 on:
   pull_request:
 
-permissions:
-  contents: write
-  pull-requests: write
-  workflows: write
+permissions: {}
 
 jobs:
   auto-merge:
@@ -22,6 +19,11 @@ jobs:
     runs-on: ubuntu-latest
 
     timeout-minutes: 5
+
+    permissions:
+      contents: write # Required to squash/merge/rebase the dependabot PR
+      pull-requests: write # Required to approve and merge the pull request
+      workflows: write # Required when the dependabot PR itself modifies workflow files
 
     # Only run for Dependabot PRs - security: prevent running on PRs from forks or other actors
     if: github.actor == 'dependabot[bot]'
