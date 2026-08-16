@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## 1.1.0 (YYYY-MM-DD)
+## 1.0.5 (2026-08-16)
 
 - Add codespell as dev-dependency for spellchecking.
 
@@ -10,7 +10,12 @@ All notable changes to this project will be documented in this file.
 
 - Drop Python 3.8 support.
 
-- Refactor `SimpleWarning` class to `simple_warning()` context manager function.
+- Fix `TypeError: SimpleWarning.simple_message() takes 1 positional argument but 5 were given`,
+  raised whenever a warning fired inside the `sitecustomize` entrypoint (e.g. a missing `.env`
+  file). `SimpleWarning.simple_message` was assigned directly to `warnings.formatwarning`, which
+  the stdlib calls as `formatwarning(message, category, filename, lineno, line=None)` - up to 5
+  positional arguments, not the 1 `simple_message` accepted. Refactored `SimpleWarning` into the
+  `simple_warning()` context manager, whose `simple_format()` callback matches that signature.
 
 - Move warning utilities from `utils.py` to new `warnings.py` module.
 
