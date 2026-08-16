@@ -114,12 +114,16 @@ jobs:
         #       sudo rm -f /etc/python3.*/sitecustomize.py
 
         - name: Set up Python ${{ matrix.python-version }}
-          run: uv python install ${{ matrix.python-version }}
+          env:
+              PYTHON_VERSION: ${{ matrix.python-version }}
+          run: uv python install "${PYTHON_VERSION}"
 
         - name: Install project + dependencies
+          env:
+              PYTHON_VERSION: ${{ matrix.python-version }}
           run: |
               just ubuntu-remove-global-sitecustomize
-              just uv-set-python-version ${{ matrix.python-version }}
+              just uv-set-python-version "${PYTHON_VERSION}"
               just install
 
         # - name: Install the project

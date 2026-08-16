@@ -105,14 +105,18 @@ jobs:
           run: just ubuntu-remove-global-sitecustomize
 
         - name: Set up Python ${{ matrix.python-version }}
-          run: uv python install ${{ matrix.python-version }}
+          env:
+              PYTHON_VERSION: ${{ matrix.python-version }}
+          run: uv python install "${PYTHON_VERSION}"
 
         # - name: Install the project
         #   run: uv sync --all-groups
 
         - name: Install project + dependencies
+          env:
+              PYTHON_VERSION: ${{ matrix.python-version }}
           run: |
-              just uv-set-python-version ${{ matrix.python-version }}
+              just uv-set-python-version "${PYTHON_VERSION}"
               just install
 
         - name: Pre-commit
