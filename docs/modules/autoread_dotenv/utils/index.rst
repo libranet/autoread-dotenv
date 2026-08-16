@@ -34,6 +34,19 @@ autoread_dotenv.utils
          lib64/     -> .venv/lib64/
          pyvenv.cfg -> .venv/pyvenv.cfg
 
+   For layouts that don't follow this convention (global installs, containers, editable
+   mounts, ...), set the ``AUTOREAD_DOTENV_PATH`` environment-variable to the .env-file to
+   use instead - it bypasses sys.prefix-based discovery entirely. See
+   :func:`autoread_dotenv.utils.get_expected_dotenv_path`.
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   autoread_dotenv.utils.AUTOREAD_DOTENV_PATH_VAR
 
 
 Functions
@@ -49,9 +62,22 @@ Functions
 Module Contents
 ---------------
 
+.. py:data:: AUTOREAD_DOTENV_PATH_VAR
+   :type:  str
+   :value: 'AUTOREAD_DOTENV_PATH'
+
+
 .. py:function:: get_expected_dotenv_path()
 
-   Return the expected location of the .env for in-project virtualenvs.
+   Return the expected location of the .env-file.
+
+   Honors the ``AUTOREAD_DOTENV_PATH`` environment-variable when set: it is used verbatim
+   as the path to the .env-file, for setups that don't follow the in-project-virtualenv
+   convention (global installs, containers, editable mounts, ...).
+
+   Otherwise falls back to the in-project-virtualenv convention:
+   sys.prefix is <project-root>/.venv or
+   <project-root> when using toplevel symlinks to .venv
 
 
 .. py:function:: get_dotenv_path()

@@ -82,3 +82,54 @@ def test_get_dotenv_path_returns_none(tmp_path: pl.Path, monkeypatch) -> None:
 
     result = get_dotenv_path()
     assert result is None
+
+
+def test_autoread_dotenv_path_override(tmp_path: pl.Path, monkeypatch) -> None:
+    """AUTOREAD_DOTENV_PATH must take precedence over sys.prefix-based discovery."""
+    from autoread_dotenv import get_dotenv_path, get_expected_dotenv_path
+
+    # sys.prefix resolves to a project-root with its own (different) .env
+    fake_venv = tmp_path / "project" / ".venv"
+    fake_venv.mkdir(parents=True)
+    (tmp_path / "project" / ".env").write_text("FOO=from-sys-prefix\n")
+    monkeypatch.setattr("sys.prefix", str(fake_venv))
+
+    # the override points elsewhere entirely
+    override_file = tmp_path / "elsewhere" / "custom.env"
+    override_file.parent.mkdir()
+    override_file.write_text("FOO=from-override\n")
+    monkeypatch.setenv("AUTOREAD_DOTENV_PATH", str(override_file))
+
+    assert get_expected_dotenv_path() == override_file
+    assert get_dotenv_path() == override_file
+
+
+def test_autoread_dotenv_path_override_missing_file(tmp_path: pl.Path, monkeypatch) -> None:
+    """A set-but-nonexistent AUTOREAD_DOTENV_PATH still overrides sys.prefix discovery.
+
+    get_dotenv_path() reports None (no valid .env found) rather than silently falling back
+    to the sys.prefix-based .env, since the override was explicit.
+    """
+    from autoread_dotenv import get_dotenv_path
+
+    fake_venv = tmp_path / "project" / ".venv"
+    fake_venv.mkdir(parents=True)
+    (tmp_path / "project" / ".env").write_text("FOO=from-sys-prefix\n")
+    monkeypatch.setattr("sys.prefix", str(fake_venv))
+
+    monkeypatch.setenv("AUTOREAD_DOTENV_PATH", str(tmp_path / "does-not-exist.env"))
+
+    assert get_dotenv_path() is None
+
+
+def test_autoread_dotenv_path_override_entrypoint(tmp_path: pl.Path, monkeypatch) -> None:
+    """entrypoint() actually loads env-vars from the AUTOREAD_DOTENV_PATH override."""
+    from autoread_dotenv import entrypoint
+
+    override_file = tmp_path / "custom.env"
+    override_file.write_text("FOO=from-override\n")
+    monkeypatch.setenv("AUTOREAD_DOTENV_PATH", str(override_file))
+    monkeypatch.delenv("FOO", raising=False)
+
+    entrypoint()
+    assert os.getenv("FOO") == "from-override"
