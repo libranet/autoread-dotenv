@@ -19,6 +19,8 @@ updates:
       open-pull-requests-limit: 9
       schedule:
           interval: "weekly"
+      cooldown:
+          default-days: 7
 
     # update uv.lock file
     - package-ecosystem: "uv"
@@ -30,3 +32,5 @@ updates:
       open-pull-requests-limit: 9
       schedule:
           interval: "monthly"
+      cooldown:
+          default-days: 7
