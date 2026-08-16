@@ -208,16 +208,8 @@ max-args = 5  # default is 5
 [tool.ty]
 # https://docs.astral.sh/ty/reference/configuration/
 
-[tool.ty.analysis]
-# Disable support for `type: ignore` comments
-respect-type-ignore-comments = true
-
-[tool.ty.environment]
-# extra-paths = ["docs/"]
-
 [tool.ty.rules]
 possibly-unresolved-reference = "warn"
-division-by-zero = "ignore"
 
 [tool.ty.src]
 include = [
