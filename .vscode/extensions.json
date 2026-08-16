@@ -35,7 +35,7 @@
         // support for the Mypy type checker
         // marketplace: https://marketplace.visualstudio.com/items?itemName=ms-python.mypy-type-checker
         // repo: https://github.com/microsoft/vscode-mypy
-        "ms-python.mypy-type-checker",
+        //"ms-python.mypy-type-checker",
 
         // python language support with extension access points for IntelliSense (Pylance), Debugging (Python Debugger), linting, formatting, refactoring, unit tests, and more.
         // marketplace: https://marketplace.visualstudio.com/items?itemName=ms-python.python
@@ -45,12 +45,12 @@
         // performant, feature-rich language server for Python in VS Code
         // marketplace: https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance
         // repo: https://github.com/microsoft/pylance-release
-        "ms-python.vscode-pylance",
+        // "ms-python.vscode-pylance",
 
         // marketplace: https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter
         // repo: https://github.com/Microsoft/vscode-jupyter
         // docs: https://code.visualstudio.com/docs/datascience/jupyter-notebooks
-        "ms-toolsai.jupyter",
+        // "ms-toolsai.jupyter",
 
         // support for the justfile syntax
         // marketplace: https://marketplace.visualstudio.com/items?itemName=nefrob.vscode-just-syntax
