@@ -57,6 +57,11 @@ All notable changes to this project will be documented in this file.
   `python -S` sanity-check (`test_entrypoint_does_not_fire_with_python_dash_s`) confirming the
   first test is actually driven by the sitecustomize hook and not some other leak.
 
+- Add Python 3.15 (currently at rc1) to the `testing.yaml` CI matrix, ahead of the stable
+  release. Verified locally first: `uv python install "3.15"` resolves to `3.15.0rc1` (there is
+  no stable 3.15 release yet, so `uv` treats the rc as the match), and the full test-suite
+  passes against it unmodified.
+
 ## 1.0.5 (2026-08-16)
 
 - Add codespell as dev-dependency for spellchecking.
