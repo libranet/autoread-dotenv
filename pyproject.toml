@@ -73,7 +73,6 @@ ipython = [
     "rich>=13.9",
 ]
 linting = [
-    "pylint>=3.2",
     "ruff>=0.8",
 ]
 packaging = [
@@ -154,26 +153,6 @@ mypy_path = ["src"]
 pretty = true
 
 
-[tool.pylint.design]
-# complete pylint-config, see https://github.com/PyCQA/pylint/blob/main/pylintrc
-exclude-too-few-public-methods = []
-max-attributes = 11  # default is 11
-
-[tool.pylint.format]
-max-line-length = 120
-good-names = [
-    "i", # counter in loop
-]
-max-args = 5 # default is 5
-
-[tool.pylint.messages_control]
-disable = [
-    # wontfix
-    # "W1203",  # logging-fstring-interpolation
-    # "fixme",  # Disable reporting of TODO, FIXME, and XXX comments
-]
-
-
 [tool.pytest.ini_options]
 cache_dir = "var/cache/pytest"
 log_cli = false  # enable to show log-output
@@ -217,6 +196,9 @@ from-first = false
 known-third-party = []
 known-first-party = ["autoread_dotenv"]
 # known-local-folder = ["_helpers"]
+
+[tool.ruff.lint.pylint]
+max-args = 5  # default is 5
 
 [tool.ruff.lint.per-file-ignores]
 "docs/**" = [

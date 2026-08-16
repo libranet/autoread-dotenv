@@ -1,4 +1,3 @@
-# pylint: disable=invalid-name
 """Sphinx configuration.
 
 This file is execfile()d with the current directory set to its containing dir.
@@ -93,7 +92,7 @@ master_doc = "index"
 
 # General information about the project.
 project = f"{project_prefix} {package_name}"
-copyright = f"{current_year}, {owner}"  # noqa: A001 # pylint: disable=redefined-builtin
+copyright = f"{current_year}, {owner}"  # noqa: A001
 
 
 # The version info for the project you're documenting, acts as replacement for

@@ -129,13 +129,6 @@ jobs:
           run: |
               just ruff-check
 
-        # - name: Pylint
-        #   run: uv run pylint src
-
-        - name: Pylint
-          run: |
-              just pylint
-
         - name: Mypy
           run: |
               just mypy
