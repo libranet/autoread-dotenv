@@ -1,5 +1,7 @@
 """Testing of module autoread_dotenv.about."""
 
+import typing as tp
+
 import packaging.version
 
 
@@ -26,11 +28,22 @@ def test_get_metadata_package_unknown_distribution() -> None:
     assert pkginfo == {"author_email": "unknown", "license": "unknown", "version": "unknown"}
 
 
-def test_get_metadata_package_empty_distribution_name(monkeypatch) -> None:
-    """An empty distribution-name (e.g. `__package__` is None) must fall back, not raise."""
-    import autoread_dotenv.about as about_module
+def test_get_metadata_package_value_error(monkeypatch) -> None:
+    """A `ValueError` from `importlib.metadata.metadata()` must fall back, not raise.
 
-    monkeypatch.setattr(about_module, "PACKAGE", "")
-    pkginfo = about_module.get_metadata_package()
+    A `ValueError` is what `importlib.metadata.metadata("")` raises when `__package__` is None -
+    but its behavior for an empty distribution-name is not consistent across Python versions, so
+    `metadata()` itself is mocked here instead, to test the fallback deterministically.
+    """
+    import importlib.metadata
+
+    from autoread_dotenv.about import get_metadata_package
+
+    def raise_value_error(_name) -> tp.NoReturn:
+        msg = "A distribution name is required."
+        raise ValueError(msg)
+
+    monkeypatch.setattr(importlib.metadata, "metadata", raise_value_error)
+    pkginfo = get_metadata_package("autoread-dotenv")
 
     assert pkginfo == {"author_email": "unknown", "license": "unknown", "version": "unknown"}
