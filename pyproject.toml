@@ -121,6 +121,8 @@ autoread_dotenv = "autoread_dotenv:entrypoint"
 homepage = "https://github.com/libranet/autoread-dotenv"
 repository = "https://github.com/libranet/autoread-dotenv"
 documentation = "https://autoread-dotenv.readthedocs.io"
+pypi = "https://pypi.org/project/autoread-dotenv/"
+test-pypi = "https://test.pypi.org/project/autoread-dotenv/"
 
 
 [tool.codespell]
