@@ -55,7 +55,9 @@ dependencies = [
 dev = [
     { include-group = "ipython" },
     { include-group = "linting" },
+    { include-group = "packaging" },
     { include-group = "pre-commit" },
+    { include-group = "security" },
     { include-group = "testing" },
     { include-group = "typing" },
     "toml-cli >=0.7.0",
@@ -89,10 +91,11 @@ pre-commit = [
     "pre-commit-hooks>=5.0",
     "prek>=0.2",
 ]
-# security = [
-#     "bandit[toml]>=1.7",
-#     "safety>=2.3",
-# ]
+security = [
+    # "bandit[toml]>=1.7",
+    # "safety>=2.3",
+    "zizmor>=1.0",
+]
 testing = [
     "pytest>=8.3",
     "pytest-clarity>=1.0",
