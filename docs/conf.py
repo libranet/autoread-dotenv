@@ -1,4 +1,5 @@
-# ruff: noqa:  ERA001 (Found commented-out code)
+# ruff: noqa: ERA001 (Found commented-out code)
+# ruff: noqa: INP001 (docs-dir should not be a python-package)
 """Sphinx configuration.
 
 This file is execfile()d with the current directory set to its containing dir.
