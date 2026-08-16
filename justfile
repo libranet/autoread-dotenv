@@ -34,6 +34,7 @@ set shell := ["bash", "-uc"]
 # - https://github.com/casey/just/issues/1885
 # - https://github.com/casey/just/pull/2376
 import? '.just/bandit.justfile'
+import? '.just/benchmark.justfile'
 import? '.just/dir-structure.justfile'
 import? '.just/dotenv.justfile'
 import? '.just/gh.justfile'

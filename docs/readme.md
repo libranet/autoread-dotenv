@@ -71,6 +71,12 @@ entirely:
 > export AUTOREAD_DOTENV_PATH=/etc/myapp/production.env
 ```
 
+## Performance
+
+`autoread-dotenv` runs on the start of every Python process in the venv, so its startup-time
+cost is measured and tracked explicitly - see [docs/performance.md](performance.md) for the
+current numbers and how to reproduce them.
+
 ## Compatibility
 
 [![Python Version](https://img.shields.io/pypi/pyversions/autoread-dotenv?:alt:PyPI-PythonVersion)](https://pypi.org/project/autoread-dotenv/)

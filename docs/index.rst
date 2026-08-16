@@ -5,6 +5,7 @@ autoread_dotenv
     :maxdepth: 2
 
     readme
+    performance
     changes
     security
     license

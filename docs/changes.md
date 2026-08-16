@@ -62,6 +62,25 @@ All notable changes to this project will be documented in this file.
   no stable 3.15 release yet, so `uv` treats the rc as the match), and the full test-suite
   passes against it unmodified.
 
+- Document and fix autoread-dotenv's startup-time cost in the new `docs/performance.md`, since it
+  runs on every Python process start in the venv. Measured with `hyperfine`: opting into
+  `sitecustomize-entrypoints`'s entry-point discovery costs ~2.9x a bare venv's startup time
+  regardless of which entrypoints are registered (not autoread-dotenv's to fix); autoread-dotenv
+  itself was adding another ~24-25ms on top of that, entirely import cost (`import dotenv` +
+  `about.py`'s eager `importlib.metadata` lookup), not actual `.env`-parsing work. Fixed both:
+  `entrypoint()` now checks whether a `.env` exists before importing `dotenv` at all, and
+  `__init__.py` no longer imports `about.py` (see BREAKING note below). The "no `.env` found" case
+  dropped from 60.4ms to 38.7ms - now within noise of the bare hook-mechanism floor. Added
+  `.just/benchmark.justfile` (`just benchmark-startup`, `just benchmark-importtime`) so the
+  numbers are reproducible rather than a one-off snapshot. Tracking is doc-only / re-run manually
+  for now, no CI job or third-party benchmarking service.
+
+- **BREAKING:** Remove `autoread_dotenv.__version__`, `__author__`, and `__license__`. They forced
+  `about.py`'s `importlib.metadata` lookup to run on every process start via the sitecustomize
+  hook, whether or not anything read them (see above). Use
+  `autoread_dotenv.about.version`/`.license_`/`.authors` directly instead - unchanged, just no
+  longer re-exported from the package root.
+
 ## 1.0.5 (2026-08-16)
 
 - Add codespell as dev-dependency for spellchecking.
