@@ -26,13 +26,13 @@ readme = "docs/readme.md"
 authors = [{ name = "Wouter Vanden Hove", email = "wouter@libranet.eu" }]
 maintainers = [{ name = "Wouter Vanden Hove", email = "wouter@libranet.eu" }]
 requires-python = ">=3.9"
-license = { file = "license.md" }
+license = "MIT"
+license-files = ["license.md"]
 keywords = ["entrypoints", "dotenv", "sitecustomize"]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Environment :: Console",
     "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
     "Operating System :: POSIX :: Linux",
     "Operating System :: MacOS",
     "Operating System :: Microsoft :: Windows",
@@ -68,7 +68,7 @@ docs = [
     "sphinx-rtd-theme>=3.0",
 ]
 ipython = [
-    "ipdb>=0.13",
+    # "ipdb>=0.13",
     "ipython>=8.12",
     "rich>=13.9",
 ]
@@ -79,6 +79,7 @@ packaging = [
     "pyroma>=4.2",
 ]
 pre-commit = [
+    "codespell>=2.4.3",
     "pre-commit>=3.5",
     "pre-commit-hooks>=5.0",
     "prek>=0.2",
@@ -110,6 +111,11 @@ autoread_dotenv = "autoread_dotenv:entrypoint"
 homepage = "https://github.com/libranet/autoread-dotenv"
 repository = "https://github.com/libranet/autoread-dotenv"
 documentation = "https://autoread-dotenv.readthedocs.io"
+
+
+[tool.codespell]
+ignore-words-list = "hove,astroid"
+skip = "uv.lock"
 
 
 [tool.coverage.html]

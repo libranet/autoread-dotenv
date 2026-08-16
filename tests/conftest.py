@@ -20,7 +20,7 @@ you will not be able to run pytest, instead it will fail with:
 
     > ImportError: Error importing plugin "_helpers": No module named '_helpers'
 
-The "_helpers"-directory contains code that can be re-used in various tests.
+The "_helpers"-directory contains code that can be reused in various tests.
 
 Usage:
 ======

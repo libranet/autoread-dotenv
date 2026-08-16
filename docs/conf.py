@@ -75,7 +75,7 @@ autoapi_dirs = [
 ]
 autoapi_root = "modules"
 autoapi_generate_api_docs = True
-autoapi_add_toctree_entry = False  # we decide ourselves where the include it inthe toc-tree.
+autoapi_add_toctree_entry = False  # we decide ourselves where to include it in the toc-tree.
 autoapi_keep_files = True  # include them in git
 
 # Add any paths that contain templates here, relative to this directory.
