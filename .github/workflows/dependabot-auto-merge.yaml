@@ -11,10 +11,15 @@ name: Auto Merge Dependabot
 on:
   pull_request:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 permissions: {}
 
 jobs:
   auto-merge:
+    name: Auto Merge Dependabot
 
     runs-on: ubuntu-latest
 
@@ -26,13 +31,17 @@ jobs:
       workflows: write # Required when the dependabot PR itself modifies workflow files
 
     # Only run for Dependabot PRs - security: prevent running on PRs from forks or other actors
-    if: github.actor == 'dependabot[bot]'
+    # Uses the PR creator (pull_request.user.login) rather than github.actor, which reflects
+    # the last actor to touch the ref and can be spoofed via a crafted commit history.
+    if: github.event.pull_request.user.login == 'dependabot[bot]'
 
     steps:
 
       # repo: https://github.com/actions/checkout
       # releases: https://github.com/actions/checkout/tags
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+            persist-credentials: false
 
       # repo: https://github.com/fastify/github-action-merge-dependabot
       # releases: https://github.com/fastify/github-action-merge-dependabot/tags
