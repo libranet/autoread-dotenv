@@ -71,7 +71,7 @@ jobs:
 
         # repo: https://github.com/actions/checkout
         # releases: https://github.com/actions/checkout/tags
-        - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v6.0.2 released on 09-01-2026
+        - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1 released on 17-07-2026
           with:
               persist-credentials: false
               fetch-depth: 0
@@ -85,7 +85,7 @@ jobs:
         # repo: https://github.com/extractions/setup-just
         # releases: https://github.com/extractions/setup-just/releases
         - name: Install pinned version of just
-          uses: extractions/setup-just@53165ef7e734c5c07cb06b3c8e7b647c5aa16db3  # v3 released on 2025-031-15
+          uses: extractions/setup-just@53165ef7e734c5c07cb06b3c8e7b647c5aa16db3  # v4.0.0 released on 05-04-2026
           with:
               just-version: ${{ env.JUST_VERSION }}
 
@@ -93,7 +93,7 @@ jobs:
         # releases: https://github.com/astral-sh/setup-uv/tags
         # docs: https://docs.astral.sh/uv/guides/integration/github
         - name: Install pinned version of uv
-          uses: astral-sh/setup-uv@fac544c07dec837d0ccb6301d7b5580bf5edae39  # v7.1.6 released on 13-12-2025
+          uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d  # v10.0.1 released on 14-08-2026
           with:
               python-version: ${{ matrix.python-version }}
               version: ${{ env.UV_VERSION }}
@@ -117,33 +117,6 @@ jobs:
 
         - name: Pre-commit
           run: uv run pre-commit run --all-files
-
-        # - name: Ruff format
-        #   run: |
-        #       just ruff-format
-
-        # - name: Ruff check
-        #   run: uv run ruff check src tests
-
-        # - name: Ruff check
-        #   run: |
-        #       just ruff-check
-
-        # - name: Mypy
-        #   run: |
-        #       just mypy
-
-        # - name: Ty
-        #   run: |
-        #       just ty-check
-
-        # - name: Pyroma
-        #   run: |
-        #       just pyroma
-
-        # - name: uv lock check
-        #   run: |
-        #       just uv-lock-check
 
         # - name: Bandit
         #   run: |
