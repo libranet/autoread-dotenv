@@ -1,3 +1,4 @@
+# ruff: noqa:  ERA001 (Found commented-out code)
 """Sphinx configuration.
 
 This file is execfile()d with the current directory set to its containing dir.

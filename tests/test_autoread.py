@@ -1,5 +1,3 @@
-# mypy: disallow_untyped_defs=False
-
 """Testing of module autoread_dotenv."""
 
 import os
