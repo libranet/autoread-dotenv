@@ -57,6 +57,7 @@ import? '.just/sshx.justfile'
 import? '.just/ty.justfile'
 import? '.just/ubuntu.justfile'
 import? '.just/uv.justfile'
+import? '.just/zizmor.justfile'
 
 
 # Display all configure tasks (default recipe)
