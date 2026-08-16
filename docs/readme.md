@@ -64,7 +64,7 @@ You can avoid this behaviour by setting `AUTOREAD_ENFORCE_DOTENV=0`.
 [![Python Version](https://img.shields.io/pypi/pyversions/autoread-dotenv?:alt:PyPI-PythonVersion)](https://pypi.org/project/autoread-dotenv/)
 [![PyPI - Implementation](https://img.shields.io/pypi/implementation/autoread-dotenv?:alt:PyPI-Implementation)](https://pypi.org/project/autoread-dotenv/)
 
-`autoread-dotenv` works on Python 3.8+, including PyPy3. Tested until Python 3.14.
+`autoread-dotenv` works on Python 3.9+, including PyPy3. Tested until Python 3.14.
 
 ## Notable dependencies
 
