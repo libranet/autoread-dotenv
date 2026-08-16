@@ -18,10 +18,26 @@ Attributes
 .. autoapisummary::
 
    autoread_dotenv.about.PACKAGE
-   autoread_dotenv.about.msg
-   autoread_dotenv.about.authors
-   autoread_dotenv.about.license_
+   autoread_dotenv.about.pkginfo
    autoread_dotenv.about.version
+   autoread_dotenv.about.license_
+   autoread_dotenv.about.authors
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   autoread_dotenv.about.PkgInfo
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   autoread_dotenv.about.get_metadata_package
 
 
 Module Contents
@@ -32,14 +48,45 @@ Module Contents
    :value: ''
 
 
-.. py:data:: msg
+.. py:class:: PkgInfo
 
-.. py:data:: authors
-   :type:  str | list[str]
+   Bases: :py:obj:`TypedDict`
 
-.. py:data:: license_
-   :type:  str | list[str]
+
+   Typed subset of a distribution's metadata.
+
+
+   .. py:attribute:: author_email
+      :type:  str
+
+
+   .. py:attribute:: license
+      :type:  str
+
+
+   .. py:attribute:: version
+      :type:  str
+
+
+.. py:function:: get_metadata_package(pkgname = '')
+
+   Fetch a typed subset of ``pkgname``'s distribution metadata.
+
+   Defaults to this package (``PACKAGE``) when ``pkgname`` is not given.
+   Falls back to "unknown" values when the metadata cannot be found, so that this module -
+   which runs on every Python process start via the ``sitecustomize`` entrypoint - never raises
+   at import time.
+
+
+.. py:data:: pkginfo
+   :type:  PkgInfo
 
 .. py:data:: version
+   :type:  str
+
+.. py:data:: license_
+   :type:  str
+
+.. py:data:: authors
    :type:  str
 

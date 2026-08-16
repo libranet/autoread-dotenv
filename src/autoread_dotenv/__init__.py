@@ -27,6 +27,11 @@ The .env-file must reside in the root of your project-directory.
       lib64/     -> .venv/lib64/
       pyvenv.cfg -> .venv/pyvenv.cfg
 
+For layouts that don't follow this convention (global installs, containers, editable
+mounts, ...), set the ``AUTOREAD_DOTENV_PATH`` environment-variable to the .env-file to
+use instead - it bypasses sys.prefix-based discovery entirely. See
+:func:`autoread_dotenv.utils.get_expected_dotenv_path`.
+
 """
 
 from __future__ import annotations  # enables X | Y syntax in annotations for Python <3.10

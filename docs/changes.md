@@ -35,6 +35,11 @@ All notable changes to this project will be documented in this file.
 
 - Fix typo in `.just/ty.justfile` comment.
 
+- Add an `AUTOREAD_DOTENV_PATH` environment-variable to override where the `.env`-file is looked
+  up, for setups that don't follow the in-project-virtualenv convention (global installs,
+  containers, editable mounts, ...). Takes precedence over the `sys.prefix`-based discovery. See
+  `docs/readme.md` and the `autoread_dotenv.utils.get_expected_dotenv_path` docstring.
+
 ## 1.0.5 (2026-08-16)
 
 - Add codespell as dev-dependency for spellchecking.

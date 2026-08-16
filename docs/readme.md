@@ -59,6 +59,18 @@ For more information, please see [sitecustomize-entrypoints](http://pypi.python.
 By default, your .env-file read by `autoread-dotenv` will override any pre-existing environment variables.
 You can avoid this behaviour by setting `AUTOREAD_ENFORCE_DOTENV=0`.
 
+## Overriding where the .env-file is looked up
+
+By default, `autoread-dotenv` locates your `.env` relative to `sys.prefix`, assuming the
+in-project-virtualenv layout described above. For setups that don't follow that convention
+(global installs, containers, editable mounts, ...), set `AUTOREAD_DOTENV_PATH` to the full path
+of the `.env`-file to use instead - it takes precedence and skips the `sys.prefix`-based lookup
+entirely:
+
+```bash
+> export AUTOREAD_DOTENV_PATH=/etc/myapp/production.env
+```
+
 ## Compatibility
 
 [![Python Version](https://img.shields.io/pypi/pyversions/autoread-dotenv?:alt:PyPI-PythonVersion)](https://pypi.org/project/autoread-dotenv/)
