@@ -5,23 +5,21 @@
 import os
 import pathlib as pl
 
+import pytest
 
-def test_env_path() -> None:
+
+def test_env_path(dotenv_project: pl.Path) -> None:
     from autoread_dotenv import get_dotenv_path
 
     env_path = get_dotenv_path()
-    assert env_path
+    assert env_path == dotenv_project / ".env"
 
 
+@pytest.mark.usefixtures("dotenv_project")
 def test_autoread_dotenv(monkeypatch) -> None:
     from autoread_dotenv import entrypoint
 
-    # initially already set via sitecustomize
     monkeypatch.delenv("FOO", raising=False)
-
-    # foo_value = os.getenv("FOO")
-    # if foo_value:
-    #     del os.environ["FOO"]
 
     # test cleared environment
     foo_value = os.getenv("FOO")
@@ -32,20 +30,17 @@ def test_autoread_dotenv(monkeypatch) -> None:
     assert foo_value == "foo"
 
 
+@pytest.mark.usefixtures("dotenv_project")
 def test_autoread_dotenv_enforce_dotenv(monkeypatch) -> None:
     from autoread_dotenv import entrypoint, str_to_bool
 
     enforce_dotenv = str_to_bool(os.getenv("AUTOREAD_ENFORCE_DOTENV", "1"))
     assert enforce_dotenv is True
 
-    # initially already set in .env & loaded via sitecustomize
-    # Unset the environment variable
+    # Unset the environment variable, then set to a value that .env should override
     monkeypatch.delenv("FOO", raising=False)
-    # foo = os.getenv("FOO")
-    # if foo:
-    #     del os.environ["FOO"]
-
     monkeypatch.setenv("FOO", "bar")
+
     # test cleared environment
     foo_value = os.getenv("FOO")
     assert foo_value == "bar"
@@ -55,6 +50,7 @@ def test_autoread_dotenv_enforce_dotenv(monkeypatch) -> None:
     assert foo_value == "foo"
 
 
+@pytest.mark.usefixtures("dotenv_project")
 def test_autoread_dotenv_not_enforce_dotenv(monkeypatch) -> None:
     from autoread_dotenv import entrypoint, str_to_bool
 
@@ -64,7 +60,6 @@ def test_autoread_dotenv_not_enforce_dotenv(monkeypatch) -> None:
     enforce_dotenv = str_to_bool(os.getenv("AUTOREAD_ENFORCE_DOTENV", "1"))
     assert enforce_dotenv is False
 
-    # initially already set in .env & loaded via sitecustomize
     monkeypatch.delenv("FOO", raising=False)
     monkeypatch.setenv("FOO", "bar")
 

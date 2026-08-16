@@ -14,4 +14,4 @@ def test_license() -> None:
     from autoread_dotenv.about import license_
 
     assert isinstance(license_, str)
-    assert "Copyright" in license_
+    assert license_ == "MIT"

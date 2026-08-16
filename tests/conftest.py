@@ -49,6 +49,9 @@ Usage:
 """
 
 import importlib
+import pathlib as pl
+
+import pytest
 
 import autoread_dotenv
 
@@ -57,3 +60,17 @@ importlib.reload(autoread_dotenv)
 importlib.reload(autoread_dotenv.about)
 importlib.reload(autoread_dotenv.utils)
 importlib.reload(autoread_dotenv.warnings)
+
+
+@pytest.fixture
+def dotenv_project(tmp_path: pl.Path, monkeypatch) -> pl.Path:
+    """Build an isolated <project-root>/.venv + .env layout, independent of the real repo .env.
+
+    autoread_dotenv locates the .env relative to sys.prefix (see utils.get_expected_dotenv_path),
+    so pointing sys.prefix at a throwaway .venv is enough to sandbox these tests.
+    """
+    venv_dir = tmp_path / ".venv"
+    venv_dir.mkdir()
+    (tmp_path / ".env").write_text("FOO=foo\n")
+    monkeypatch.setattr("sys.prefix", str(venv_dir))
+    return tmp_path
