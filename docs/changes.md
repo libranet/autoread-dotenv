@@ -5,7 +5,9 @@ All notable changes to this project will be documented in this file.
 ## 1.1.0 (YYYY-MM-DD)
 
 - Add codespell as dev-dependency for spellchecking.
+
 -
+
 - Drop pylint as linter.
 
 - Drop Python 3.8 support.
