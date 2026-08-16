@@ -47,6 +47,16 @@ All notable changes to this project will be documented in this file.
   `simple_warning()` too (it previously bypassed it), and cleaned up a stray-whitespace bug in
   that message's line-continuation.
 
+- Add a real subprocess-based integration test (`test_entrypoint_fires_in_subprocess` in
+  `tests/test_entrypoints.py`): spawns `sys.executable` as a genuine child process and asserts
+  the sitecustomize hook actually fires and populates its `os.environ`, using
+  `AUTOREAD_DOTENV_PATH` to point it at a throwaway `.env`. The rest of the test-suite only
+  exercises the logic in-process (`monkeypatch.setattr("sys.prefix", ...)` + calling
+  `entrypoint()` directly), which can't catch the hook failing to fire across a real process
+  boundary (e.g. an editable install silently missing entry-point metadata). Paired with a
+  `python -S` sanity-check (`test_entrypoint_does_not_fire_with_python_dash_s`) confirming the
+  first test is actually driven by the sitecustomize hook and not some other leak.
+
 ## 1.0.5 (2026-08-16)
 
 - Add codespell as dev-dependency for spellchecking.
