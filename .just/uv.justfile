@@ -98,6 +98,12 @@ uv-lock-check *args:
     uv lock --check {{args}}
 
 
+# audit dependencies for known vulnerabilities
+[group: 'uv']
+uv-audit *args:
+    uv audit --preview-features audit-command {{args}}
+
+
 # build the python-package
 [group: 'uv']
 uv-build *args:

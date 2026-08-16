@@ -33,11 +33,11 @@ env:
 
     # Pin just version for reproducible builds
     # https://github.com/casey/just/releases
-    JUST_VERSION: "1.46.0"  # released on 2026-01-02
+    JUST_VERSION: "1.56.0"
 
     # Pin uv version for reproducible builds
     # https://github.com/astral-sh/uv/releases
-    UV_VERSION: "0.9.26"  # released on 2026-01-15
+    UV_VERSION: "0.12.3"
 
 on:
     pull_request:
