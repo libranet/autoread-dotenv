@@ -6,8 +6,6 @@ All notable changes to this project will be documented in this file.
 
 - Add codespell as dev-dependency for spellchecking.
 
--
-
 - Drop pylint as linter.
 
 - Drop Python 3.8 support.

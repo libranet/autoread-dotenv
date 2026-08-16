@@ -204,3 +204,11 @@ repos:
         entry: uv lock --check
         language: system
         pass_filenames: false
+
+      - id: pyroma
+        name: pyroma
+        description: check packaging best-practices
+        entry: uv run pyroma .
+        language: system
+        pass_filenames: false
+        files: '^pyproject\.toml$'
