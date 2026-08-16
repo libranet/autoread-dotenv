@@ -1,0 +1,174 @@
+# Release - Github Actions
+#
+# Builds the package and publishes it to PyPI using OIDC Trusted Publishing (no stored token).
+# Every push to main also publishes to TestPyPI, so packaging breakage is caught before a real
+# release ever happens.
+#
+# Trusted Publishing must be configured on PyPI (and TestPyPI) before this can succeed - see
+# https://docs.pypi.org/trusted-publishers/adding-a-publisher/
+#   - PyPI:     owner=libranet, repo=autoread-dotenv, workflow=release.yaml, environment=release-pypi
+#   - TestPyPI: owner=libranet, repo=autoread-dotenv, workflow=release.yaml, environment=release-test-pypi
+# The two GitHub environments referenced above must also exist under repo Settings > Environments
+# (optionally with protection rules, e.g. required reviewers on release-pypi).
+#
+# Releasing: `just release` tags the version and creates a GitHub Release (`gh release create`),
+# which fires the `release: published` event that triggers the real PyPI publish.
+#
+# Security references:
+#  - https://securitylab.github.com/resources/github-actions-preventing-pwn-requests
+#  - https://securitylab.github.com/resources/github-actions-untrusted-input
+#  - https://securitylab.github.com/resources/github-actions-building-blocks
+#  - https://securitylab.github.com/resources/github-actions-new-patterns-and-mitigations
+#
+# Used actions:
+#   - actions/checkout
+#     repo: https://github.com/actions/checkout
+#     releases: https://github.com/actions/checkout/tags
+#
+#   - extractions/setup-just
+#     repo: https://github.com/extractions/setup-just
+#     releases: https://github.com/extractions/setup-just/releases
+#
+#   - astral-sh/setup-uv: set up uv environment
+#     repo: https://github.com/astral-sh/setup-uv
+#     releases: https://github.com/astral-sh/setup-uv/tags
+#     docs: https://docs.astral.sh/uv/guides/integration/github/
+#
+#   - actions/attest-build-provenance: sign build provenance for supply-chain verification
+#     repo: https://github.com/actions/attest-build-provenance
+#     releases: https://github.com/actions/attest-build-provenance/tags
+#
+#   - actions/upload-artifact + actions/download-artifact: pass the built dist/ between jobs
+#     repo: https://github.com/actions/upload-artifact
+#     releases: https://github.com/actions/upload-artifact/tags
+#     repo: https://github.com/actions/download-artifact
+#     releases: https://github.com/actions/download-artifact/tags
+#
+#   - pypa/gh-action-pypi-publish: publish to PyPI/TestPyPI via OIDC Trusted Publishing
+#     repo: https://github.com/pypa/gh-action-pypi-publish
+#     releases: https://github.com/pypa/gh-action-pypi-publish/tags
+
+
+name: Release
+
+on:
+    push:
+        branches: [main]
+    release:
+        types: [published]
+    workflow_dispatch:
+
+concurrency:
+    # Never cancel an in-progress release/publish mid-flight.
+    group: ${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: false
+
+env:
+    # Pin just version for reproducible builds
+    # https://github.com/casey/just/releases
+    JUST_VERSION: "1.56.0"
+
+    # Pin uv version for reproducible builds
+    # https://github.com/astral-sh/uv/releases
+    UV_VERSION: "0.12.3"
+
+permissions: {}
+
+jobs:
+    build:
+        name: Build distribution
+        runs-on: ubuntu-latest
+        timeout-minutes: 10
+        permissions:
+            id-token: write # required to sign build provenance
+            attestations: write # required to sign build provenance
+        steps:
+
+            - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+              with:
+                  persist-credentials: false
+
+            - name: Install pinned version of just
+              uses: extractions/setup-just@53165ef7e734c5c07cb06b3c8e7b647c5aa16db3 # v4.0.0
+              with:
+                  just-version: ${{ env.JUST_VERSION }}
+
+            - name: Install pinned version of uv
+              uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
+              with:
+                  version: ${{ env.UV_VERSION }}
+                  # No caching here (unlike linting.yaml/testing.yaml): this workflow builds and
+                  # publishes release artifacts, and a poisoned cache (e.g. from an untrusted PR
+                  # run) must never be reused for a trusted release build.
+                  enable-cache: false
+
+            - name: Build sdist + wheel
+              run: just uv-build
+
+            - name: Sign build provenance
+              uses: actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8 # v4.2.2
+              with:
+                  subject-path: "dist/*"
+
+            - name: Upload build artifacts
+              uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+              with:
+                  name: dist
+                  path: dist/
+                  retention-days: 7
+
+    publish-test-pypi:
+        name: Publish in-dev package to test.pypi.org
+        needs: build
+        # Only from main pushes on the upstream repo - never from forks, which don't (and
+        # shouldn't) have Trusted Publishing configured.
+        if: github.repository_owner == 'libranet' && github.event_name == 'push' && github.ref == 'refs/heads/main'
+        runs-on: ubuntu-latest
+        timeout-minutes: 5
+        environment:
+            name: release-test-pypi
+            url: https://test.pypi.org/project/autoread-dotenv/
+        permissions:
+            id-token: write # required for trusted publishing
+        steps:
+
+            - name: Download build artifacts
+              uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+              with:
+                  name: dist
+                  path: dist/
+
+            - name: Publish package to TestPyPI
+              uses: pypa/gh-action-pypi-publish@dc37677b2e1c63e2034f94d8a5b11f265b73ba33 # v1.14.2
+              with:
+                  repository-url: https://test.pypi.org/legacy/
+                  # The version in pyproject.toml is bumped manually, not per-commit, so a
+                  # re-upload of an unchanged version on a later main push must not fail the job.
+                  skip-existing: true
+                  # No attestation for TestPyPI: nothing stops a malicious PyPI from serving a
+                  # signed TestPyPI asset in place of a release intended for the real PyPI.
+                  attestations: false
+
+    publish-pypi:
+        name: Publish released package to pypi.org
+        needs: build
+        if: github.repository_owner == 'libranet' && github.event_name == 'release' && github.event.action == 'published'
+        runs-on: ubuntu-latest
+        timeout-minutes: 5
+        environment:
+            name: release-pypi
+            url: https://pypi.org/project/autoread-dotenv/
+        permissions:
+            id-token: write # required for trusted publishing
+        steps:
+
+            - name: Download build artifacts
+              uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+              with:
+                  name: dist
+                  path: dist/
+
+            - name: Publish package to PyPI
+              uses: pypa/gh-action-pypi-publish@dc37677b2e1c63e2034f94d8a5b11f265b73ba33 # v1.14.2
+              with:
+                  attestations: true
