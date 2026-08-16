@@ -88,8 +88,14 @@ def entrypoint() -> None:
     try:
         dotenv.load_dotenv(dotenv_file, override=enforce_dotenv, interpolate=True, verbose=True)
     except AttributeError:  # pragma: no cover
-        stdlib_warnings.warn(
-            "Module 'dotenv.load_dotenv' not found. \
-                This occurs when django-dotenv was installed while we depend on python-dotenv.",
-            stacklevel=2,
-        )
+        with simple_warning():
+            stdlib_warnings.warn(
+                "Module 'dotenv.load_dotenv' not found. "
+                "This occurs when django-dotenv was installed while we depend on python-dotenv.",
+                stacklevel=2,
+            )
+    except OSError as exc:
+        # e.g. a permission-denied .env: get_dotenv_path() only checked is_file(), not
+        # readability. Warn instead of letting this crash every process in the venv.
+        with simple_warning():
+            stdlib_warnings.warn(f"Could not read {dotenv_file}: {exc}", stacklevel=2)
