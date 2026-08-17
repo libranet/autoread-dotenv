@@ -57,7 +57,6 @@ import autoread_dotenv
 
 # reload each module to fix coverage report
 importlib.reload(autoread_dotenv)
-importlib.reload(autoread_dotenv.about)
 importlib.reload(autoread_dotenv.utils)
 importlib.reload(autoread_dotenv.warnings)
 

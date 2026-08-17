@@ -43,25 +43,10 @@ import warnings as stdlib_warnings
 if tp.TYPE_CHECKING:  # pragma: no cover
     import pathlib as pl
 
-try:
-    import dotenv
-
-    DOTENV_INSTALLED = True
-except ImportError:  # pragma: no cover
-    DOTENV_INSTALLED = False
-
-from autoread_dotenv.about import (
-    authors as __author__,
-    license_ as __license__,
-    version as __version__,
-)
 from autoread_dotenv.utils import get_dotenv_path, get_expected_dotenv_path, str_to_bool
 from autoread_dotenv.warnings import simple_warning
 
 __all__: list[str] = [
-    "__author__",
-    "__license__",
-    "__version__",
     "entrypoint",
     "get_dotenv_path",
     "simple_warning",
@@ -72,18 +57,24 @@ __all__: list[str] = [
 def entrypoint() -> None:
     """Set environment-variable from the in-project .env-file."""
     dotenv_file: pl.Path | None = get_dotenv_path()
-    enforce_dotenv: bool = str_to_bool(os.getenv("AUTOREAD_ENFORCE_DOTENV", "1"))
-
-    if not DOTENV_INSTALLED:  # pragma: no cover
-        with simple_warning():
-            stdlib_warnings.warn("Module 'dotenv' not found. Please pip install 'python-dotenv'.", stacklevel=2)
-        return
 
     if not dotenv_file:  # pragma: no cover
         with simple_warning():
             expected_path = get_expected_dotenv_path()
             stdlib_warnings.warn(f"{expected_path} does not exist, please create it.", stacklevel=2)
         return
+
+    try:
+        # deferred on purpose: avoids paying python-dotenv's import cost on every Python
+        # process start via the sitecustomize entrypoint when there's no .env to load
+        # anyway. See docs/performance.md.
+        import dotenv  # noqa: PLC0415
+    except ImportError:  # pragma: no cover
+        with simple_warning():
+            stdlib_warnings.warn("Module 'dotenv' not found. Please pip install 'python-dotenv'.", stacklevel=2)
+        return
+
+    enforce_dotenv: bool = str_to_bool(os.getenv("AUTOREAD_ENFORCE_DOTENV", "1"))
 
     try:
         dotenv.load_dotenv(dotenv_file, override=enforce_dotenv, interpolate=True, verbose=True)

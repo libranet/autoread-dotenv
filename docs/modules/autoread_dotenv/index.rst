@@ -52,16 +52,6 @@ Submodules
    /modules/autoread_dotenv/warnings/index
 
 
-Attributes
-----------
-
-.. autoapisummary::
-
-   autoread_dotenv.__author__
-   autoread_dotenv.__license__
-   autoread_dotenv.__version__
-
-
 Functions
 ---------
 
@@ -75,15 +65,6 @@ Functions
 
 Package Contents
 ----------------
-
-.. py:data:: __author__
-   :type:  str
-
-.. py:data:: __license__
-   :type:  str
-
-.. py:data:: __version__
-   :type:  str
 
 .. py:function:: get_dotenv_path()
 

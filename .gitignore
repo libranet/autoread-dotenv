@@ -22,6 +22,9 @@
 # exclude claude for now
 .claude
 
+# cloned dependencies to install in development-mode
+/.deps
+
 # dev-symlinks to .venv to make bin/python work
 /bin
 /lib
