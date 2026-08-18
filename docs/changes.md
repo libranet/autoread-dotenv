@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+- Add a `windows-latest` job (Python 3.14) to the `testing.yaml` CI matrix. The
+  `Operating System :: Microsoft :: Windows` classifier was previously unbacked by any CI
+  run: only `ubuntu-latest` was tested, and the one permission-related test that differs on
+  Windows (`test_autoread_dotenv_unreadable_file_warns`) is `skipif`'d there, so that path
+  was untested on the platform it'd differ from most. Gates the ubuntu-only
+  `ubuntu-remove-global-sitecustomize` step behind `runner.os == 'Linux'` and forces `bash`
+  as the default shell so the existing `${VAR}`-style steps work identically on Windows'
+  Git Bash instead of falling back to incompatible pwsh syntax.
+
 - Remove stale `# pragma: no cover` markers on `get_metadata_package()`'s `ValueError`/
   `PackageNotFoundError` fallbacks in `about.py`. Both branches are already exercised by
   `tests/test_about.py` and hit 100% coverage on their own; the pragmas were just masking

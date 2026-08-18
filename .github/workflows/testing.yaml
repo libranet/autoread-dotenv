@@ -55,6 +55,12 @@ jobs:
         name: python
         runs-on: ${{ matrix.os }}
         timeout-minutes: 10
+        defaults:
+            run:
+                # Force bash everywhere (incl. windows-latest, which ships Git Bash) so the
+                # ${VAR}-style shell steps below behave identically across the matrix instead of
+                # falling back to pwsh's incompatible syntax on Windows.
+                shell: bash
         strategy:
             fail-fast: false
             matrix:
@@ -68,6 +74,13 @@ jobs:
                     - "3.11"
                     - "3.10"
                     - "3.9"
+                include:
+                    # Exercise the Windows-specific code paths at least once per run - e.g. the
+                    # permission-error handling in autoread_dotenv.utils, whose chmod-based test is
+                    # skipped under sys.platform == "win32" on other OSes - matching the
+                    # "Operating System :: Microsoft :: Windows" classifier in pyproject.toml.
+                    - os: windows-latest
+                      python-version: "3.14"
 
         steps:
 
@@ -114,11 +127,16 @@ jobs:
               PYTHON_VERSION: ${{ matrix.python-version }}
           run: uv python install "${PYTHON_VERSION}"
 
+        - name: Remove global sitecustomize.py
+          # Ubuntu-only: unblocks our own sitecustomize entrypoint from the one preinstalled on
+          # the runner image. Nothing equivalent exists to remove on windows-latest.
+          if: runner.os == 'Linux'
+          run: just ubuntu-remove-global-sitecustomize
+
         - name: Install project + dependencies
           env:
               PYTHON_VERSION: ${{ matrix.python-version }}
           run: |
-              just ubuntu-remove-global-sitecustomize
               just uv-set-python-version "${PYTHON_VERSION}"
               just install
 
