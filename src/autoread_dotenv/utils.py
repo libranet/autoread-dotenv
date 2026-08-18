@@ -39,11 +39,18 @@ from __future__ import annotations
 import os
 import pathlib as pl
 import sys
+import warnings as stdlib_warnings
+
+from autoread_dotenv.warnings import simple_warning
 
 #: Escape hatch for layouts where sys.prefix does not resolve to the project-root
 #: (global installs, containers, editable mounts, ...). When set, it points directly
 #: at the .env file to use, bypassing the sys.prefix-based discovery below entirely.
 AUTOREAD_DOTENV_PATH_VAR: str = "AUTOREAD_DOTENV_PATH"
+
+#: Recognized spellings for str_to_bool(), case-insensitive.
+_TRUE_VALUES: frozenset[str] = frozenset({"1", "true", "yes"})
+_FALSE_VALUES: frozenset[str] = frozenset({"0", "false", "no", ""})
 
 
 def get_expected_dotenv_path() -> pl.Path:
@@ -69,14 +76,37 @@ def get_expected_dotenv_path() -> pl.Path:
 def get_dotenv_path() -> pl.Path | None:
     """Return the location of the .env for in-project virtualenvs.
 
-    Return None if the .env-file does not exist.
+    Return None if the .env-file does not exist. If we can't even tell - e.g. a
+    permission-denied parent directory raises from is_file() itself, on Python < 3.12
+    where pathlib doesn't swallow that OSError the way it swallows "not found" - assume
+    optimistically that it does, and let the load_dotenv() call downstream fail loudly
+    with its own, more specific permission error instead of us wrongly reporting here
+    that the file doesn't exist.
     """
     dotenv_file = get_expected_dotenv_path()
-    if dotenv_file.is_file():
+    try:
+        exists = dotenv_file.is_file()
+    except OSError:
         return dotenv_file
-    return None
+    return dotenv_file if exists else None
 
 
 def str_to_bool(value: str) -> bool:
-    """Convert a string value to a boolean."""
-    return value.lower() in {"1", "true", "yes"}
+    """Convert a string value to a boolean.
+
+    "1"/"true"/"yes" (case-insensitive) are true; "0"/"false"/"no"/"" are false. Anything
+    else is treated as false too, but warns first: an unrecognized value is more likely a
+    typo (e.g. AUTOREAD_ENFORCE_DOTENV=fasle) than an intentional one, and silently
+    falling back to false would be indistinguishable from setting it on purpose.
+    """
+    lowered = value.lower()
+    if lowered in _TRUE_VALUES:
+        return True
+    if lowered not in _FALSE_VALUES:
+        with simple_warning():
+            stdlib_warnings.warn(
+                f"Unrecognized boolean value {value!r}, treating it as false. "
+                "Use '1'/'true'/'yes' for true, or '0'/'false'/'no'/'' for false.",
+                stacklevel=2,
+            )
+    return False

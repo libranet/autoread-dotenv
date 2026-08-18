@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+- Fix `get_dotenv_path()` crashing on Python < 3.12 when `is_file()` itself raises
+  `PermissionError` (e.g. an unreadable parent directory) instead of reporting "not found" the
+  way it does on 3.12+. It now optimistically returns the path and lets `load_dotenv()`
+  downstream report the real, more specific error.
+
+- Make `str_to_bool()` warn on unrecognized values (e.g. `AUTOREAD_ENFORCE_DOTENV=fasle`) instead
+  of silently treating them the same as `false`.
+
 - Rename `.github/workflows/release.yaml` to `releasing.yaml`.
 
 - Add `pypi` and `test-pypi` entries to `[project.urls]`.

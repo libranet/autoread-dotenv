@@ -158,3 +158,45 @@ def test_autoread_dotenv_unreadable_file_warns(tmp_path: pl.Path, monkeypatch) -
         assert "Could not read" in str(warning_list[-1].message)
     finally:
         unreadable_file.chmod(0o644)
+
+
+def test_get_dotenv_path_permission_error_on_stat(monkeypatch) -> None:
+    """A PermissionError raised by is_file() itself must not crash get_dotenv_path().
+
+    Pathlib does this on Python < 3.12 for an unreadable parent directory, unlike the
+    "file just doesn't exist" case. get_dotenv_path() should optimistically return the
+    path and let load_dotenv() downstream report the real, more specific error instead.
+    """
+    from autoread_dotenv import get_dotenv_path, get_expected_dotenv_path
+
+    def raise_permission_error(_self: pl.Path) -> bool:
+        raise PermissionError(13, "Permission denied")
+
+    monkeypatch.setattr(pl.Path, "is_file", raise_permission_error)
+
+    assert get_dotenv_path() == get_expected_dotenv_path()
+
+
+def test_str_to_bool_warns_on_unrecognized_value() -> None:
+    """A typo like "fasle" must warn instead of silently behaving like "false"."""
+    from autoread_dotenv import str_to_bool
+
+    with warnings.catch_warnings(record=True) as warning_list:
+        warnings.simplefilter("always")
+        result = str_to_bool("fasle")
+
+    assert result is False
+    assert len(warning_list) == 1
+    assert "Unrecognized boolean value" in str(warning_list[-1].message)
+
+
+@pytest.mark.parametrize("value", ["1", "true", "Yes", "0", "false", "No", ""])
+def test_str_to_bool_recognized_values_do_not_warn(value: str) -> None:
+    """None of the documented true/false spellings should trigger the typo-warning."""
+    from autoread_dotenv import str_to_bool
+
+    with warnings.catch_warnings(record=True) as warning_list:
+        warnings.simplefilter("always")
+        str_to_bool(value)
+
+    assert len(warning_list) == 0
