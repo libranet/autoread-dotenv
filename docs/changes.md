@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+- Remove stale `# pragma: no cover` markers on `get_metadata_package()`'s `ValueError`/
+  `PackageNotFoundError` fallbacks in `about.py`. Both branches are already exercised by
+  `tests/test_about.py` and hit 100% coverage on their own; the pragmas were just masking
+  that fact, making it look like these import-time safety nets were trusted rather than
+  tested.
+
 - Fix `get_dotenv_path()` crashing on Python < 3.12 when `is_file()` itself raises
   `PermissionError` (e.g. an unreadable parent directory) instead of reporting "not found" the
   way it does on 3.12+. It now optimistically returns the path and lets `load_dotenv()`

@@ -35,10 +35,10 @@ def get_metadata_package(pkgname: str = "") -> PkgInfo:
 
     try:
         msg = importlib.metadata.metadata(pkgname)
-    except ValueError:  # pragma: no cover
+    except ValueError:
         # A distribution name is required. __package__ is None/empty.
         return PkgInfo(author_email="unknown", license="unknown", version="unknown")
-    except importlib.metadata.PackageNotFoundError:  # pragma: no cover
+    except importlib.metadata.PackageNotFoundError:
         # fallback if this package is not properly installed
         return PkgInfo(author_email="unknown", license="unknown", version="unknown")
 
