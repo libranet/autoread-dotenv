@@ -109,11 +109,6 @@ jobs:
               python-version: ${{ matrix.python-version }}
               version: ${{ env.UV_VERSION }}
 
-        # - name: Remove sitecustomize.py
-        #   run: |
-        #       sudo rm -f /usr/lib/python3.*/sitecustomize.py
-        #       sudo rm -f /etc/python3.*/sitecustomize.py
-
         - name: Set up Python ${{ matrix.python-version }}
           env:
               PYTHON_VERSION: ${{ matrix.python-version }}

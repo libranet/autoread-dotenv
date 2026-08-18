@@ -102,7 +102,10 @@ jobs:
               cache-dependency-glob: "uv.lock"
               prune-cache: true
 
-        - name: Remove sitecustomize.py
+        - name: Remove global sitecustomize.py
+          # Ubuntu-only: unblocks our own sitecustomize entrypoint from the one preinstalled on
+          # the runner image. Nothing equivalent exists to remove on windows-latest.
+          if: runner.os == 'Linux'
           run: just ubuntu-remove-global-sitecustomize
 
         - name: Set up Python ${{ matrix.python-version }}
