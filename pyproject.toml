@@ -126,8 +126,8 @@ test-pypi = "https://test.pypi.org/project/autoread-dotenv/"
 
 
 [tool.codespell]
-ignore-words-list = "hove,astroid"
-skip = "uv.lock"
+ignore-words-list = "fasle, hove"
+skip = "uv.lock, var"
 
 
 [tool.coverage.html]
