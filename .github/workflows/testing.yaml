@@ -127,17 +127,6 @@ jobs:
               PYTHON_VERSION: ${{ matrix.python-version }}
           run: uv python install "${PYTHON_VERSION}"
 
-        # TEMPORARY: diagnosing "error: justfile does not contain recipe `uv-set-python-version`"
-        # on windows-latest - .just/uv.justfile isn't being imported there for some reason. This
-        # dumps what just actually sees before the real steps run, to find out why. Remove once
-        # root-caused.
-        - name: Debug - list just recipes
-          run: |
-              just --version
-              just --list --unsorted
-              echo "--- .just/uv.justfile file(1) ---"
-              file .just/uv.justfile || true
-
         - name: Remove global sitecustomize.py
           # Ubuntu-only: unblocks our own sitecustomize entrypoint from the one preinstalled on
           # the runner image. Nothing equivalent exists to remove on windows-latest.
