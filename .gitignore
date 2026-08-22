@@ -42,6 +42,9 @@
 # but include .env.template
 !.env.template
 
+# 'uv pip install' creates a lockfile
+/.lock
+
 # excluded generated python-files Byte-compiled / optimized / DLL files
 __pycache__/
 
