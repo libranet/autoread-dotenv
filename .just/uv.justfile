@@ -133,9 +133,34 @@ uv-set-python-version version="3.10" *args:
     @ echo "{{version}}" > .python-version
     @ echo -e "Set python version to {{version}}"
 
+# set python-version in .python-version file
+[group: 'uv']
+[windows]
+uv-set-python-version version="3.10" *args:
+    #!pwsh.exe
+    Move-Item .python-version .python-version.backup -Force
+    Set-Content -Path .python-version -Value "{{version}}"
+    Write-Host "Set python version to {{version}}"
+
 
 # bump project version in pyproject.toml, e.g. `just uv-bump-version minor`
 [group: 'uv']
 uv-bump-version value="patch":
     uv version --bump {{value}}
+
+
+
+
+# Fail if pyproject.toml has local [tool.uv.sources] overrides (path/editable deps)
+[group: 'uv']
+check-empty-tool-uv-sources:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    sources=$(toml get 'tool.uv.sources' --toml-path pyproject.toml)
+    if [ "$sources" != "{}" ]; then
+        echo "error: pyproject.toml has [tool.uv.sources] entries — do not commit" >&2
+        # echo "$sources" >&2
+        exit 1
+    fi
+    echo "pyproject.toml is clean (no [tool.uv.sources] overrides)"
 
