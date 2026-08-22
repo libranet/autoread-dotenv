@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+- Fix `just install` failing on Windows with `error: justfile does not contain recipe 'uv-set-python-version'`: the recipe was tagged `[unix]`-only with no `[windows]`
+  counterpart, unlike its siblings (`create-dirs`, `symlink-venv-dirs`,
+  `dotenv-install-from-template`, `dotenv-set-basedir`), which already had both. Added the
+  missing `[windows]` variant (PowerShell `Move-Item`/`Set-Content`). Found by the new
+  `windows-latest` CI job below actually failing on it.
+
 - Add a `windows-latest` job (Python 3.14) to the `testing.yaml` CI matrix. The
   `Operating System :: Microsoft :: Windows` classifier was previously unbacked by any CI
   run: only `ubuntu-latest` was tested, and the one permission-related test that differs on
