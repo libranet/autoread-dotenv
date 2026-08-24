@@ -36,7 +36,7 @@ check-package-version: git-tag-list-versions
     # set -euxo pipefail
     set -euo pipefail
 
-    new_version=$(bin/toml get --toml-path pyproject.toml project.version)
+    new_version=$(uv run toml get --toml-path pyproject.toml project.version)
     echo -e "\nNew release-version specified in pyproject.toml: $new_version"
 
     # Validate version-syntax
@@ -71,7 +71,7 @@ release: git-check-uncommitted-changes check-package-version
         exit 1
     fi
 
-    new_version=$(bin/toml get --toml-path pyproject.toml project.version)
+    new_version=$(uv run toml get --toml-path pyproject.toml project.version)
     printf "\nOK to release ${new_version}? (y/n)\n"
     read answer
 
