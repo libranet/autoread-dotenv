@@ -2,7 +2,6 @@
 
 All notable changes to this project will be documented in this file.
 
-
 ## 1.0.6 (2026-08-24)
 
 - Fix `just install` failing on Windows with `error: justfile does not contain recipe 'uv-set-python-version'`: the recipe was tagged `[unix]`-only with no `[windows]`
