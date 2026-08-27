@@ -13,13 +13,13 @@ autoread-dotenv parses your `.env` file when starting any venv-based Python proc
 
 ## Installation
 
-Install via uv:
+Install with uv (preferred):
 
 ```bash
 > uv add autoread-dotenv
 ```
 
-Or add to your poetry-based project:
+If you are using Poetry:
 
 ```bash
 > poetry add autoread-dotenv

@@ -21,14 +21,14 @@ build-backend = "uv_build"
 [project]
 name = "autoread-dotenv"
 version = "1.0.6"
-description = "Automatically set env-vars at the beginning of every python-process in your in-project virtualenv."
+description = "Automatically load your .env when Python starts."
 readme = "docs/readme.md"
 authors = [{ name = "Wouter Vanden Hove", email = "wouter@libranet.eu" }]
 maintainers = [{ name = "Wouter Vanden Hove", email = "wouter@libranet.eu" }]
 requires-python = ">=3.9"
 license = "MIT"
 license-files = ["license.md"]
-keywords = ["entrypoints", "dotenv", "sitecustomize"]
+keywords = ["dotenv", "entrypoints", "environment", "python", "sitecustomize"]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Environment :: Console",
@@ -121,6 +121,8 @@ autoread_dotenv = "autoread_dotenv:entrypoint"
 [project.urls]
 homepage = "https://github.com/libranet/autoread-dotenv"
 repository = "https://github.com/libranet/autoread-dotenv"
+issues = "https://github.com/libranet/autoread-dotenv/issues"
+changelog = "https://github.com/libranet/autoread-dotenv/blob/main/docs/changes.md"
 documentation = "https://autoread-dotenv.readthedocs.io"
 pypi = "https://pypi.org/project/autoread-dotenv/"
 test-pypi = "https://test.pypi.org/project/autoread-dotenv/"
@@ -174,6 +176,12 @@ addopts = ""
 cache-dir = "var/cache/ruff" # relative to project_root
 line-length = 120
 
+[tool.ruff.format]
+indent-style = "space"
+line-ending = "lf"
+quote-style = "double"
+skip-magic-trailing-comma = false
+
 [tool.ruff.lint]
 select = ["ALL"]
 ignore = [
@@ -186,12 +194,11 @@ allow-star-arg-any = true  # allow *args,**kwargs without triggering ANN401
 
 [tool.ruff.lint.isort]
 # https://docs.astral.sh/ruff/settings/#lintisort
-combine-as-imports = true
-force-single-line = false
-from-first = false
+combine-as-imports = true  # combine related imports
+force-single-line = false  # do not expand imports into one-per-line unnecessarily
+from-first = false  # do not force from x import y before import x
 known-third-party = []
 known-first-party = ["autoread_dotenv"]
-# known-local-folder = ["_helpers"]
 
 [tool.ruff.lint.pydocstyle]
 # pep257 disables numpy/google-style section-formatting rules
@@ -202,11 +209,11 @@ max-args = 5  # default is 5
 
 [tool.ruff.lint.per-file-ignores]
 "tests/**" = [
-    "ANN001",  # Missing type annotation
-    "D103",    # Missing docstring in public function
+    "ANN001",  # tests use local fixtures and helper functions without full annotations
+    "D103",    # pytest-style tests intentionally do not require public docstrings
     "INP001",  # tests-dir should not be a python-package
-    "PLC0415", # import should be at the top-level of a file
-    "S101",    # Use of assert detected
+    "PLC0415", # tests commonly import helpers lazily for fixture setup
+    "S101",    # pytest assertions are the expected pattern in tests
 ]
 
 [tool.ruff.lint.flake8-import-conventions]
@@ -219,11 +226,11 @@ banned-from = ["pathlib", "typing"]
 "typing" = "tp"
 
 
-[tool.ty]
-# https://docs.astral.sh/ty/reference/configuration/
-
+[tool.ty]  # https://docs.astral.sh/ty/reference/configuration/
 [tool.ty.rules]
-possibly-unresolved-reference = "warn"
+possibly-unresolved-reference = "error"
+unresolved-attribute = "error"
+unresolved-import = "error"
 
 [tool.ty.src]
 include = [
