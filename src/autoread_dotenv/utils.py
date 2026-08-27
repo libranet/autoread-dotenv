@@ -1,38 +1,4 @@
-"""autoread_dotenv.utils.
-
-We assume following directory-structure:
-The virtualenv of your project **must** be created as a
-.venv-subfolder inside your project-directory.
-
-This corresponds to poetry-config "in-project = true".
-The .env-file must reside in the root of your project-directory.
-
-.. code-block:: python
-
-  <project-root>
-      .env
-      .venv/
-          bin/
-              python
-          lib/
-          lib64/
-          pyvenv.cfg
-
-  We also support toplevel-symlinks to the corresponding .venv-files:
-
-.. code-block:: python
-
-      bin/       -> .venv/bin/
-      lib/       -> .venv/lib/
-      lib64/     -> .venv/lib64/
-      pyvenv.cfg -> .venv/pyvenv.cfg
-
-For layouts that don't follow this convention (global installs, containers, editable
-mounts, ...), set the ``AUTOREAD_DOTENV_PATH`` environment-variable to the .env-file to
-use instead - it bypasses sys.prefix-based discovery entirely. See
-:func:`autoread_dotenv.utils.get_expected_dotenv_path`.
-
-"""
+"""autoread_dotenv.utils."""
 
 from __future__ import annotations
 
