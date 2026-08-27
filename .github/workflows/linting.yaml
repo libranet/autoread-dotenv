@@ -1,11 +1,5 @@
 # linting - Github Actions
 #
-# Security references:
-#  - https://securitylab.github.com/resources/github-actions-preventing-pwn-requests
-#  - https://securitylab.github.com/resources/github-actions-untrusted-input
-#  - https://securitylab.github.com/resources/github-actions-building-blocks
-#  - https://securitylab.github.com/resources/github-actions-new-patterns-and-mitigations
-#
 # Used actions:
 #   - actions/checkout
 #     repo: https://github.com/actions/checkout
@@ -17,7 +11,7 @@
 #     https://docs.astral.sh/uv/guides/integration/github/
 
 
-name: Linting
+name: Linting 🧹
 
 concurrency:
     # see https://docs.github.com/en/actions/using-jobs/using-concurrency
@@ -33,11 +27,11 @@ env:
 
     # Pin just version for reproducible builds
     # https://github.com/casey/just/releases
-    JUST_VERSION: "1.56.0"
+    JUST_VERSION: "1.58.0"
 
     # Pin uv version for reproducible builds
     # https://github.com/astral-sh/uv/releases
-    UV_VERSION: "0.12.3"
+    UV_VERSION: "0.12.6"
 
 on:
     pull_request:
