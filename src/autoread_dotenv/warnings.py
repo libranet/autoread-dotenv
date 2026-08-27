@@ -21,7 +21,8 @@ def simple_warning() -> tp.Iterator[None]:
     ) -> str:
         return f"Warning from {__name__}: {message}\n"
 
-    # intentional monkeypatch
+    # Keep runtime warnings concise and actionable: users see the warning text without
+    # a full stacktrace-style traceback for a library-level configuration issue.
     warnings.formatwarning = simple_format  # ty: ignore[invalid-assignment]
     try:
         yield

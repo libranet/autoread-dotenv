@@ -11,8 +11,8 @@ autoread_dotenv
    The virtualenv of your project **must** be created as a
    .venv-subfolder inside your project-directory.
 
-   This corresponds to poetry-config "in-project = true".
-   The .env-file must reside in the root of your project-directory.
+   This matches the standard uv in-project virtualenv layout, where the project root
+   contains a .venv directory and the .env-file lives at the project root.
 
    .. code-block:: python
 

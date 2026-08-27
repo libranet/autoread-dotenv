@@ -65,9 +65,9 @@ def entrypoint() -> None:
         return
 
     try:
-        # deferred on purpose: avoids paying python-dotenv's import cost on every Python
-        # process start via the sitecustomize entrypoint when there's no .env to load
-        # anyway. See docs/performance.md.
+        # This hook runs from sitecustomize on every Python startup, so the optional
+        # dependency is imported only after we know there is a .env file to load.
+        # That keeps the hot path cheap when the project is not using a local .env.
         import dotenv  # noqa: PLC0415
     except ImportError:  # pragma: no cover
         with simple_warning():
