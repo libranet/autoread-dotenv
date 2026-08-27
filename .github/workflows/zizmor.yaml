@@ -1,6 +1,12 @@
 # Zizmor - lints Github Actions workflows for security issues
 #
-# Security references:
+# References:
+#   - Official: https://www.zizmor.sh/
+#   - Docs: https://docs.zizmor.sh/
+#   - Repo: https://github.com/zizmorcore/zizmor
+#   - GitHub Action: https://github.com/zizmorcore/zizmor-action
+#
+# GitHub Actions Security references:
 #  - https://securitylab.github.com/resources/github-actions-preventing-pwn-requests
 #  - https://securitylab.github.com/resources/github-actions-untrusted-input
 #  - https://securitylab.github.com/resources/github-actions-building-blocks
