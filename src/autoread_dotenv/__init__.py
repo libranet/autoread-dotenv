@@ -50,10 +50,7 @@ from autoread_dotenv.warnings import simple_warning
 __all__: list[str] = [
     "LoadStatus",
     "entrypoint",
-    "get_dotenv_path",
     "last_load_status",
-    "simple_warning",
-    "str_to_bool",
 ]
 
 
