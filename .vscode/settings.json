@@ -10,7 +10,8 @@
 
     "files.associations": {
         ".env": "dotenv",
-        ".env.template": "dotenv"
+        ".env.template": "dotenv",
+        //"*.json5": "jsonc"  // enable when not using json-extensions
     },
     "files.exclude": {
         "**/__pycache__": true,

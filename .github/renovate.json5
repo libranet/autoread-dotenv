@@ -1,0 +1,141 @@
+{
+  // Renovate configuration (JSON5 — comments allowed).
+  //
+  // Docs:   https://docs.renovatebot.com/configuration-options/
+  // Schema: https://docs.renovatebot.com/renovate-schema.json
+  //
+  // Renovate approves nothing, but with `automerge` + `platformAutomerge` GitHub
+  // itself merges the PR once all required status checks pass, — no custom token,
+  // no `contents: write` workflow, no third-party action to keep pinned.
+  //
+  // Requires: repo Settings → General → "Allow auto-merge" must be enabled
+  // for `platformAutomerge` to work.
+
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+
+  "extends": [
+    "config:recommended",
+  ],
+
+  "labels": [
+    "dependencies",
+  ],
+
+  "postUpdateOptions": [
+    "gomodTidy",
+    "yarnDedupeHighest",
+    "uvLock",
+  ],
+
+  // Only open/update PRs outside working hours to reduce CI noise.
+  "schedule": [
+    "after 10pm every weekday",
+    "before 5am every weekday",
+    "every weekend",
+  ],
+
+  "prConcurrentLimit": 9,
+  "prCreationLimit": 9,
+
+  // Wait 7 days after a release before proposing it — filters yanked / hotfixed
+  // versions. (Replaces the deprecated `stabilityDays: 7`.)
+  "minimumReleaseAge": "7 days",
+
+  // `config:recommended` already implies semantic commits; keep this explicit so
+  // the prefix below is always applied.
+  "semanticCommits": "enabled",
+  "commitMessagePrefix": "chore(deps):",
+
+  "rangeStrategy": "auto",
+
+  "python": {
+    "enabled": true,
+  },
+
+  // ---------------------------------------------------------------------------
+  // Auto-merge
+  //
+  // `automerge`         — let Renovate mark the PR for merge.
+  // `platformAutomerge` — hand the merge to GitHub's native auto-merge, which
+  //                       waits for required checks instead of Renovate polling.
+  // `automergeStrategy` — matches the old workflow's `merge-method: squash`.
+  //
+  // NOTE: if branch protection requires an approving review, Renovate cannot
+  // approve its own PRs. Install the `renovate-approve` GitHub App
+  // (https://github.com/apps/renovate-approve) or relax the review requirement
+  // for these branches.
+  // ---------------------------------------------------------------------------
+  "automergeStrategy": "squash",
+
+  "packageRules": [
+    {
+      "description": "Auto-merge patch and minor updates once checks pass; majors stay manual",
+      "matchUpdateTypes": [
+        "patch",
+        "minor",
+        "digest",
+        "pin",
+        "bump",
+      ],
+      "automerge": true,
+      "platformAutomerge": true,
+    },
+    {
+      "description": "Never auto-merge major updates — always review by hand",
+      "matchUpdateTypes": [
+        "major",
+      ],
+      "automerge": false,
+    },
+    {
+      "description": "Disable pip manager - use uv only",
+      "matchManagers": [
+        "pip",
+      ],
+      "enabled": false,
+    },
+    {
+      "description": "GitHub Actions updates - weekly schedule, grouped",
+      "matchManagers": [
+        "github-actions",
+      ],
+      "extends": [
+        "schedule:weekly",
+      ],
+      "labels": [
+        "dependencies",
+        "github-actions",
+      ],
+      "groupName": "github-actions",
+      // Actions are SHA-pinned in the workflows, so these arrive as `digest`
+      // updates and are covered by the auto-merge rule above.
+      "automerge": true,
+      "platformAutomerge": true,
+    },
+    {
+      "description": "Python/uv updates - monthly schedule, grouped",
+      "matchManagers": [
+        "uv",
+      ],
+      "extends": [
+        "schedule:monthly",
+      ],
+      "labels": [
+        "dependencies",
+        "python",
+      ],
+      "groupName": "python-dependencies",
+    },
+  ],
+
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "labels": [
+      "dependencies",
+      "security",
+    ],
+    // Security fixes bypass the schedule and the release-age wait.
+    "schedule": [],
+    "minimumReleaseAge": null,
+  },
+}
