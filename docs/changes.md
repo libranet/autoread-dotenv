@@ -2,6 +2,45 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.0.7 (unreleased)
+
+- Narrow the blanket `except OSError` in `get_dotenv_path()`. `PermissionError` from
+  `is_file()` itself (the documented Python < 3.12 case of an unreadable parent directory)
+  still returns the path optimistically and defers to `load_dotenv()`. Any other `OSError`
+  (`ENAMETOOLONG`, `ELOOP`, a broken mount, ...) is now surfaced in a warning naming the
+  errno subtype instead of being silently swallowed as an indistinguishable "permissions
+  issue", while still deferring downstream rather than crashing startup.
+
+- Link `docs/security.md` from `[project.urls]` so the vulnerability-reporting policy
+  surfaces on PyPI, and add GitHub private vulnerability reporting as an explicit intake
+  channel alongside the security mailbox.
+
+- Document the `AUTOREAD_DOTENV_PATH` threat model explicitly in `docs/security.md` (and
+  cross-reference it from `utils.py`): the variable is developer/operator-set configuration,
+  used verbatim by design, so path traversal and "load an unexpected file" are out of scope -
+  setting it requires the same access as setting arbitrary env vars on the process. Also
+  states what *is* in scope (never crash the host interpreter; never leak `.env` contents
+  into warnings).
+
+- Add a queryable outcome to `entrypoint()`. It now returns a `LoadStatus` enum
+  (`LOADED` / `MISSING` / `DOTENV_NOT_INSTALLED` / `LOAD_FAILED`) and records it in the
+  module-level `autoread_dotenv.last_load_status` (`NOT_RUN` until it runs), so a caller
+  that discards the return value - `sitecustomize` does - can still be asked afterwards
+  whether loading succeeded, without having to capture warnings. The "warn, never raise"
+  failure philosophy is unchanged.
+
+- Drop the leading underscore from `utils.TRUE_VALUES` / `utils.FALSE_VALUES` - they are
+  no more internal than `AUTOREAD_DOTENV_PATH_VAR` next to them - and trim the package
+  `__all__` to the genuinely public names (`entrypoint`, `LoadStatus`, `last_load_status`).
+  `get_dotenv_path`, `str_to_bool` and `simple_warning` stay importable, just no longer
+  advertised.
+
+- Add property-based tests (`tests/test_properties.py`, using Hypothesis) for the pure
+  helpers `str_to_bool()`, `get_expected_dotenv_path()` and `get_dotenv_path()` - totality,
+  case-insensitivity, the warn-once-on-unrecognised-value contract, verbatim handling of an
+  `AUTOREAD_DOTENV_PATH` override, and the `.venv`-stripping invariant. Hypothesis is a
+  test-only dependency (uv resolves an older release on the Python 3.9 fork).
+
 ## 1.0.6 (2026-08-24)
 
 - Fix `just install` failing on Windows with `error: justfile does not contain recipe 'uv-set-python-version'`: the recipe was tagged `[unix]`-only with no `[windows]`

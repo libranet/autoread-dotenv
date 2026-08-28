@@ -12,11 +12,16 @@ from autoread_dotenv.warnings import simple_warning
 #: Escape hatch for layouts where sys.prefix does not resolve to the project-root
 #: (global installs, containers, editable mounts, ...). When set, it points directly
 #: at the .env file to use, bypassing the sys.prefix-based discovery below entirely.
+#:
+#: The value is used verbatim - no traversal check, no confinement to the project root.
+#: This is deliberate: it is developer/operator-set configuration, not attacker-controlled
+#: input. Whoever can set it for a process can already set arbitrary env vars there, so
+#: "load an unexpected path" crosses no privilege boundary. See docs/security.md.
 AUTOREAD_DOTENV_PATH_VAR: str = "AUTOREAD_DOTENV_PATH"
 
 #: Recognized spellings for str_to_bool(), case-insensitive.
-_TRUE_VALUES: frozenset[str] = frozenset({"1", "true", "yes"})
-_FALSE_VALUES: frozenset[str] = frozenset({"0", "false", "no", ""})
+TRUE_VALUES: frozenset[str] = frozenset({"1", "true", "yes"})
+FALSE_VALUES: frozenset[str] = frozenset({"0", "false", "no", ""})
 
 
 def get_expected_dotenv_path() -> pl.Path:
@@ -48,11 +53,23 @@ def get_dotenv_path() -> pl.Path | None:
     optimistically that it does, and let the load_dotenv() call downstream fail loudly
     with its own, more specific permission error instead of us wrongly reporting here
     that the file doesn't exist.
+
+    Any other OSError (ENAMETOOLONG, ELOOP, a broken mount, ...) is genuinely unexpected
+    for a plain stat: name the errno in a warning rather than swallowing it as an
+    indistinguishable "permissions issue", then still defer to load_dotenv() downstream.
     """
     dotenv_file = get_expected_dotenv_path()
     try:
         exists = dotenv_file.is_file()
-    except OSError:
+    except PermissionError:
+        return dotenv_file
+    except OSError as exc:
+        with simple_warning():
+            stdlib_warnings.warn(
+                f"Unexpected {type(exc).__name__} while checking {dotenv_file}: {exc}. "
+                "Assuming it exists and deferring to load_dotenv().",
+                stacklevel=2,
+            )
         return dotenv_file
     return dotenv_file if exists else None
 
@@ -66,9 +83,9 @@ def str_to_bool(value: str) -> bool:
     falling back to false would be indistinguishable from setting it on purpose.
     """
     lowered = value.lower()
-    if lowered in _TRUE_VALUES:
+    if lowered in TRUE_VALUES:
         return True
-    if lowered not in _FALSE_VALUES:
+    if lowered not in FALSE_VALUES:
         with simple_warning():
             stdlib_warnings.warn(
                 f"Unrecognized boolean value {value!r}, treating it as false. "

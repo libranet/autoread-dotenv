@@ -54,6 +54,19 @@ The `autoread_dotenv.entrypoint`-function is registered as a `sitecustomize`-ent
 Sitecustomize and all its registered entrypoints will be executed at the start of *every* python-process.
 For more information, please see [sitecustomize-entrypoints](http://pypi.python.org/pypi/sitecustomize-entrypoints)
 
+`entrypoint()` never raises for a configuration problem (a missing, unreadable or
+un-loadable `.env`, or a missing `python-dotenv`): it warns and carries on, so it cannot
+break interpreter startup. To check afterwards whether loading actually succeeded, read
+`autoread_dotenv.last_load_status` (a `LoadStatus` enum), which `entrypoint()` also returns:
+
+```python
+import autoread_dotenv
+from autoread_dotenv import LoadStatus
+
+if autoread_dotenv.last_load_status is not LoadStatus.LOADED:
+    ...  # LoadStatus.MISSING / DOTENV_NOT_INSTALLED / LOAD_FAILED / NOT_RUN
+```
+
 ## Avoid overriding existing environments variables
 
 By default, your .env-file read by `autoread-dotenv` will override any pre-existing environment variables.

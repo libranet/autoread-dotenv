@@ -44,14 +44,30 @@ import importlib
 import pathlib as pl
 
 import pytest
+from hypothesis import HealthCheck, settings
 
 import autoread_dotenv
 
 # Reload the package modules during collection so the coverage report reflects the
 # actual runtime state of the imported code under test.
+importlib.reload(autoread_dotenv.status)
 importlib.reload(autoread_dotenv)
 importlib.reload(autoread_dotenv.utils)
 importlib.reload(autoread_dotenv.warnings)
+
+# Deterministic, deadline-free profile for the property-based tests in
+# tests/test_properties.py. derandomize=True keeps CI reproducible (and implies no
+# example database, so nothing is written to disk). function-scoped-fixture use
+# (monkeypatch inside @given) is expected here - each example overwrites the env var
+# / sys.prefix rather than relying on a reset between examples.
+settings.register_profile(
+    "autoread",
+    deadline=None,
+    derandomize=True,
+    print_blob=True,
+    suppress_health_check=[HealthCheck.function_scoped_fixture],
+)
+settings.load_profile("autoread")
 
 
 @pytest.fixture
