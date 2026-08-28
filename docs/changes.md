@@ -29,6 +29,18 @@ All notable changes to this project will be documented in this file.
   whether loading succeeded, without having to capture warnings. The "warn, never raise"
   failure philosophy is unchanged.
 
+- Drop the leading underscore from `utils.TRUE_VALUES` / `utils.FALSE_VALUES` - they are
+  no more internal than `AUTOREAD_DOTENV_PATH_VAR` next to them - and trim the package
+  `__all__` to the genuinely public names (`entrypoint`, `LoadStatus`, `last_load_status`).
+  `get_dotenv_path`, `str_to_bool` and `simple_warning` stay importable, just no longer
+  advertised.
+
+- Add property-based tests (`tests/test_properties.py`, using Hypothesis) for the pure
+  helpers `str_to_bool()`, `get_expected_dotenv_path()` and `get_dotenv_path()` - totality,
+  case-insensitivity, the warn-once-on-unrecognised-value contract, verbatim handling of an
+  `AUTOREAD_DOTENV_PATH` override, and the `.venv`-stripping invariant. Hypothesis is a
+  test-only dependency (uv resolves an older release on the Python 3.9 fork).
+
 ## 1.0.6 (2026-08-24)
 
 - Fix `just install` failing on Windows with `error: justfile does not contain recipe 'uv-set-python-version'`: the recipe was tagged `[unix]`-only with no `[windows]`

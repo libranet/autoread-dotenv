@@ -99,6 +99,7 @@ security = [
     "zizmor>=1.0",
 ]
 testing = [
+    "hypothesis>=6",  # property-based tests (tests/test_properties.py)
     "importlib_metadata>=6.0",  # backport used by tests/test_entrypoints.py on Python <3.10
     "packaging>=23.0",
     "pytest>=8.3",
