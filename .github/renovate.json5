@@ -4,8 +4,12 @@
   // Docs:   https://docs.renovatebot.com/configuration-options/
   // Schema: https://docs.renovatebot.com/renovate-schema.json
   //
+  // Using uv with renovate:
+  //   - https://docs.astral.sh/uv/guides/integration/renovate/#uvlock-output
+
+
   // Renovate approves nothing, but with `automerge` + `platformAutomerge` GitHub
-  // itself merges the PR once all required status checks pass, — no custom token,
+  // itself merges the PR once all required status checks pass — no custom token,
   // no `contents: write` workflow, no third-party action to keep pinned.
   //
   // Requires: repo Settings → General → "Allow auto-merge" must be enabled
@@ -19,12 +23,6 @@
 
   "labels": [
     "dependencies",
-  ],
-
-  "postUpdateOptions": [
-    "gomodTidy",
-    "yarnDedupeHighest",
-    "uvLock",
   ],
 
   // Only open/update PRs outside working hours to reduce CI noise.
@@ -46,10 +44,21 @@
   "semanticCommits": "enabled",
   "commitMessagePrefix": "chore(deps):",
 
-  "rangeStrategy": "auto",
+  // Never rewrite version constraints in pyproject.toml. Renovate only repins
+  // uv.lock for versions that already satisfy the declared range; an update that
+  // would require widening a constraint is skipped instead of editing the file.
+  "rangeStrategy": "in-range-only",
 
-  "python": {
+  // Refresh uv.lock on a schedule so transitive dependencies get updated too
+  // (normal updates only touch direct deps). Recommended by the uv docs:
+  // https://docs.astral.sh/uv/guides/integration/renovate/
+  "lockFileMaintenance": {
     "enabled": true,
+    "schedule": [
+      "before 5am on the first day of the month",
+    ],
+    "automerge": true,
+    "platformAutomerge": true,
   },
 
   // ---------------------------------------------------------------------------
@@ -88,9 +97,16 @@
       "automerge": false,
     },
     {
-      "description": "Disable pip manager - use uv only",
+      // Guard: this project is uv-only. If anyone adds requirements.txt /
+      // setup.py / Pipfile / pip-tools input, don't let Renovate manage it.
+      // (There is no manager literally named "pip".)
+      "description": "Ignore non-uv Python managers - use uv only",
       "matchManagers": [
-        "pip",
+        "pip_requirements",
+        "pip_setup",
+        "pip-compile",
+        "pipenv",
+        "setup-cfg",
       ],
       "enabled": false,
     },
@@ -113,9 +129,14 @@
       "platformAutomerge": true,
     },
     {
-      "description": "Python/uv updates - monthly schedule, grouped",
-      "matchManagers": [
-        "uv",
+      // Renovate reads pyproject.toml under the `pep621` manager and
+      // .python-version under `pyenv` — there is no `uv` manager. Match the
+      // whole `python` category so both are covered. uv.lock is updated
+      // automatically by pep621 after each change, and fully by the
+      // `lockFileMaintenance` block above.
+      "description": "Python updates - monthly schedule, grouped",
+      "matchCategories": [
+        "python",
       ],
       "extends": [
         "schedule:monthly",
