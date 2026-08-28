@@ -42,7 +42,6 @@ jobs:
     permissions:
       contents: write # Required to squash/merge/rebase the renovate PR
       pull-requests: write # Required to approve and merge the pull request
-      workflows: write # Required when the renovate PR itself modifies workflow files
 
     # Only run for Renovate PRs - security: prevent running on PRs from forks or other actors
     # Uses the PR creator (pull_request.user.login) rather than github.actor, which reflects
