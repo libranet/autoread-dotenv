@@ -27,6 +27,11 @@
         // repo: https://github.com/mikestead/vscode-dotenv
         "mikestead.dotenv",
 
+        // Syntax highlighting of JSON5 files in VS Code.
+        // marketplace: https://marketplace.visualstudio.com/items?itemName=mrmlnc.vscode-json5
+        // repo: https://github.com/mrmlnc/vscode-json5
+        "mrmlnc.vscode-json5",
+
         // syntax highlighting and autocompletion for azure pipelines yaml
         // marketplace: https://marketplace.visualstudio.com/items?itemName=ms-azure-devops.azure-pipelines
         // repo: https://github.com/Microsoft/azure-pipelines-vscode
