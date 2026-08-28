@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## 1.0.7 (unreleased)
 
+- Narrow the blanket `except OSError` in `get_dotenv_path()`. `PermissionError` from
+  `is_file()` itself (the documented Python < 3.12 case of an unreadable parent directory)
+  still returns the path optimistically and defers to `load_dotenv()`. Any other `OSError`
+  (`ENAMETOOLONG`, `ELOOP`, a broken mount, ...) is now surfaced in a warning naming the
+  errno subtype instead of being silently swallowed as an indistinguishable "permissions
+  issue", while still deferring downstream rather than crashing startup.
+
 - Add a queryable outcome to `entrypoint()`. It now returns a `LoadStatus` enum
   (`LOADED` / `MISSING` / `DOTENV_NOT_INSTALLED` / `LOAD_FAILED`) and records it in the
   module-level `autoread_dotenv.last_load_status` (`NOT_RUN` until it runs), so a caller

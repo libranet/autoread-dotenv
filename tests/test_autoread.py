@@ -200,6 +200,29 @@ def test_get_dotenv_path_permission_error_on_stat(monkeypatch) -> None:
     assert get_dotenv_path() == get_expected_dotenv_path()
 
 
+def test_get_dotenv_path_other_oserror_on_stat_warns(monkeypatch) -> None:
+    """A non-permission OSError from is_file() is surfaced by errno, not swallowed.
+
+    Unlike PermissionError (the documented Python < 3.12 case), something like
+    ENAMETOOLONG is unexpected for a plain stat. get_dotenv_path() should warn naming
+    the subtype, then still return the path so load_dotenv() downstream gets a shot.
+    """
+    from autoread_dotenv import get_dotenv_path, get_expected_dotenv_path
+
+    def raise_name_too_long(_self: pl.Path) -> bool:
+        raise OSError(36, "File name too long")
+
+    monkeypatch.setattr(pl.Path, "is_file", raise_name_too_long)
+
+    with warnings.catch_warnings(record=True) as warning_list:
+        warnings.simplefilter("always")
+        result = get_dotenv_path()
+
+    assert result == get_expected_dotenv_path()
+    assert len(warning_list) == 1
+    assert "Unexpected OSError" in str(warning_list[-1].message)
+
+
 def test_str_to_bool_warns_on_unrecognized_value() -> None:
     """A typo like "fasle" must warn instead of silently behaving like "false"."""
     from autoread_dotenv import str_to_bool
