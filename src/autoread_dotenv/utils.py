@@ -20,8 +20,8 @@ from autoread_dotenv.warnings import simple_warning
 AUTOREAD_DOTENV_PATH_VAR: str = "AUTOREAD_DOTENV_PATH"
 
 #: Recognized spellings for str_to_bool(), case-insensitive.
-_TRUE_VALUES: frozenset[str] = frozenset({"1", "true", "yes"})
-_FALSE_VALUES: frozenset[str] = frozenset({"0", "false", "no", ""})
+TRUE_VALUES: frozenset[str] = frozenset({"1", "true", "yes"})
+FALSE_VALUES: frozenset[str] = frozenset({"0", "false", "no", ""})
 
 
 def get_expected_dotenv_path() -> pl.Path:
@@ -83,9 +83,9 @@ def str_to_bool(value: str) -> bool:
     falling back to false would be indistinguishable from setting it on purpose.
     """
     lowered = value.lower()
-    if lowered in _TRUE_VALUES:
+    if lowered in TRUE_VALUES:
         return True
-    if lowered not in _FALSE_VALUES:
+    if lowered not in FALSE_VALUES:
         with simple_warning():
             stdlib_warnings.warn(
                 f"Unrecognized boolean value {value!r}, treating it as false. "
