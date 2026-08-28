@@ -49,6 +49,7 @@ import autoread_dotenv
 
 # Reload the package modules during collection so the coverage report reflects the
 # actual runtime state of the imported code under test.
+importlib.reload(autoread_dotenv.status)
 importlib.reload(autoread_dotenv)
 importlib.reload(autoread_dotenv.utils)
 importlib.reload(autoread_dotenv.warnings)

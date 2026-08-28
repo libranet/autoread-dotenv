@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.0.7 (unreleased)
+
+- Add a queryable outcome to `entrypoint()`. It now returns a `LoadStatus` enum
+  (`LOADED` / `MISSING` / `DOTENV_NOT_INSTALLED` / `LOAD_FAILED`) and records it in the
+  module-level `autoread_dotenv.last_load_status` (`NOT_RUN` until it runs), so a caller
+  that discards the return value - `sitecustomize` does - can still be asked afterwards
+  whether loading succeeded, without having to capture warnings. The "warn, never raise"
+  failure philosophy is unchanged.
+
 ## 1.0.6 (2026-08-24)
 
 - Fix `just install` failing on Windows with `error: justfile does not contain recipe 'uv-set-python-version'`: the recipe was tagged `[unix]`-only with no `[windows]`

@@ -17,7 +17,8 @@ def test_env_path(dotenv_project: pl.Path) -> None:
 
 @pytest.mark.usefixtures("dotenv_project")
 def test_autoread_dotenv(monkeypatch) -> None:
-    from autoread_dotenv import entrypoint
+    import autoread_dotenv
+    from autoread_dotenv import LoadStatus, entrypoint
 
     monkeypatch.delenv("FOO", raising=False)
 
@@ -25,9 +26,11 @@ def test_autoread_dotenv(monkeypatch) -> None:
     foo_value = os.getenv("FOO")
     assert foo_value is None
 
-    entrypoint()
+    status = entrypoint()
     foo_value = os.getenv("FOO")
     assert foo_value == "foo"
+    assert status is LoadStatus.LOADED
+    assert autoread_dotenv.last_load_status is LoadStatus.LOADED
 
 
 @pytest.mark.usefixtures("dotenv_project")
@@ -140,7 +143,8 @@ def test_autoread_dotenv_path_override_entrypoint(tmp_path: pl.Path, monkeypatch
 @pytest.mark.skipif(sys.platform == "win32", reason="chmod-based permission-denial isn't reliable on Windows")
 def test_autoread_dotenv_unreadable_file_warns(tmp_path: pl.Path, monkeypatch) -> None:
     """An unreadable .env (passes is_file(), fails to open) warns instead of crashing."""
-    from autoread_dotenv import entrypoint
+    import autoread_dotenv
+    from autoread_dotenv import LoadStatus, entrypoint
 
     unreadable_file = tmp_path / "unreadable.env"
     unreadable_file.write_text("FOO=foo\n")
@@ -151,13 +155,32 @@ def test_autoread_dotenv_unreadable_file_warns(tmp_path: pl.Path, monkeypatch) -
     try:
         with warnings.catch_warnings(record=True) as warning_list:
             warnings.simplefilter("always")
-            entrypoint()  # must not raise
+            status = entrypoint()  # must not raise
 
         assert os.getenv("FOO") is None  # nothing was loaded
         assert len(warning_list) == 1
         assert "Could not read" in str(warning_list[-1].message)
+        assert status is LoadStatus.LOAD_FAILED
+        assert autoread_dotenv.last_load_status is LoadStatus.LOAD_FAILED
     finally:
         unreadable_file.chmod(0o644)
+
+
+def test_entrypoint_missing_dotenv_reports_status(tmp_path: pl.Path, monkeypatch) -> None:
+    """A missing .env warns, does not raise, and records LoadStatus.MISSING."""
+    import autoread_dotenv
+    from autoread_dotenv import LoadStatus, entrypoint
+
+    monkeypatch.setenv("AUTOREAD_DOTENV_PATH", str(tmp_path / "does-not-exist.env"))
+
+    with warnings.catch_warnings(record=True) as warning_list:
+        warnings.simplefilter("always")
+        status = entrypoint()
+
+    assert status is LoadStatus.MISSING
+    assert autoread_dotenv.last_load_status is LoadStatus.MISSING
+    assert len(warning_list) == 1
+    assert "does not exist" in str(warning_list[-1].message)
 
 
 def test_get_dotenv_path_permission_error_on_stat(monkeypatch) -> None:
