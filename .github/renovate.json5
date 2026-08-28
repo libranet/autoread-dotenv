@@ -34,8 +34,8 @@
     "every weekend",
   ],
 
-  "prConcurrentLimit": 9,
-  "prCreationLimit": 9,
+  "prConcurrentLimit": 9, // max open Renovate PRs at any time
+  "prHourlyLimit": 9, // max PRs opened per hour (0 = unlimited; was the invalid `prCreationLimit`)
 
   // Wait 7 days after a release before proposing it — filters yanked / hotfixed
   // versions. (Replaces the deprecated `stabilityDays: 7`.)
@@ -135,6 +135,8 @@
       "security",
     ],
     // Security fixes bypass the schedule and the release-age wait.
+    // Both are already the built-in defaults for `vulnerabilityAlerts`;
+    // kept here only to make the intent explicit.
     "schedule": [],
     "minimumReleaseAge": null,
   },
