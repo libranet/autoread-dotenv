@@ -11,6 +11,17 @@ All notable changes to this project will be documented in this file.
   errno subtype instead of being silently swallowed as an indistinguishable "permissions
   issue", while still deferring downstream rather than crashing startup.
 
+- Link `docs/security.md` from `[project.urls]` so the vulnerability-reporting policy
+  surfaces on PyPI, and add GitHub private vulnerability reporting as an explicit intake
+  channel alongside the security mailbox.
+
+- Document the `AUTOREAD_DOTENV_PATH` threat model explicitly in `docs/security.md` (and
+  cross-reference it from `utils.py`): the variable is developer/operator-set configuration,
+  used verbatim by design, so path traversal and "load an unexpected file" are out of scope -
+  setting it requires the same access as setting arbitrary env vars on the process. Also
+  states what *is* in scope (never crash the host interpreter; never leak `.env` contents
+  into warnings).
+
 - Add a queryable outcome to `entrypoint()`. It now returns a `LoadStatus` enum
   (`LOADED` / `MISSING` / `DOTENV_NOT_INSTALLED` / `LOAD_FAILED`) and records it in the
   module-level `autoread_dotenv.last_load_status` (`NOT_RUN` until it runs), so a caller
