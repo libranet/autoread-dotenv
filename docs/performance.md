@@ -48,7 +48,7 @@ snapshot, not a guarantee.
 Measuring this surfaced two things that were costing every process a lookup or an import it
 usually didn't need, regardless of whether there was a `.env` to load:
 
-1. **`import dotenv` was eager.** [`src/autoread_dotenv/__init__.py`](../src/autoread_dotenv/__init__.py)
+1. **`import dotenv` was eager.** [`src/autoread_dotenv/__init__.py`](https://github.com/libranet/autoread-dotenv/blob/main/src/autoread_dotenv/__init__.py)
    used to `import dotenv` (python-dotenv) unconditionally at module level, before
    `entrypoint()` even checked whether a `.env` file exists. Fixed: `entrypoint()` now
    checks `get_dotenv_path()` *first*, and only imports `dotenv` once it knows there's an

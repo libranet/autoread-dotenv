@@ -22,10 +22,8 @@ build:
 
 formats:
     - htmlzip
-    - pdf
-    # - epub
-    # - all
+    # pdf/epub are Sphinx-only on Read the Docs and not available for MkDocs builds.
 
-sphinx:
-    configuration: docs/conf.py
-    fail_on_warning: false # true is too strict
+mkdocs:
+    configuration: mkdocs.yaml
+    fail_on_warning: false # Material for MkDocs prints an (unsuppressable) MkDocs-2.0 banner

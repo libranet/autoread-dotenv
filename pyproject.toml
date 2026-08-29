@@ -64,17 +64,13 @@ dev = [
     "toml-cli >=0.7.0",
 ]
 docs = [
-    "docutils!=0.21",  # Work-around for https://github.com/pypi/warehouse/issues/15749
-    "markupsafe>=2.1",
     "mdformat>=0.7",
     "mdformat-gfm>=0.3",
     "mdformat-frontmatter>=2.0",
     "mdformat-tables>=1.0",
-    "myst-parser>=3.0",
-    "sphinx>=7.1",
-    "sphinx-autoapi>=3.3",
-    "sphinx-rtd-theme>=3.0",
-    "tomli>=2.0; python_version<\"3.11\"",
+    "mkdocs>=1.6",
+    "mkdocs-material>=9.5",
+    "mkdocstrings[python]>=0.27",
 ]
 ipython = [
     # "ipdb>=0.13",
@@ -268,6 +264,8 @@ ignore = [
     "GHSA-h35f-9h28-mq5c",  # setuptools: MANIFEST.in exclusion bypass, fixed in 83.0.0 (Python >=3.10)
     "GHSA-mf9v-mfxr-j63j",  # urllib3: decompression-bomb safeguard bypass, fixed in 2.7.0 (Python >=3.10)
     "GHSA-qccp-gfcp-xxvc",  # urllib3: sensitive headers forwarded on redirect, fixed in 2.7.0 (Python >=3.10)
+    "GHSA-9xwg-3r6f-jcx2",  # pymdown-extensions: b64 path traversal, fixed in 11.0.0 (Python >=3.10; docs-only dep)
+    "GHSA-gm37-52c6-37mw",  # pymdown-extensions: ReDoS in caret/tilde/betterem/magiclink, fixed in 11.0.1 (Python >=3.10; docs-only dep)
 ]
 
 [[tool.uv.index]]
