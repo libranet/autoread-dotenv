@@ -264,6 +264,13 @@ ignore = [
     "GHSA-gm37-52c6-37mw",  # pymdown-extensions: ReDoS in caret/tilde/betterem/magiclink, fixed in 11.0.1 (Python >=3.10; docs-only dep)
 ]
 
+[tool.uv.sources]  # Settings reference: https://docs.astral.sh/uv/reference/settings/#sources
+# Enable temporary local path overrides for development, but do not commit.
+# The name-key must match the actual normalized project.name in pyproject.toml.
+# git clone git@github.com:libranet/sitecustomize-entrypoints.git .deps/sitecustomize-entrypoints
+# sitecustomize-entrypoints = { path = ".deps/sitecustomize-entrypoints", editable = true }
+
+
 [[tool.uv.index]]
 name = "testpypi"
 url = "https://test.pypi.org/simple/"
