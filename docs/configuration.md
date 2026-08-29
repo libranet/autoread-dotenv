@@ -119,9 +119,8 @@ export AUTOREAD_DOTENV_QUIET=1
 `PYTHONWARNINGS` and `-W` are *not* an option here: they **cannot** name
 `AutoreadDotenvWarning`. The interpreter parses warning filters before `site` puts
 `site-packages` on `sys.path`, so a third-party category cannot be imported yet and the whole
-filter is silently dropped (`Invalid -W option ignored: invalid module name:
-'autoread_dotenv'`). Only built-in categories resolve there, so the closest `PYTHONWARNINGS`
-equivalent is the much broader `ignore::UserWarning`.
+filter is silently dropped (`Invalid -W option ignored: invalid module name: 'autoread_dotenv'`).
+Only built-in categories resolve there, so the closest `PYTHONWARNINGS` equivalent is the much broader `ignore::UserWarning`.
 
 ### Better: remove the cause
 
