@@ -14,10 +14,10 @@ class AutoreadDotenvWarning(UserWarning):
     without also muting unrelated `UserWarning`s from the rest of their app, using
     the standard mechanisms - e.g.::
 
-        PYTHONWARNINGS=ignore::autoread_dotenv.warnings.AutoreadDotenvWarning
+        PYTHONWARNINGS=ignore::autoread_dotenv.AutoreadDotenvWarning
 
     or `warnings.filterwarnings("ignore", category=AutoreadDotenvWarning)`, or
-    pytest's `filterwarnings` marker.
+    pytest's `filterwarnings` marker. Re-exported as `autoread_dotenv.AutoreadDotenvWarning`.
     """
 
 

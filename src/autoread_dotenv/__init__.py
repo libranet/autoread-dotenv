@@ -47,6 +47,7 @@ from autoread_dotenv.utils import get_dotenv_path, get_expected_dotenv_path, str
 from autoread_dotenv.warnings import AutoreadDotenvWarning, simple_warning
 
 __all__: list[str] = [
+    "AutoreadDotenvWarning",
     "LoadStatus",
     "entrypoint",
     "last_load_status",
@@ -66,8 +67,9 @@ def entrypoint() -> LoadStatus:
     return value (`sitecustomize` does) can still be asked afterwards whether loading
     succeeded. A configuration problem is warned about, never raised - this runs on
     every interpreter startup. Every such warning uses the
-    [`AutoreadDotenvWarning`][autoread_dotenv.warnings.AutoreadDotenvWarning] category,
-    so it can be silenced in isolation - see `docs/configuration.md`.
+    [`AutoreadDotenvWarning`][autoread_dotenv.AutoreadDotenvWarning] category (re-exported
+    here from `autoread_dotenv.warnings`), so it can be silenced in isolation - see
+    `docs/configuration.md`.
     """
     global last_load_status  # noqa: PLW0603
 
