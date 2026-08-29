@@ -53,6 +53,30 @@ Set it to `0` when the surrounding environment (CI secrets, systemd `Environment
 export AUTOREAD_ENFORCE_DOTENV=0
 ```
 
+## `AUTOREAD_DOTENV_QUIET`
+
+Suppress every warning `autoread-dotenv` emits. When truthy, [`entrypoint()`](reference/index.md)
+installs a process-wide `ignore` filter for the
+[`AutoreadDotenvWarning`](reference/warnings.md) category before it does anything else.
+
+- **Default:** `0` (false) - warnings are shown.
+- **True values:** `1`, `true`, `yes` (case-insensitive).
+- **False values:** `0`, `false`, `no`, `""` (empty).
+- **Anything else:** treated as false, *and a warning is emitted* (typo guard) - so a
+  misspelled value like `AUTOREAD_DOTENV_QUIET=ture` still warns once.
+- **Read by:** [`entrypoint()`](reference/index.md), parsed via
+  [`str_to_bool()`](reference/utils.md); the name lives in
+  `autoread_dotenv.utils.AUTOREAD_DOTENV_QUIET_VAR`.
+
+```bash
+export AUTOREAD_DOTENV_QUIET=1
+```
+
+This is the blunt instrument: it hides the missing-`.env` notice together with the genuine
+misconfiguration warnings (`python-dotenv` not installed, an unreadable `.env`, a typo'd
+boolean elsewhere). Reach for it when the process legitimately runs without a `.env` and you
+have accepted that trade-off; otherwise prefer removing the cause (see below).
+
 ## Silencing warnings
 
 `autoread-dotenv` never raises for a configuration problem - it emits a warning and records
@@ -82,18 +106,22 @@ of your code. An in-process `filterwarnings()` call therefore only affects a lat
 `entrypoint()` invocation - it cannot retroactively silence the startup pass. Use the options
 in the next section for that.
 
-### At startup (`PYTHONWARNINGS` / `-W`)
+### At startup
 
-`PYTHONWARNINGS` and `-W` **cannot** name `AutoreadDotenvWarning`. The interpreter parses
-warning filters before `site` puts `site-packages` on `sys.path`, so a third-party category
-cannot be imported yet and the whole filter is silently dropped
-(`Invalid -W option ignored: invalid module name: 'autoread_dotenv'`). Only built-in
-categories resolve there:
+Set [`AUTOREAD_DOTENV_QUIET=1`](#autoread_dotenv_quiet). It is read at the very top of
+`entrypoint()`, so it covers the startup pass that an in-process `filterwarnings()` call
+misses:
 
 ```bash
-# broad - silences every UserWarning in the process, not just ours
-export PYTHONWARNINGS="ignore::UserWarning"
+export AUTOREAD_DOTENV_QUIET=1
 ```
+
+`PYTHONWARNINGS` and `-W` are *not* an option here: they **cannot** name
+`AutoreadDotenvWarning`. The interpreter parses warning filters before `site` puts
+`site-packages` on `sys.path`, so a third-party category cannot be imported yet and the whole
+filter is silently dropped (`Invalid -W option ignored: invalid module name:
+'autoread_dotenv'`). Only built-in categories resolve there, so the closest `PYTHONWARNINGS`
+equivalent is the much broader `ignore::UserWarning`.
 
 ### Better: remove the cause
 

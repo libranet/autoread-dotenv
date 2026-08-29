@@ -43,7 +43,12 @@ if tp.TYPE_CHECKING:  # pragma: no cover
     import pathlib as pl
 
 from autoread_dotenv.status import LoadStatus
-from autoread_dotenv.utils import get_dotenv_path, get_expected_dotenv_path, str_to_bool
+from autoread_dotenv.utils import (
+    AUTOREAD_DOTENV_QUIET_VAR,
+    get_dotenv_path,
+    get_expected_dotenv_path,
+    str_to_bool,
+)
 from autoread_dotenv.warnings import AutoreadDotenvWarning, simple_warning
 
 __all__: list[str] = [
@@ -70,8 +75,15 @@ def entrypoint() -> LoadStatus:
     [`AutoreadDotenvWarning`][autoread_dotenv.AutoreadDotenvWarning] category (re-exported
     here from `autoread_dotenv.warnings`); see the "Silencing warnings" section of
     `docs/configuration.md` for how to filter it (and why `PYTHONWARNINGS` cannot).
+    Setting `AUTOREAD_DOTENV_QUIET=1` suppresses every such warning for the process.
     """
     global last_load_status  # noqa: PLW0603
+
+    if str_to_bool(os.getenv(AUTOREAD_DOTENV_QUIET_VAR, "0")):
+        # Opt-out: silence every AutoreadDotenvWarning for the rest of this process.
+        # Installed as a real filter (rather than just skipped here) so warnings emitted
+        # later in this call - and by any later entrypoint() call - are covered too.
+        stdlib_warnings.filterwarnings("ignore", category=AutoreadDotenvWarning)
 
     dotenv_file: pl.Path | None = get_dotenv_path()
 

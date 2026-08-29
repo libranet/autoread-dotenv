@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## 1.0.7 (unreleased)
 
+- Add an `AUTOREAD_DOTENV_QUIET` environment-variable. When truthy (`1`/`true`/`yes`,
+  parsed by `str_to_bool()`), `entrypoint()` installs a process-wide `ignore` filter for the
+  `AutoreadDotenvWarning` category before doing anything else, silencing every warning the
+  package emits - the missing-`.env` notice and the genuine misconfiguration warnings alike.
+  This is the startup-time knob that `PYTHONWARNINGS` cannot provide. Like the other
+  `AUTOREAD_*` variables it must be set outside `.env`. Documented in `docs/configuration.md`.
+
 - Emit every runtime warning under a dedicated `AutoreadDotenvWarning` category (a
   `UserWarning` subclass) instead of a bare `UserWarning`. It lives in
   `autoread_dotenv.warnings` and is re-exported as `autoread_dotenv.AutoreadDotenvWarning`

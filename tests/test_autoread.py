@@ -185,6 +185,54 @@ def test_entrypoint_missing_dotenv_reports_status(tmp_path: pl.Path, monkeypatch
     assert warning_list[-1].category is AutoreadDotenvWarning
 
 
+def test_entrypoint_quiet_env_suppresses_missing_warning(tmp_path: pl.Path, monkeypatch) -> None:
+    """AUTOREAD_DOTENV_QUIET=1 silences the warning but leaves the LoadStatus intact."""
+    import autoread_dotenv
+    from autoread_dotenv import LoadStatus, entrypoint
+
+    monkeypatch.setenv("AUTOREAD_DOTENV_PATH", str(tmp_path / "does-not-exist.env"))
+    monkeypatch.setenv("AUTOREAD_DOTENV_QUIET", "1")
+
+    with warnings.catch_warnings(record=True) as warning_list:
+        warnings.simplefilter("always")
+        status = entrypoint()
+
+    assert status is LoadStatus.MISSING
+    assert autoread_dotenv.last_load_status is LoadStatus.MISSING
+    assert warning_list == []
+
+
+def test_entrypoint_quiet_env_falsey_still_warns(tmp_path: pl.Path, monkeypatch) -> None:
+    """An explicit AUTOREAD_DOTENV_QUIET=0 must not suppress anything."""
+    from autoread_dotenv import entrypoint
+
+    monkeypatch.setenv("AUTOREAD_DOTENV_PATH", str(tmp_path / "does-not-exist.env"))
+    monkeypatch.setenv("AUTOREAD_DOTENV_QUIET", "0")
+
+    with warnings.catch_warnings(record=True) as warning_list:
+        warnings.simplefilter("always")
+        entrypoint()
+
+    assert len(warning_list) == 1
+    assert "does not exist" in str(warning_list[-1].message)
+
+
+@pytest.mark.usefixtures("dotenv_project")
+def test_entrypoint_quiet_env_suppresses_unrelated_warning(monkeypatch) -> None:
+    """QUIET covers every AutoreadDotenvWarning, not just the missing-.env one."""
+    from autoread_dotenv import LoadStatus, entrypoint
+
+    monkeypatch.setenv("AUTOREAD_DOTENV_QUIET", "1")
+    monkeypatch.setenv("AUTOREAD_ENFORCE_DOTENV", "ture")  # would warn: unrecognized boolean
+
+    with warnings.catch_warnings(record=True) as warning_list:
+        warnings.simplefilter("always")
+        status = entrypoint()
+
+    assert status is LoadStatus.LOADED
+    assert warning_list == []
+
+
 def test_get_dotenv_path_permission_error_on_stat(monkeypatch) -> None:
     """A PermissionError raised by is_file() itself must not crash get_dotenv_path().
 
