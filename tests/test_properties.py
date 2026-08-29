@@ -18,6 +18,7 @@ from autoread_dotenv.utils import (
     get_expected_dotenv_path,
     str_to_bool,
 )
+from autoread_dotenv.warnings import AutoreadDotenvWarning
 
 #: Arbitrary text, minus the one thing os.environ genuinely cannot hold (NUL).
 any_text = st.text(st.characters(exclude_characters="\x00"))
@@ -76,7 +77,7 @@ def test_str_to_bool_false_spellings_are_false_and_silent(value: str) -> None:
 
 @ht.given(any_text.filter(lambda s: s.lower() not in TRUE_VALUES | FALSE_VALUES))
 def test_str_to_bool_unrecognised_warns_once_and_is_false(value: str) -> None:
-    with pytest.warns(UserWarning, match="Unrecognized boolean value"):
+    with pytest.warns(AutoreadDotenvWarning, match="Unrecognized boolean value"):
         result = str_to_bool(value)
     assert result is False
 

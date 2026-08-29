@@ -44,9 +44,10 @@ if tp.TYPE_CHECKING:  # pragma: no cover
 
 from autoread_dotenv.status import LoadStatus
 from autoread_dotenv.utils import get_dotenv_path, get_expected_dotenv_path, str_to_bool
-from autoread_dotenv.warnings import simple_warning
+from autoread_dotenv.warnings import AutoreadDotenvWarning, simple_warning
 
 __all__: list[str] = [
+    "AutoreadDotenvWarning",
     "LoadStatus",
     "entrypoint",
     "last_load_status",
@@ -65,7 +66,10 @@ def entrypoint() -> LoadStatus:
     records it in the module-level `last_load_status`, so a caller that discards the
     return value (`sitecustomize` does) can still be asked afterwards whether loading
     succeeded. A configuration problem is warned about, never raised - this runs on
-    every interpreter startup.
+    every interpreter startup. Every such warning uses the
+    [`AutoreadDotenvWarning`][autoread_dotenv.AutoreadDotenvWarning] category (re-exported
+    here from `autoread_dotenv.warnings`); see the "Silencing warnings" section of
+    `docs/configuration.md` for how to filter it (and why `PYTHONWARNINGS` cannot).
     """
     global last_load_status  # noqa: PLW0603
 
@@ -74,7 +78,11 @@ def entrypoint() -> LoadStatus:
     if not dotenv_file:
         with simple_warning():
             expected_path = get_expected_dotenv_path()
-            stdlib_warnings.warn(f"{expected_path} does not exist, please create it.", stacklevel=2)
+            stdlib_warnings.warn(
+                f"{expected_path} does not exist, please create it.",
+                AutoreadDotenvWarning,
+                stacklevel=2,
+            )
         last_load_status = LoadStatus.MISSING
         return last_load_status
 
@@ -85,7 +93,11 @@ def entrypoint() -> LoadStatus:
         import dotenv  # noqa: PLC0415
     except ImportError:  # pragma: no cover
         with simple_warning():
-            stdlib_warnings.warn("Module 'dotenv' not found. Please pip install 'python-dotenv'.", stacklevel=2)
+            stdlib_warnings.warn(
+                "Module 'dotenv' not found. Please pip install 'python-dotenv'.",
+                AutoreadDotenvWarning,
+                stacklevel=2,
+            )
         last_load_status = LoadStatus.DOTENV_NOT_INSTALLED
         return last_load_status
 
@@ -98,6 +110,7 @@ def entrypoint() -> LoadStatus:
             stdlib_warnings.warn(
                 "Module 'dotenv.load_dotenv' not found. "
                 "This occurs when django-dotenv was installed while we depend on python-dotenv.",
+                AutoreadDotenvWarning,
                 stacklevel=2,
             )
         last_load_status = LoadStatus.LOAD_FAILED
@@ -106,7 +119,7 @@ def entrypoint() -> LoadStatus:
         # e.g. a permission-denied .env: get_dotenv_path() only checked is_file(), not
         # readability. Warn instead of letting this crash every process in the venv.
         with simple_warning():
-            stdlib_warnings.warn(f"Could not read {dotenv_file}: {exc}", stacklevel=2)
+            stdlib_warnings.warn(f"Could not read {dotenv_file}: {exc}", AutoreadDotenvWarning, stacklevel=2)
         last_load_status = LoadStatus.LOAD_FAILED
         return last_load_status
 

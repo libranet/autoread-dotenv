@@ -3,6 +3,34 @@
 import warnings
 
 
+def test_autoread_dotenv_warning_is_user_warning_subclass() -> None:
+    from autoread_dotenv.warnings import AutoreadDotenvWarning
+
+    assert issubclass(AutoreadDotenvWarning, UserWarning)
+
+
+def test_autoread_dotenv_warning_is_reexported_from_package() -> None:
+    """The category is part of the top-level public API, next to LoadStatus."""
+    import autoread_dotenv
+    from autoread_dotenv.warnings import AutoreadDotenvWarning
+
+    assert autoread_dotenv.AutoreadDotenvWarning is AutoreadDotenvWarning
+    assert "AutoreadDotenvWarning" in autoread_dotenv.__all__
+
+
+def test_autoread_dotenv_warning_can_be_filtered_in_isolation() -> None:
+    """Silencing our category must leave unrelated UserWarnings untouched."""
+    from autoread_dotenv.warnings import AutoreadDotenvWarning
+
+    with warnings.catch_warnings(record=True) as warning_list:
+        warnings.simplefilter("always")
+        warnings.filterwarnings("ignore", category=AutoreadDotenvWarning)
+        warnings.warn("ours", AutoreadDotenvWarning, stacklevel=2)
+        warnings.warn("theirs", UserWarning, stacklevel=2)
+
+    assert [str(w.message) for w in warning_list] == ["theirs"]
+
+
 def test_simple_warning() -> None:
     from autoread_dotenv.warnings import simple_warning
 
