@@ -137,8 +137,7 @@ directory = "var/html/coverage"
 [tool.coverage.xml]
 output = "var/html/coverage/coverage.xml"
 
-[tool.coverage.report]
-# cfr. https://coverage.readthedocs.io/en/coverage-4.2/excluding.html
+[tool.coverage.report]  # cfr. https://coverage.readthedocs.io/en/coverage-4.2/excluding.html
 fail_under = 90
 exclude_lines = [
     "pragma: no cover",
@@ -150,8 +149,7 @@ branch = true
 data_file = "var/cache/coverage/coverage.db"
 
 
-[tool.mdformat]
-# https://mdformat.readthedocs.io/en/stable/users/configuration_file.html
+[tool.mdformat]  # https://mdformat.readthedocs.io/en/stable/users/configuration_file.html
 wrap = "keep"   # preserve line wrapping
 number = false  # don't renumber ordered lists
 end_of_line = "lf"
@@ -169,8 +167,7 @@ testpaths = ["tests"]
 pythonpath = ["tests"]  # allows for importing helper-module
 addopts = ""
 
-[tool.ruff]
-# https://docs.astral.sh/ruff/configuration/#using-pyprojecttoml
+[tool.ruff]  # https://docs.astral.sh/ruff/configuration/#using-pyprojecttoml
 cache-dir = "var/cache/ruff" # relative to project_root
 line-length = 120
 
@@ -190,8 +187,7 @@ ignore = [
 [tool.ruff.lint.flake8-annotations]
 allow-star-arg-any = true  # allow *args,**kwargs without triggering ANN401
 
-[tool.ruff.lint.isort]
-# https://docs.astral.sh/ruff/settings/#lintisort
+[tool.ruff.lint.isort]  # https://docs.astral.sh/ruff/settings/#lintisort
 combine-as-imports = true  # combine related imports
 force-single-line = false  # do not expand imports into one-per-line unnecessarily
 from-first = false  # do not force from x import y before import x
@@ -224,7 +220,8 @@ banned-from = ["pathlib", "typing"]
 "typing" = "tp"
 
 
-[tool.ty]  # https://docs.astral.sh/ty/reference/configuration/
+[tool.ty]  # https://docs.astral.sh/ty/reference/configuration
+
 [tool.ty.rules]
 possibly-unresolved-reference = "error"
 unresolved-attribute = "error"
@@ -236,12 +233,11 @@ include = [
     "tests",
 ]
 
-[tool.uv]
-# Settings reference: https://docs.astral.sh/uv/reference/settings/
+[tool.uv]  # Settings reference: https://docs.astral.sh/uv/reference/settings
+default-groups = "all"
 keyring-provider = "subprocess"
 managed = true
 package = true
-default-groups = "all"
 
 # Fix critical Zip Slip vulnerability in nltk < 3.9.3 (transitive dep via safety)
 # https://github.com/libranet/autoread-dotenv/security/dependabot/48
