@@ -9,7 +9,7 @@
 
 autoread-dotenv parses your `.env` file when starting any venv-based Python process:
 
-![Demo](img/demo-autoread-dotenv.png)
+![Demo](https://raw.githubusercontent.com/libranet/autoread-dotenv/main/docs/img/demo-autoread-dotenv.png)
 
 ## Installation
 
@@ -87,7 +87,8 @@ entirely:
 ## Performance
 
 `autoread-dotenv` runs on the start of every Python process in the venv, so its startup-time
-cost is measured and tracked explicitly - see [docs/performance.md](performance.md) for the
+cost is measured and tracked explicitly - see
+[the performance page](https://autoread-dotenv.readthedocs.io/en/latest/performance/) for the
 current numbers and how to reproduce them.
 
 ## Compatibility

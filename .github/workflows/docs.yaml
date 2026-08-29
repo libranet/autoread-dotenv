@@ -1,0 +1,73 @@
+# Docs - Github Actions
+#
+# Builds the MkDocs site with --strict, so broken links, missing nav entries and
+# unresolved mkdocstrings cross-references fail the pull request instead of only
+# surfacing in the Read the Docs build after merge.
+#
+# Used actions:
+#   - actions/checkout
+#     repo: https://github.com/actions/checkout
+#     releases: https://github.com/actions/checkout/tags
+#
+#   - astral-sh/setup-uv: set up uv environment
+#     repo: https://github.com/astral-sh/setup-uv
+#     releases: https://github.com/astral-sh/setup-uv/tags
+#     docs: https://docs.astral.sh/uv/guides/integration/github/
+
+
+name: Docs 📗
+
+concurrency:
+    # see https://docs.github.com/en/actions/using-jobs/using-concurrency
+    group: ${{ github.workflow }}-${{ github.ref }}
+
+env:
+    # Silence Material for MkDocs' MkDocs-2.0 stderr banner (it is not a build warning)
+    DISABLE_MKDOCS_2_WARNING: "true"
+
+    # Pin uv version for reproducible builds
+    # https://github.com/astral-sh/uv/releases
+    UV_VERSION: "0.12.6"
+
+on:
+    pull_request:
+        types: [opened, reopened, synchronize]
+    push:
+        branches:
+            - main
+
+permissions:
+    contents: read
+
+jobs:
+    build:
+        name: mkdocs build --strict
+        runs-on: ubuntu-latest
+        timeout-minutes: 5
+        steps:
+
+        # repo: https://github.com/actions/checkout
+        # releases: https://github.com/actions/checkout/tags
+        - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+          with:
+              persist-credentials: false
+
+        # repo: https://github.com/astral-sh/setup-uv
+        # releases: https://github.com/astral-sh/setup-uv/tags
+        # docs: https://docs.astral.sh/uv/guides/integration/github
+        - name: Install pinned version of uv
+          uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d  # v10.0.1
+          with:
+              cache-dependency-glob: "uv.lock"
+              enable-cache: true
+              prune-cache: true
+              python-version: "3.14"  # match tools.python in .readthedocs.yaml
+              version: ${{ env.UV_VERSION }}
+
+        # Mirrors the Read the Docs build: only the "docs" group, project included so
+        # mkdocstrings can import autoread_dotenv from src/.
+        - name: Install docs dependencies
+          run: uv sync --only-group docs
+
+        - name: Build the docs
+          run: uv run mkdocs build --strict

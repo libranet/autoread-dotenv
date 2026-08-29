@@ -1,37 +1,36 @@
 """autoread_dotenv.__init__.
 
-We assume following directory-structure:
-The virtualenv of your project **must** be created as a
-.venv-subfolder inside your project-directory.
+Automatically load the in-project `.env` when Python starts.
 
-This corresponds to poetry-config "in-project = true".
-The .env-file must reside in the root of your project-directory.
+We assume the following directory-structure. The virtualenv of your project
+**must** be created as a `.venv` subfolder inside your project-directory (this
+corresponds to poetry-config `in-project = true`), and the `.env` file must
+reside in the root of your project-directory:
 
-.. code-block:: python
+```text
+<project-root>
+    .env
+    .venv/
+        bin/
+            python
+        lib/
+        lib64/
+        pyvenv.cfg
+```
 
-  <project-root>
-      .env
-      .venv/
-          bin/
-              python
-          lib/
-          lib64/
-          pyvenv.cfg
+Toplevel symlinks to the corresponding `.venv` files are also supported:
 
-  We also support toplevel-symlinks to the corresponding .venv-files:
+```text
+bin/       -> .venv/bin/
+lib/       -> .venv/lib/
+lib64/     -> .venv/lib64/
+pyvenv.cfg -> .venv/pyvenv.cfg
+```
 
-.. code-block:: python
-
-      bin/       -> .venv/bin/
-      lib/       -> .venv/lib/
-      lib64/     -> .venv/lib64/
-      pyvenv.cfg -> .venv/pyvenv.cfg
-
-For layouts that don't follow this convention (global installs, containers, editable
-mounts, ...), set the ``AUTOREAD_DOTENV_PATH`` environment-variable to the .env-file to
-use instead - it bypasses sys.prefix-based discovery entirely. See
-:func:`autoread_dotenv.utils.get_expected_dotenv_path`.
-
+For layouts that don't follow this convention (global installs, containers,
+editable mounts, ...), set the `AUTOREAD_DOTENV_PATH` environment-variable to the
+`.env` file to use instead - it bypasses `sys.prefix`-based discovery entirely.
+See [`autoread_dotenv.utils.get_expected_dotenv_path`][].
 """
 
 from __future__ import annotations  # enables X | Y syntax in annotations for Python <3.10
@@ -54,18 +53,19 @@ __all__: list[str] = [
 ]
 
 
-#: Outcome of the most recent :func:`entrypoint` call. ``LoadStatus.NOT_RUN`` until
-#: ``entrypoint()`` has run once (it runs from ``sitecustomize`` on interpreter startup).
+#: Outcome of the most recent `entrypoint()` call. `LoadStatus.NOT_RUN` until
+#: `entrypoint()` has run once (it runs from `sitecustomize` on interpreter startup).
 last_load_status: LoadStatus = LoadStatus.NOT_RUN
 
 
 def entrypoint() -> LoadStatus:
     """Set environment-variables from the in-project .env-file.
 
-    Returns the outcome as a :class:`LoadStatus` and also records it in the module-level
-    :data:`last_load_status`, so a caller that discards the return value (``sitecustomize``
-    does) can still be asked afterwards whether loading succeeded. A configuration problem
-    is warned about, never raised - this runs on every interpreter startup.
+    Returns the outcome as a [`LoadStatus`][autoread_dotenv.status.LoadStatus] and also
+    records it in the module-level `last_load_status`, so a caller that discards the
+    return value (`sitecustomize` does) can still be asked afterwards whether loading
+    succeeded. A configuration problem is warned about, never raised - this runs on
+    every interpreter startup.
     """
     global last_load_status  # noqa: PLW0603
 
