@@ -19,6 +19,12 @@ from autoread_dotenv.warnings import AutoreadDotenvWarning, simple_warning
 #: "load an unexpected path" crosses no privilege boundary. See docs/security.md.
 AUTOREAD_DOTENV_PATH_VAR: str = "AUTOREAD_DOTENV_PATH"
 
+#: When truthy (parsed by str_to_bool), entrypoint() installs a process-wide filter that
+#: silences every AutoreadDotenvWarning - the missing-.env notice and the genuine
+#: misconfiguration warnings alike. Like AUTOREAD_DOTENV_PATH it cannot live in .env itself
+#: (it is read before .env is parsed). See docs/configuration.md.
+AUTOREAD_DOTENV_QUIET_VAR: str = "AUTOREAD_DOTENV_QUIET"
+
 #: Recognized spellings for str_to_bool(), case-insensitive.
 TRUE_VALUES: frozenset[str] = frozenset({"1", "true", "yes"})
 FALSE_VALUES: frozenset[str] = frozenset({"0", "false", "no", ""})
