@@ -8,8 +8,7 @@ All notable changes to this project will be documented in this file.
   `UserWarning` subclass) instead of a bare `UserWarning`. It lives in
   `autoread_dotenv.warnings` and is re-exported as `autoread_dotenv.AutoreadDotenvWarning`
   (added to `__all__`, alongside `LoadStatus`). Programmatic callers and test suites can now
-  filter just this package with `warnings.filterwarnings("ignore",
-  category=AutoreadDotenvWarning)` or pytest's `filterwarnings` config, without muting
+  filter just this package with `warnings.filterwarnings("ignore", category=AutoreadDotenvWarning)` or pytest's `filterwarnings` config, without muting
   unrelated `UserWarning`s. Note that `PYTHONWARNINGS` / `-W` cannot reference the category
   (warning filters are parsed before `site-packages` is importable); the new "Silencing
   warnings" section of `docs/configuration.md` covers the startup case. Also fixes the
