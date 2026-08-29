@@ -170,6 +170,7 @@ def test_entrypoint_missing_dotenv_reports_status(tmp_path: pl.Path, monkeypatch
     """A missing .env warns, does not raise, and records LoadStatus.MISSING."""
     import autoread_dotenv
     from autoread_dotenv import LoadStatus, entrypoint
+    from autoread_dotenv.warnings import AutoreadDotenvWarning
 
     monkeypatch.setenv("AUTOREAD_DOTENV_PATH", str(tmp_path / "does-not-exist.env"))
 
@@ -181,6 +182,7 @@ def test_entrypoint_missing_dotenv_reports_status(tmp_path: pl.Path, monkeypatch
     assert autoread_dotenv.last_load_status is LoadStatus.MISSING
     assert len(warning_list) == 1
     assert "does not exist" in str(warning_list[-1].message)
+    assert warning_list[-1].category is AutoreadDotenvWarning
 
 
 def test_get_dotenv_path_permission_error_on_stat(monkeypatch) -> None:

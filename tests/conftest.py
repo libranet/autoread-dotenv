@@ -49,11 +49,13 @@ from hypothesis import HealthCheck, settings
 import autoread_dotenv
 
 # Reload the package modules during collection so the coverage report reflects the
-# actual runtime state of the imported code under test.
-importlib.reload(autoread_dotenv.status)
-importlib.reload(autoread_dotenv)
-importlib.reload(autoread_dotenv.utils)
+# actual runtime state of the imported code under test. Order matters: reload leaf
+# modules before the ones that import from them, so `__init__` and `utils` re-bind to
+# the freshly reloaded `warnings.AutoreadDotenvWarning` rather than a stale copy.
 importlib.reload(autoread_dotenv.warnings)
+importlib.reload(autoread_dotenv.status)
+importlib.reload(autoread_dotenv.utils)
+importlib.reload(autoread_dotenv)
 
 # Deterministic, deadline-free profile for the property-based tests in
 # tests/test_properties.py. derandomize=True keeps CI reproducible (and implies no

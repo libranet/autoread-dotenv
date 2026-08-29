@@ -7,6 +7,20 @@ import typing as tp
 import warnings
 
 
+class AutoreadDotenvWarning(UserWarning):
+    """Category for every runtime warning `autoread-dotenv` emits.
+
+    A dedicated subclass of `UserWarning` lets callers silence *only* this package
+    without also muting unrelated `UserWarning`s from the rest of their app, using
+    the standard mechanisms - e.g.::
+
+        PYTHONWARNINGS=ignore::autoread_dotenv.warnings.AutoreadDotenvWarning
+
+    or `warnings.filterwarnings("ignore", category=AutoreadDotenvWarning)`, or
+    pytest's `filterwarnings` marker.
+    """
+
+
 @contextlib.contextmanager
 def simple_warning() -> tp.Iterator[None]:
     """Context manager for simplified warning formatting without tracebacks."""

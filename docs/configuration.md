@@ -53,6 +53,41 @@ Set it to `0` when the surrounding environment (CI secrets, systemd `Environment
 export AUTOREAD_ENFORCE_DOTENV=0
 ```
 
+## Silencing warnings
+
+`autoread-dotenv` never raises for a configuration problem - it emits a warning and records
+the reason in [`last_load_status`](reference/status.md). Every one of those warnings uses the
+category [`autoread_dotenv.warnings.AutoreadDotenvWarning`](reference/warnings.md) (a subclass
+of `UserWarning`), so you can suppress *only* this package without muting unrelated
+`UserWarning`s from the rest of your app:
+
+```bash
+# environment (before the interpreter starts, like the variables above)
+export PYTHONWARNINGS="ignore::autoread_dotenv.warnings.AutoreadDotenvWarning"
+
+# one-off invocation
+python -W "ignore::autoread_dotenv.warnings.AutoreadDotenvWarning" -m myapp
+```
+
+```python
+# from code, before autoread_dotenv.entrypoint() runs
+import warnings
+from autoread_dotenv.warnings import AutoreadDotenvWarning
+
+warnings.filterwarnings("ignore", category=AutoreadDotenvWarning)
+```
+
+```toml
+# pytest
+[tool.pytest.ini_options]
+filterwarnings = ["ignore::autoread_dotenv.warnings.AutoreadDotenvWarning"]
+```
+
+This is all-or-nothing: it silences the missing-`.env` notice together with the genuine
+misconfiguration warnings (`python-dotenv` not installed, an unreadable `.env`, a typo'd
+boolean). Prefer narrowing by message with `warnings.filterwarnings(..., message=...)` if you
+only want to hide one of them.
+
 ## Setting variables outside `.env`
 
 Any mechanism that populates the environment *before* the Python process starts works:

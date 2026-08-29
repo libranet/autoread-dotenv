@@ -7,7 +7,7 @@ import pathlib as pl
 import sys
 import warnings as stdlib_warnings
 
-from autoread_dotenv.warnings import simple_warning
+from autoread_dotenv.warnings import AutoreadDotenvWarning, simple_warning
 
 #: Escape hatch for layouts where sys.prefix does not resolve to the project-root
 #: (global installs, containers, editable mounts, ...). When set, it points directly
@@ -68,6 +68,7 @@ def get_dotenv_path() -> pl.Path | None:
             stdlib_warnings.warn(
                 f"Unexpected {type(exc).__name__} while checking {dotenv_file}: {exc}. "
                 "Assuming it exists and deferring to load_dotenv().",
+                AutoreadDotenvWarning,
                 stacklevel=2,
             )
         return dotenv_file
@@ -90,6 +91,7 @@ def str_to_bool(value: str) -> bool:
             stdlib_warnings.warn(
                 f"Unrecognized boolean value {value!r}, treating it as false. "
                 "Use '1'/'true'/'yes' for true, or '0'/'false'/'no'/'' for false.",
+                AutoreadDotenvWarning,
                 stacklevel=2,
             )
     return False
