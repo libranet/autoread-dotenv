@@ -4,6 +4,10 @@
 #  - https://docs.readthedocs.io/en/stable/config-file/v2.html for details
 #  - https://docs.readthedocs.com/platform/stable/build-customization.html
 #  - https://github.com/astral-sh/uv/issues/10074
+#
+# Enable RTD "Build pull requests":
+# go to https://app.readthedocs.org/ → autoread-dotenv project → Admin
+#   → Settings → Check "Build pull requests for this project" → Save
 
 version: 2
 
@@ -26,4 +30,4 @@ formats:
 
 mkdocs:
     configuration: mkdocs.yaml
-    fail_on_warning: false # Material for MkDocs prints an (unsuppressable) MkDocs-2.0 banner
+    fail_on_warning: false  # Material for MkDocs prints an (unsuppressable) MkDocs-2.0 banner
