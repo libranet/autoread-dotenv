@@ -58,19 +58,13 @@ export AUTOREAD_ENFORCE_DOTENV=0
 `autoread-dotenv` never raises for a configuration problem - it emits a warning and records
 the reason in [`last_load_status`](reference/status.md). Every one of those warnings uses the
 category [`AutoreadDotenvWarning`](reference/warnings.md) (a subclass of `UserWarning`),
-re-exported as `autoread_dotenv.AutoreadDotenvWarning`, so you can suppress *only* this package
-without muting unrelated `UserWarning`s from the rest of your app:
+re-exported as `autoread_dotenv.AutoreadDotenvWarning`.
 
-```bash
-# environment (before the interpreter starts, like the variables above)
-export PYTHONWARNINGS="ignore::autoread_dotenv.AutoreadDotenvWarning"
+### From Python (tests, programmatic callers)
 
-# one-off invocation
-python -W "ignore::autoread_dotenv.AutoreadDotenvWarning" -m myapp
-```
+Filter the category directly:
 
 ```python
-# from code, before autoread_dotenv.entrypoint() runs
 import warnings
 from autoread_dotenv import AutoreadDotenvWarning
 
@@ -78,17 +72,42 @@ warnings.filterwarnings("ignore", category=AutoreadDotenvWarning)
 ```
 
 ```toml
-# pytest
+# pytest resolves the category itself, so the dotted path works here
 [tool.pytest.ini_options]
-filterwarnings = ["ignore::autoread_dotenv.AutoreadDotenvWarning"]
+filterwarnings = ["ignore::autoread_dotenv.warnings.AutoreadDotenvWarning"]
 ```
 
-The fully-qualified `autoread_dotenv.warnings.AutoreadDotenvWarning` works everywhere too.
+Note the timing: `entrypoint()` runs from `sitecustomize` at interpreter startup, *before* any
+of your code. An in-process `filterwarnings()` call therefore only affects a later, manual
+`entrypoint()` invocation - it cannot retroactively silence the startup pass. Use the options
+in the next section for that.
 
-This is all-or-nothing: it silences the missing-`.env` notice together with the genuine
-misconfiguration warnings (`python-dotenv` not installed, an unreadable `.env`, a typo'd
-boolean). Prefer narrowing by message with `warnings.filterwarnings(..., message=...)` if you
-only want to hide one of them.
+### At startup (`PYTHONWARNINGS` / `-W`)
+
+`PYTHONWARNINGS` and `-W` **cannot** name `AutoreadDotenvWarning`. The interpreter parses
+warning filters before `site` puts `site-packages` on `sys.path`, so a third-party category
+cannot be imported yet and the whole filter is silently dropped
+(`Invalid -W option ignored: invalid module name: 'autoread_dotenv'`). Only built-in
+categories resolve there:
+
+```bash
+# broad - silences every UserWarning in the process, not just ours
+export PYTHONWARNINGS="ignore::UserWarning"
+```
+
+### Better: remove the cause
+
+The most common warning is the missing-`.env` notice. Rather than muting it, point the loader
+at a file that exists - an empty `.env` is enough - or set `AUTOREAD_DOTENV_PATH`:
+
+```bash
+touch "$PWD/.env"
+# or
+export AUTOREAD_DOTENV_PATH=/etc/myapp/production.env
+```
+
+The remaining warnings (`python-dotenv` not installed, an unreadable `.env`, a typo'd boolean)
+signal genuine misconfiguration and are worth leaving on.
 
 ## Setting variables outside `.env`
 

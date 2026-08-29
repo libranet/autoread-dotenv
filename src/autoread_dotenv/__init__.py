@@ -68,8 +68,8 @@ def entrypoint() -> LoadStatus:
     succeeded. A configuration problem is warned about, never raised - this runs on
     every interpreter startup. Every such warning uses the
     [`AutoreadDotenvWarning`][autoread_dotenv.AutoreadDotenvWarning] category (re-exported
-    here from `autoread_dotenv.warnings`), so it can be silenced in isolation - see
-    `docs/configuration.md`.
+    here from `autoread_dotenv.warnings`); see the "Silencing warnings" section of
+    `docs/configuration.md` for how to filter it (and why `PYTHONWARNINGS` cannot).
     """
     global last_load_status  # noqa: PLW0603
 

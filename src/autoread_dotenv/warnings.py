@@ -11,13 +11,15 @@ class AutoreadDotenvWarning(UserWarning):
     """Category for every runtime warning `autoread-dotenv` emits.
 
     A dedicated subclass of `UserWarning` lets callers silence *only* this package
-    without also muting unrelated `UserWarning`s from the rest of their app, using
-    the standard mechanisms - e.g.::
+    without also muting unrelated `UserWarning`s, via
+    `warnings.filterwarnings("ignore", category=AutoreadDotenvWarning)` or pytest's
+    `filterwarnings` config. Re-exported as `autoread_dotenv.AutoreadDotenvWarning`.
 
-        PYTHONWARNINGS=ignore::autoread_dotenv.AutoreadDotenvWarning
-
-    or `warnings.filterwarnings("ignore", category=AutoreadDotenvWarning)`, or
-    pytest's `filterwarnings` marker. Re-exported as `autoread_dotenv.AutoreadDotenvWarning`.
+    Note: `PYTHONWARNINGS` / `-W` cannot reference this category - the interpreter
+    parses those filters before `site-packages` is importable, so only built-in
+    categories resolve there. And because `entrypoint()` runs from `sitecustomize`
+    at startup, an in-process filter only affects a later manual `entrypoint()` call,
+    not the startup pass. See `docs/configuration.md`.
     """
 
 
