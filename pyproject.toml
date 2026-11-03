@@ -62,10 +62,9 @@ dev = [
     "toml-cli >=0.7.0",
 ]
 docs = [
-    "mdformat>=0.7",
+    "mdformat>=1.0",
     "mdformat-gfm>=0.3",
     "mdformat-frontmatter>=2.0",
-    "mdformat-tables>=1.0",
     "mkdocs>=1.6",
     "mkdocs-material>=9.5",
     "mkdocstrings[python]>=0.27",

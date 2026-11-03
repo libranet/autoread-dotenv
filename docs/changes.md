@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.1.1 (unreleased)
+
+- Upgrade `mdformat` to 1.0 (`mdformat>=1.0` in the `docs` group) and drop `mdformat-tables`, whose
+  latest release (1.0.0, 2024-08) still pins `mdformat<0.8` and blocked the upgrade (#149).
+  `mdformat-gfm` 1.0 formats GFM tables itself, so table output is unchanged.
+
 ## 1.1.0 (2026-11-03)
 
 - Drop support for Python 3.9 and 3.10, both past end-of-life; `requires-python` is now `>=3.11`.
