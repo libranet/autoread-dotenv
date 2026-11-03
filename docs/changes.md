@@ -20,6 +20,9 @@ All notable changes to this project will be documented in this file.
   the removed `EntryPoints.get()` and crash at pytest startup, so the suite failed under
   `uv run --resolution lowest-direct`. It now passes there too.
 
+- Bump uv to 0.13.7 in the CI workflows (`UV_VERSION`) and widen the build-backend cap to
+  `uv_build>=0.9.0,<0.14.0`, silencing the "does not contain the current uv version" warning.
+
 - Re-enable the `uv audit` pre-commit hook (runs when `pyproject.toml` or `uv.lock` change).
   It passes without any ignore entries now that only patched releases are locked.
 
