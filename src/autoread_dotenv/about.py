@@ -5,7 +5,7 @@ The package must be properly installed in order the metadata to be available.
 
 """
 
-from __future__ import annotations  # enables X | Y syntax in annotations for Python <3.10
+from __future__ import annotations
 
 import importlib.metadata
 import typing as tp

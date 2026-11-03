@@ -33,7 +33,7 @@ editable mounts, ...), set the `AUTOREAD_DOTENV_PATH` environment-variable to th
 See [`autoread_dotenv.utils.get_expected_dotenv_path`][].
 """
 
-from __future__ import annotations  # enables X | Y syntax in annotations for Python <3.10
+from __future__ import annotations
 
 import os
 import typing as tp
