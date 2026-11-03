@@ -55,7 +55,7 @@ check-package-version: git-tag-list-versions
 
 
 # release a new package: tag with the version in pyproject.toml + create a GitHub Release.
-# Publishing to PyPI happens in .github/workflows/release.yaml, triggered by the GitHub Release
+# Publishing to PyPI happens in .github/workflows/releasing.yaml, triggered by the GitHub Release
 # (event `release: published`) that `gh release create` fires below.
 [group: 'release']
 [unix]
