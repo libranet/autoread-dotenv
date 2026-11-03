@@ -99,7 +99,7 @@ repos:
 
       - id: check-yaml
         name: check yaml syntax
-        entry: check-yaml
+        entry: uv run check-yaml
         language: system
         types: [yaml]
 
