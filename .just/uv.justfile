@@ -24,7 +24,7 @@ alias install-uv := uv-install
 uv-upgrade target_version="":
     uv self update {{target_version}}
 
-alias upgrade-uv := uv-upgrade
+# alias upgrade-uv := uv-upgrade
 
 
 # show location of uv
@@ -98,6 +98,12 @@ uv-lock-check *args:
     uv lock --check {{args}}
 
 
+# update uv.lock to the latest versions
+[group: 'uv']
+uv-lock-upgrade *args:
+    uv lock --upgrade {{args}}
+
+
 # audit dependencies for known vulnerabilities
 [group: 'uv']
 uv-audit *args:
@@ -163,4 +169,3 @@ check-empty-tool-uv-sources:
         exit 1
     fi
     echo "pyproject.toml is clean (no [tool.uv.sources] overrides)"
-
