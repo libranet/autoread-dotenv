@@ -12,6 +12,10 @@ All notable changes to this project will be documented in this file.
   list, whose entries were all only fixed in releases that require a newer Python.
   Python 3.9 / 3.10 users stay on 1.0.x, which no longer receives security updates.
 
+- Raise the `python-dotenv` lower bound from `>=1.0.0` to `>=1.2.2`, the first release with the
+  fix for GHSA-mf9w-mj56-hr94 (symlink following in `set_key()`) and now installable on every
+  supported Python.
+
 - Re-enable the `uv audit` pre-commit hook (runs when `pyproject.toml` or `uv.lock` change).
   It passes without any ignore entries now that only patched releases are locked.
 
