@@ -29,6 +29,8 @@ set unstable
 set windows-shell := ["pwsh.exe", "-NoLogo", "-Command"]
 set shell := ["bash", "-uc"]
 
+# allow to override recipes
+set allow-duplicate-recipes := true
 
 # waiting for glob-support, see
 # - https://github.com/casey/just/issues/1885
@@ -60,6 +62,7 @@ import? '.just/ubuntu.justfile'
 import? '.just/uv.justfile'
 import? '.just/zizmor.justfile'
 
+# import? '~/.config/just/imports.just'
 
 # Display all configure tasks (default recipe)
 [group: 'default']

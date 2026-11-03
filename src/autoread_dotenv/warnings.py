@@ -24,7 +24,7 @@ class AutoreadDotenvWarning(UserWarning):
 
 
 @contextlib.contextmanager
-def simple_warning() -> tp.Iterator[None]:
+def simple_warning() -> tp.Generator[None, None, None]:
     """Context manager for simplified warning formatting without tracebacks."""
     old_format = warnings.formatwarning
 
