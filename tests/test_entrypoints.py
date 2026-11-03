@@ -4,11 +4,7 @@ import os
 import pathlib as pl
 import subprocess
 import sys
-
-if sys.version_info >= (3, 10):  # entry_points(group=...) is stdlib-native from here on
-    from importlib.metadata import entry_points
-else:  # pragma: no cover
-    from importlib_metadata import entry_points
+from importlib.metadata import entry_points
 
 
 def test_import_sitecustomize() -> None:

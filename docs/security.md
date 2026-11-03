@@ -6,7 +6,8 @@ Only the latest released version receives security updates.
 
 | Version | Supported |
 | ------- | --------- |
-| 1.0.x   | Yes       |
+| 1.1.x   | Yes       |
+| 1.0.x   | No        |
 | 0.x     | No        |
 
 ## Reporting a Vulnerability

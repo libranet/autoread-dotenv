@@ -20,12 +20,12 @@ build-backend = "uv_build"
 
 [project]
 name = "autoread-dotenv"
-version = "1.0.8.dev1"
+version = "1.1.0.dev1"
 description = "Automatically load your .env when Python starts."
 readme = "docs/readme.md"
 authors = [{ name = "Wouter Vanden Hove", email = "wouter@libranet.eu" }]
 maintainers = [{ name = "Wouter Vanden Hove", email = "wouter@libranet.eu" }]
-requires-python = ">=3.9"
+requires-python = ">=3.11"
 license = "MIT"
 license-files = ["license.md"]
 keywords = ["dotenv", "entrypoints", "environment", "python", "sitecustomize"]
@@ -41,8 +41,6 @@ classifiers = [
     "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: Implementation :: CPython",
     "Programming Language :: Python :: Implementation :: PyPy",
     "Typing :: Typed",
@@ -96,7 +94,6 @@ security = [
 ]
 testing = [
     "hypothesis>=6",  # property-based tests (tests/test_properties.py)
-    "importlib_metadata>=6.0",  # backport used by tests/test_entrypoints.py on Python <3.10
     "packaging>=23.0",
     "pytest>=8.3",
     "pytest-clarity>=1.0",
@@ -242,27 +239,6 @@ package = true
 # Fix critical Zip Slip vulnerability in nltk < 3.9.3 (transitive dep via safety)
 # https://github.com/libranet/autoread-dotenv/security/dependabot/48
 override-dependencies = ["nltk>=3.9.3"]
-
-[tool.uv.audit]
-# `uv.lock` forks resolution by Python version (3.9 / 3.10 / 3.11+, see requires-python).
-# Every ID below only has a fix in a release that dropped Python 3.9 support, so on the
-# python_full_version < "3.10" fork uv is stuck on the last version that still supports 3.9.
-# `--ignore-until-fixed` does NOT help here: it only suppresses vulnerabilities with no fix
-# release at all, and a fix does exist upstream -- it's just Python >=3.10 only. Revisit and
-# drop these once Python 3.9 support is dropped (see .claude/todo-package-review.md).
-ignore = [
-    "PYSEC-2026-2132",   # click: fixed in 8.3.3, which requires Python >=3.10
-    "GHSA-qmgc-5h2g-mvrw",  # filelock: TOCTOU symlink, fixed in 3.20.3 (Python >=3.10)
-    "GHSA-w853-jp5j-5j7f",  # filelock: TOCTOU symlink, fixed in 3.20.1 (Python >=3.10)
-    "GHSA-6w46-j5rx-g56g",  # pytest: tmpdir handling, fixed in 9.0.3 (Python >=3.10)
-    "GHSA-mf9w-mj56-hr94",  # python-dotenv: symlink following in set_key(), fixed in 1.2.2 (Python >=3.10)
-    "GHSA-gc5v-m9x4-r6x2",  # requests: insecure temp file reuse, fixed in 2.33.0 (Python >=3.10)
-    "GHSA-h35f-9h28-mq5c",  # setuptools: MANIFEST.in exclusion bypass, fixed in 83.0.0 (Python >=3.10)
-    "GHSA-mf9v-mfxr-j63j",  # urllib3: decompression-bomb safeguard bypass, fixed in 2.7.0 (Python >=3.10)
-    "GHSA-qccp-gfcp-xxvc",  # urllib3: sensitive headers forwarded on redirect, fixed in 2.7.0 (Python >=3.10)
-    "GHSA-9xwg-3r6f-jcx2",  # pymdown-extensions: b64 path traversal, fixed in 11.0.0 (Python >=3.10; docs-only dep)
-    "GHSA-gm37-52c6-37mw",  # pymdown-extensions: ReDoS in caret/tilde/betterem/magiclink, fixed in 11.0.1 (Python >=3.10; docs-only dep)
-]
 
 [tool.uv.sources]  # Settings reference: https://docs.astral.sh/uv/reference/settings/#sources
 # Enable temporary local path overrides for development, but do not commit.
