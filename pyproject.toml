@@ -93,7 +93,7 @@ security = [
     "zizmor>=1.0",
 ]
 testing = [
-    "hypothesis>=6",  # property-based tests (tests/test_properties.py)
+    "hypothesis>=6.85",  # property-based tests (tests/test_properties.py)
     "packaging>=23.0",
     "pytest>=8.3",
     "pytest-clarity>=1.0",

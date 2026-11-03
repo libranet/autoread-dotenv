@@ -16,6 +16,10 @@ All notable changes to this project will be documented in this file.
   fix for GHSA-mf9w-mj56-hr94 (symlink following in `set_key()`) and now installable on every
   supported Python.
 
+- Raise the test-only `hypothesis` lower bound from `>=6` to `>=6.85`: older 6.x releases call
+  the removed `EntryPoints.get()` and crash at pytest startup, so the suite failed under
+  `uv run --resolution lowest-direct`. It now passes there too.
+
 - Re-enable the `uv audit` pre-commit hook (runs when `pyproject.toml` or `uv.lock` change).
   It passes without any ignore entries now that only patched releases are locked.
 

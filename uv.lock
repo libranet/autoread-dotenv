@@ -104,7 +104,7 @@ requires-dist = [
 [package.metadata.requires-dev]
 dev = [
     { name = "codespell", specifier = ">=2.4.3" },
-    { name = "hypothesis", specifier = ">=6" },
+    { name = "hypothesis", specifier = ">=6.85" },
     { name = "ipython", specifier = ">=8.12" },
     { name = "packaging", specifier = ">=23.0" },
     { name = "pre-commit", specifier = ">=3.5" },
@@ -145,7 +145,7 @@ pre-commit = [
 ]
 security = [{ name = "zizmor", specifier = ">=1.0" }]
 testing = [
-    { name = "hypothesis", specifier = ">=6" },
+    { name = "hypothesis", specifier = ">=6.85" },
     { name = "packaging", specifier = ">=23.0" },
     { name = "pytest", specifier = ">=8.3" },
     { name = "pytest-clarity", specifier = ">=1.0" },
