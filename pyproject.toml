@@ -20,7 +20,7 @@ build-backend = "uv_build"
 
 [project]
 name = "autoread-dotenv"
-version = "1.0.6"
+version = "1.0.7"
 description = "Automatically load your .env when Python starts."
 readme = "docs/readme.md"
 authors = [{ name = "Wouter Vanden Hove", email = "wouter@libranet.eu" }]
