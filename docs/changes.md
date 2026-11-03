@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## 1.0.7 (unreleased)
+## 1.0.7 (2026-11-03)
 
 - Add an `AUTOREAD_DOTENV_QUIET` environment-variable. When truthy (`1`/`true`/`yes`,
   parsed by `str_to_bool()`), `entrypoint()` installs a process-wide `ignore` filter for the
@@ -69,6 +69,27 @@ All notable changes to this project will be documented in this file.
   case-insensitivity, the warn-once-on-unrecognised-value contract, verbatim handling of an
   `AUTOREAD_DOTENV_PATH` override, and the `.venv`-stripping invariant. Hypothesis is a
   test-only dependency (uv resolves an older release on the Python 3.9 fork).
+
+- Keep Hypothesis's cache directory under `var/` instead of `.hypothesis/` at the project root,
+  and stop tracking `.agents/` (local agent scratch notes).
+
+- Migrate dependency updates from Dependabot to Renovate (JSON5 config, Python and lockfile
+  maintenance groups, corrected manager names).
+
+- Build the docs with `mkdocs build --strict` on pull requests, and note the Read the Docs
+  "Build pull requests" toggle in `.readthedocs.yaml`.
+
+- Bump `pypa/gh-action-pypi-publish` to v1.14.3 in `releasing.yaml`, fixing
+  GHSA-5xjx-3w67-w9x9 (revoked CA in the chain Sigstore uses for Trusted Publishing and
+  attestations).
+
+- Annotate the `simple_warning()` context manager as returning `Generator` instead of
+  `Iterator`, which `ty` flags as deprecated together with `@contextmanager`.
+
+- Add a `uv-lock-upgrade` justfile recipe and enable `allow-duplicate-recipes` so recipes can be
+  overridden.
+
+- Update dependencies and refresh `uv.lock`.
 
 ## 1.0.6 (2026-08-24)
 

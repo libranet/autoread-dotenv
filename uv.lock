@@ -39,7 +39,7 @@ wheels = [
 
 [[package]]
 name = "autoread-dotenv"
-version = "1.0.6"
+version = "1.0.7"
 source = { editable = "." }
 default-groups = "all"
 dependencies = [
