@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## 1.1.0 (unreleased)
+## 1.1.0 (2026-11-03)
 
 - Drop support for Python 3.9 and 3.10, both past end-of-life; `requires-python` is now `>=3.11`.
   Removes the 3.9 / 3.10 entries from the trove classifiers and the `testing.yaml` /
