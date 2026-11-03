@@ -2,6 +2,44 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.1.0 (unreleased)
+
+- Drop support for Python 3.9 and 3.10, both past end-of-life; `requires-python` is now `>=3.11`.
+  Removes the 3.9 / 3.10 entries from the trove classifiers and the `testing.yaml` /
+  `linting.yaml` CI matrices, and the per-Python-version forks from `uv.lock`, so every dev,
+  docs and packaging dependency now resolves to its patched release. This clears the open
+  Dependabot alerts (filelock, urllib3, setuptools) and the whole `[tool.uv.audit]` ignore
+  list, whose entries were all only fixed in releases that require a newer Python.
+  Python 3.9 / 3.10 users stay on 1.0.x, which no longer receives security updates.
+
+- Raise the `python-dotenv` lower bound from `>=1.0.0` to `>=1.2.2`, the first release with the
+  fix for GHSA-mf9w-mj56-hr94 (symlink following in `set_key()`) and now installable on every
+  supported Python.
+
+- Raise the test-only `hypothesis` lower bound from `>=6` to `>=6.85`: older 6.x releases call
+  the removed `EntryPoints.get()` and crash at pytest startup, so the suite failed under
+  `uv run --resolution lowest-direct`. It now passes there too.
+
+- Bump uv to 0.13.7 in the CI workflows (`UV_VERSION`) and widen the build-backend cap to
+  `uv_build>=0.9.0,<0.14.0`, silencing the "does not contain the current uv version" warning.
+
+- Re-enable the `uv audit` pre-commit hook (runs when `pyproject.toml` or `uv.lock` change).
+  It passes without any ignore entries now that only patched releases are locked.
+
+- Drop the test-only `importlib_metadata` backport: `tests/test_entrypoints.py` now always
+  uses the stdlib `importlib.metadata.entry_points`.
+
+- Default `just uv-set-python-version` and the pre-commit `default_language_version` to
+  Python 3.11.
+
+- Run the `check-yaml` pre-commit hook through `uv run`, like every other `language: system`
+  hook, so a bare `prek run` outside the venv no longer fails with "No such file or directory"
+  (#154).
+
+- Read package metadata in `about.get_metadata_package()` via `in` / `[]` instead of `.get()`,
+  which the `importlib.metadata.PackageMetadata` protocol does not declare on Python 3.11
+  (flagged by `ty` once 3.11 became the minimum). Behaviour is unchanged.
+
 ## 1.0.7 (2026-11-03)
 
 - Add an `AUTOREAD_DOTENV_QUIET` environment-variable. When truthy (`1`/`true`/`yes`,

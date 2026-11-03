@@ -38,7 +38,7 @@ def recased(draw: st.DrawFn, base: frozenset[str]) -> str:
     """Draw a recognised spelling from ``base`` with each letter's case flipped at random."""
     value = draw(st.sampled_from(sorted(base)))
     flips = draw(st.lists(st.booleans(), min_size=len(value), max_size=len(value)))
-    return "".join(c.upper() if flip else c.lower() for c, flip in zip(value, flips))
+    return "".join(c.upper() if flip else c.lower() for c, flip in zip(value, flips, strict=True))
 
 
 # --------------------------------------------------------------------------- str_to_bool

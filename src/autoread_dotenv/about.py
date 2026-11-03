@@ -5,7 +5,7 @@ The package must be properly installed in order the metadata to be available.
 
 """
 
-from __future__ import annotations  # enables X | Y syntax in annotations for Python <3.10
+from __future__ import annotations
 
 import importlib.metadata
 import typing as tp
@@ -42,10 +42,15 @@ def get_metadata_package(pkgname: str = "") -> PkgInfo:
         # fallback if this package is not properly installed
         return PkgInfo(author_email="unknown", license="unknown", version="unknown")
 
+    def field(key: str) -> str | None:
+        # `PackageMetadata` only guarantees `in` / `[]` (no `.get()`), and `[]` on a missing key
+        # is deprecated (None) or raises KeyError depending on the Python version.
+        return msg[key] if key in msg else None  # noqa: SIM401 - no .get() on the protocol
+
     return PkgInfo(
-        author_email=msg.get("Author-email", "unknown"),
-        license=msg.get("License-Expression") or msg.get("License") or "unknown",
-        version=msg.get("Version", "unknown"),
+        author_email=field("Author-email") or "unknown",
+        license=field("License-Expression") or field("License") or "unknown",
+        version=field("Version") or "unknown",
     )
 
 

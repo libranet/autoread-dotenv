@@ -31,7 +31,7 @@ env:
 
     # Pin uv version for reproducible builds
     # https://github.com/astral-sh/uv/releases
-    UV_VERSION: "0.12.6"
+    UV_VERSION: "0.13.7"
 
 on:
     pull_request:
@@ -66,8 +66,6 @@ jobs:
                     - "3.13"
                     - "3.12"
                     - "3.11"
-                    - "3.10"
-                    - "3.9"
                 include:
                     # Exercise the Windows-specific code paths at least once per run - e.g. the
                     # permission-error handling in autoread_dotenv.utils, whose chmod-based test is

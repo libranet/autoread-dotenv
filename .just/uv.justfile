@@ -134,7 +134,7 @@ alias uv-export := uv-export-requirements
 # set python-version in .python-version file
 [group: 'uv']
 [unix]
-uv-set-python-version version="3.10" *args:
+uv-set-python-version version="3.11" *args:
     mv .python-version .python-version.backup
     @ echo "{{version}}" > .python-version
     @ echo -e "Set python version to {{version}}"
@@ -142,7 +142,7 @@ uv-set-python-version version="3.10" *args:
 # set python-version in .python-version file
 [group: 'uv']
 [windows]
-uv-set-python-version version="3.10" *args:
+uv-set-python-version version="3.11" *args:
     #!pwsh.exe
     Move-Item .python-version .python-version.backup -Force
     Set-Content -Path .python-version -Value "{{version}}"
