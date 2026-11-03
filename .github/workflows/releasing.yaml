@@ -6,8 +6,8 @@
 #
 # Trusted Publishing must be configured on PyPI (and TestPyPI) before this can succeed - see
 # https://docs.pypi.org/trusted-publishers/adding-a-publisher/
-#   - PyPI:     owner=libranet, repo=autoread-dotenv, workflow=release.yaml, environment=release-pypi
-#   - TestPyPI: owner=libranet, repo=autoread-dotenv, workflow=release.yaml, environment=release-test-pypi
+#   - PyPI:     owner=libranet, repo=autoread-dotenv, workflow=releasing.yaml, environment=release-pypi
+#   - TestPyPI: owner=libranet, repo=autoread-dotenv, workflow=releasing.yaml, environment=release-test-pypi
 # The two GitHub environments referenced above must also exist under repo Settings > Environments
 # (optionally with protection rules, e.g. required reviewers on release-pypi).
 #
