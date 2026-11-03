@@ -8,12 +8,9 @@
   //   - https://docs.astral.sh/uv/guides/integration/renovate/#uvlock-output
 
 
-  // Renovate approves nothing, but with `automerge` + `platformAutomerge` GitHub
-  // itself merges the PR once all required status checks pass — no custom token,
-  // no `contents: write` workflow, no third-party action to keep pinned.
-  //
-  // Requires: repo Settings → General → "Allow auto-merge" must be enabled
-  // for `platformAutomerge` to work.
+  // Renovate approves nothing; with `automerge` it merges eligible PRs itself once
+  // every status check on the branch has passed — no custom token, no
+  // `contents: write` workflow, no third-party action to keep pinned.
 
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
 
@@ -58,15 +55,18 @@
       "before 5am on the first day of the month",
     ],
     "automerge": true,
-    "platformAutomerge": true,
   },
 
   // ---------------------------------------------------------------------------
   // Auto-merge
   //
-  // `automerge`         — let Renovate mark the PR for merge.
-  // `platformAutomerge` — hand the merge to GitHub's native auto-merge, which
-  //                       waits for required checks instead of Renovate polling.
+  // `automerge`         — let Renovate merge the PR once its checks pass.
+  // `platformAutomerge` — false: Renovate merges itself, after it has seen every
+  //                       check on the branch pass. GitHub's native auto-merge
+  //                       only waits for *required* checks, and the `main`
+  //                       ruleset requires none, so it could merge before CI ran.
+  //                       Only switch this back to true after adding required
+  //                       status checks to the ruleset.
   // `automergeStrategy` — matches the old workflow's `merge-method: squash`.
   //
   // NOTE: if branch protection requires an approving review, Renovate cannot
@@ -74,6 +74,7 @@
   // (https://github.com/apps/renovate-approve) or relax the review requirement
   // for these branches.
   // ---------------------------------------------------------------------------
+  "platformAutomerge": false,
   "automergeStrategy": "squash",
 
   "packageRules": [
@@ -87,7 +88,6 @@
         "bump",
       ],
       "automerge": true,
-      "platformAutomerge": true,
     },
     {
       "description": "Never auto-merge major updates — always review by hand",
@@ -126,7 +126,6 @@
       // Actions are SHA-pinned in the workflows, so these arrive as `digest`
       // updates and are covered by the auto-merge rule above.
       "automerge": true,
-      "platformAutomerge": true,
     },
     {
       // Renovate reads pyproject.toml under the `pep621` manager and
