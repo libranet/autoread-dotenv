@@ -12,6 +12,9 @@ All notable changes to this project will be documented in this file.
   list, whose entries were all only fixed in releases that require a newer Python.
   Python 3.9 / 3.10 users stay on 1.0.x, which no longer receives security updates.
 
+- Re-enable the `uv audit` pre-commit hook (runs when `pyproject.toml` or `uv.lock` change).
+  It passes without any ignore entries now that only patched releases are locked.
+
 - Drop the test-only `importlib_metadata` backport: `tests/test_entrypoints.py` now always
   uses the stdlib `importlib.metadata.entry_points`.
 
