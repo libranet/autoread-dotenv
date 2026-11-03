@@ -32,6 +32,10 @@ All notable changes to this project will be documented in this file.
 - Default `just uv-set-python-version` and the pre-commit `default_language_version` to
   Python 3.11.
 
+- Run the `check-yaml` pre-commit hook through `uv run`, like every other `language: system`
+  hook, so a bare `prek run` outside the venv no longer fails with "No such file or directory"
+  (#154).
+
 - Read package metadata in `about.get_metadata_package()` via `in` / `[]` instead of `.get()`,
   which the `importlib.metadata.PackageMetadata` protocol does not declare on Python 3.11
   (flagged by `ty` once 3.11 became the minimum). Behaviour is unchanged.
